@@ -7,45 +7,36 @@ package com.qianxinde.solution;
 public class Test_2019_11_15 {
 
     public static void main(String[] args) {
-        getNext("ababacbd");
+        System.out.println(climbStairs(4));
     }
 
     /**
-     * 28. 实现 strStr()
-     * 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle
-     * 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+     * 70. 爬楼梯
+     * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+     * 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+     * 注意：给定 n 是一个正整数。
+     * <p>
+     * 斐波那契数列
      *
      * @return
      */
-    public static int strStr() {
-        String haystack = "hello";
-        String needle = "hea";
-
-        int j = 0;
-        for (int i = 0; i < haystack.length(); i++) {
-
-        }
-        needle.indexOf(needle);
-        return -1;
+    public static int climbStairs(int n) {
+        int[] memo = new int[n + 1];
+        return climb_Stairs(0, n, memo);
     }
 
-    public static int[] getNext(String pattern) {
-        char[] p = pattern.toCharArray();
-        int[] next = new int[p.length];
-        // 第一位设为-1，方便判断当前位置是否为搜索词的最开始
-        next[0] = -1;
-        int i = 0;
-        int j = -1;
-
-        while (i < p.length - 1) {
-            if (j == -1 || p[i] == p[j]) {
-                i++;
-                j++;
-                next[i] = j;
-            } else {
-                j = next[j];
-            }
+    public static int climb_Stairs(int i, int n, int[] memo) {
+        if (i > n) {
+            return 0;
         }
-        return next;
+        if (i == n) {
+            return 1;
+        }
+        if (memo[i] > 0) {
+            return memo[i];
+        }
+        memo[i] = climb_Stairs(i + 1, n, memo) + climb_Stairs(i + 2, n, memo);
+        return memo[i];
     }
+
 }

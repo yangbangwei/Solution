@@ -59,12 +59,14 @@ public class Test_2019_11_13 {
             if (arr[i] == arr[i + 1]) {
                 nTime++;
             } else {
+                //1 1 2 2 3
                 if (a[nTime] == 1) {
                     return false;
                 } else {
                     a[nTime] = 1;
                     nTime = 1;
                 }
+                //5-2=3
                 if (i == arr.length - 2) {
                     if (a[1] == 1) {
                         return false;
@@ -151,7 +153,6 @@ public class Test_2019_11_13 {
         int index = 0;
         for (int i = nums.length-1; i >=0; i--) {
             if (nums[i] != val){
-                int temp =
                 nums[index] =  nums[i];
                 index++;
             }
