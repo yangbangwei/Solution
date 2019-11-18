@@ -8,7 +8,8 @@ public class Test_2019_11_18 {
 
     public static void main(String[] args) {
         System.out.println(countAndSay(5));
-        System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+        System.out.println(maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
+        System.out.println(maxSubArray1(new int[]{2,1,-3,7}));
     }
 
     /**
@@ -70,13 +71,34 @@ public class Test_2019_11_18 {
         int total = 0;
         for (int num : nums) {
             if (total > 0) {
+                //如果值为整数，继续累加
                 total += num;
             } else {
+                //如果值为负数，从该位重新开始
                 total = num;
             }
             ans = Math.max(ans, total);
         }
-
         return ans;
+    }
+
+    /**
+     * 动态规划
+     *
+     * @param nums 整数数组
+     * @return 返回最大序和
+     */
+    private static int maxSubArray1(int[] nums) {
+        int[] dp = new int[nums.length];
+        int max = dp[0] = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] + dp[i - 1] >= nums[i]) {
+                dp[i] = nums[i] + dp[i - 1];
+            } else {
+                dp[i] = nums[i];
+            }
+            max = Math.max(max, dp[i]);
+        }
+        return max;
     }
 }
