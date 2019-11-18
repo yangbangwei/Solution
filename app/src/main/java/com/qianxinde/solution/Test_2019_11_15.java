@@ -18,14 +18,23 @@ public class Test_2019_11_15 {
      * <p>
      * 斐波那契数列
      *
-     * @return
+     * @return 返回方法数
      */
-    public static int climbStairs(int n) {
+    private static int climbStairs(int n) {
         int[] memo = new int[n + 1];
         return climb_Stairs(0, n, memo);
     }
 
-    public static int climb_Stairs(int i, int n, int[] memo) {
+    /**
+     * 记忆化递归
+     * f(n) = f(n-2)+ f(n-1)
+     *
+     * @param i    步数1，2
+     * @param n    第几阶
+     * @param memo 缓存数组
+     * @return 返回方法数
+     */
+    private static int climb_Stairs(int i, int n, int[] memo) {
         if (i > n) {
             return 0;
         }
@@ -39,4 +48,42 @@ public class Test_2019_11_15 {
         return memo[i];
     }
 
+    /**
+     * 斐波那契数列
+     *
+     * @param n 第几阶台阶
+     * @return 返回方法数
+     */
+    private static int climb_Stairs1(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        int first = 0;
+        int second = 1;
+        for (int i = 3; i < n; i++) {
+            int third = first + second;
+            first = second;
+            second = third;
+        }
+        return second;
+    }
+
+    /**
+     * 动态规划
+     *
+     * @param n 第几阶台阶
+     * @return 返回方法数
+     */
+    private static int climb_Stairs2(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 2;
+        for (int i = 3; i < n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
 }
