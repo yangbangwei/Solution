@@ -1,6 +1,6 @@
 # Solution
 LeetCode学习笔记
-https://leetcode-cn.com
+\nhttps://leetcode-cn.com
 2019-11-12
    * 1. 两数之和 
      * 给定一个整数数组 nums 和一个目标值 target，
