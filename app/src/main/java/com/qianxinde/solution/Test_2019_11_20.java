@@ -16,6 +16,8 @@ public class Test_2019_11_20 {
         int[] nums = {1, 2, 2, 3, 4, 4, 5, 5, 5};
         System.out.println(removeDuplicates(nums));
         System.out.println(removeDuplicates1(nums));
+        System.out.println(lengthOfLastWord("Hello World"));
+        System.out.println(lengthOfLastWord1("Hello World"));
     }
 
     /**
@@ -80,5 +82,49 @@ public class Test_2019_11_20 {
             q++;
         }
         return p + 1;
+    }
+
+    /**
+     * 58. 最后一个单词的长度
+     * 给定一个仅包含大小写字母和空格 ' ' 的字符串，返回其最后一个单词的长度。
+     * 如果不存在最后一个单词，请返回 0 。
+     * 说明：一个单词是指由字母组成，但不包含任何空格的字符串。
+     * 解法1
+     *
+     * @param s 字符串
+     * @return 单词的长度
+     */
+    private static int lengthOfLastWord(String s) {
+        String[] words = s.split(" ");
+        if (words.length == 0) {
+            return 0;
+        }
+        return words[words.length - 1].length();
+    }
+
+    /**
+     * 58. 最后一个单词的长度
+     * 给定一个仅包含大小写字母和空格 ' ' 的字符串，返回其最后一个单词的长度。
+     * 如果不存在最后一个单词，请返回 0 。
+     * 说明：一个单词是指由字母组成，但不包含任何空格的字符串。
+     * 解法2
+     *
+     * @param s 字符串
+     * @return 单词的长度
+     */
+    private static int lengthOfLastWord1(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        s = s.trim();
+        int num = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) != 32) {
+                num++;
+            } else {
+                break;
+            }
+        }
+        return num;
     }
 }
