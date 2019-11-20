@@ -1,5 +1,7 @@
 package com.qianxinde.solution;
 
+import java.util.Arrays;
+
 /**
  * @author :yangbw
  * @date :2019-11-20
@@ -10,6 +12,10 @@ public class Test_2019_11_20 {
         String a = "1010";
         String b = "1011";
         System.out.println(addBinary(a, b));
+
+        int[] nums = {1, 2, 2, 3, 4, 4, 5, 5, 5};
+        System.out.println(removeDuplicates(nums));
+        System.out.println(removeDuplicates1(nums));
     }
 
     /**
@@ -33,5 +39,46 @@ public class Test_2019_11_20 {
         }
         result.append(flag == 1 ? 1 : "");
         return result.reverse().toString();
+    }
+
+    /**
+     * 26. 删除排序数组中的重复项
+     * 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+     * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+     *
+     * @param nums 整数数组
+     * @return 返回去重后结果
+     */
+    private static int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int index = 1;
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != nums[index - 1]) {
+                nums[index++] = nums[i];
+            }
+        }
+        return index;
+    }
+
+    /**
+     * 链表解法
+     *
+     * @param nums 整数数组
+     * @return 返回去重后结果
+     */
+    private static int removeDuplicates1(int[] nums) {
+        int p = 0;
+        int q = 1;
+        while (q < nums.length) {
+            if (nums[p] != nums[q]) {
+                nums[p + 1] = nums[q];
+                p++;
+            }
+            q++;
+        }
+        return p + 1;
     }
 }
