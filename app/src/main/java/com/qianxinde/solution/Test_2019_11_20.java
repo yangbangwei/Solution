@@ -18,6 +18,11 @@ public class Test_2019_11_20 {
         System.out.println(removeDuplicates1(nums));
         System.out.println(lengthOfLastWord("Hello World"));
         System.out.println(lengthOfLastWord1("Hello World"));
+
+        int[] nums1 = {1, 3, 5, 6, 7};
+        int target = 0;
+        System.out.println(searchInsert(nums1, target));
+        System.out.println(searchInsert1(nums1, target));
     }
 
     /**
@@ -126,5 +131,57 @@ public class Test_2019_11_20 {
             }
         }
         return num;
+    }
+
+    /**
+     * 35. 搜索插入位置
+     * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+     * 你可以假设数组中无重复元素。
+     * 解法1
+     *
+     * @param nums   目标数组
+     * @param target 目标值
+     * @return 插入位置
+     */
+    private static int searchInsert(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= target) {
+                return i;
+            }
+        }
+        return nums.length;
+    }
+
+    /**
+     * 35. 搜索插入位置
+     * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+     * 你可以假设数组中无重复元素。
+     * 解法2（二分法）
+     *
+     * @param nums   目标数组
+     * @param target 目标值
+     * @return 插入位置
+     */
+    private static int searchInsert1(int[] nums, int target) {
+        if (nums[nums.length - 1] < target) {
+            return nums.length;
+        }
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target) {
+                //如果与nums[2]相等，直接返回结果
+                return mid;
+            } else if (nums[mid] > target) {
+                //如果比nums[2]小，right等于2-1，重新比较
+                right = mid - 1;
+            } else {
+                //如果比nums[2]大，left等于2+1，重新比较
+                left = mid + 1;
+            }
+        }
+        // 根据题意需要返回左边坐标，
+        return left;
     }
 }
