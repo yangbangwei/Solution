@@ -14,8 +14,14 @@ public class Test_2019_11_21 {
         l2.next = new ListNode(3);
         l2.next.next = new ListNode(4);
 
-        ListNode l3 = mergeTwoLists2(l1, l2);
+        mergeTwoLists2(l1, l2);
 
+        ListNode l3 = new ListNode(1);
+        l3.next = new ListNode(1);
+        l3.next.next = new ListNode(2);
+        l3.next.next.next = new ListNode(3);
+        l3.next.next.next.next = new ListNode(3);
+        deleteDuplicates(l3);
     }
 
     /**
@@ -92,7 +98,7 @@ public class Test_2019_11_21 {
             l2 = l1;
             l1 = tmp;
         }
-        l1.next = mergeTwoLists2(l1, l2);
+        l1.next = mergeTwoLists2(l1.next, l2);
         return l1;
     }
 
@@ -103,5 +109,24 @@ public class Test_2019_11_21 {
         ListNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 83. 删除排序链表中的重复元素
+     * 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+     *
+     * @param head 链表
+     * @return 去重后链表
+     */
+    private static ListNode deleteDuplicates(ListNode head) {
+        ListNode listNode = head;
+        while (head != null && head.next != null) {
+            if (head.val == head.next.val) {
+                head.next = head.next.next;
+            } else {
+                head = head.next;
+            }
+        }
+        return listNode;
     }
 }
