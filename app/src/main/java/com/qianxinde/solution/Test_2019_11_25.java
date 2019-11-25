@@ -1,5 +1,9 @@
 package com.qianxinde.solution;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author :yangbw
  * @date :2019-11-25
@@ -82,7 +86,60 @@ public class Test_2019_11_25 {
         }
         int num1 = countDepth(length, root.left);
         int num2 = countDepth(length, root.right);
-        return num1 >= num2 ? num1 : num2;
+        return Math.max(num1, num2);
+    }
+
+    /**
+     * 107. 二叉树的层次遍历 II
+     * 给定一个二叉树，返回其节点值自底向上的层次遍历。
+     * （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+     *
+     * @param root 根节点
+     * @return 返回层次遍历结果
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> data = new ArrayList<>();
+        if (root == null) {
+            return data;
+        }
+        List<Integer> list = new ArrayList<>();
+        list.add(root.val);
+        data.add(list);
+        leftAndRight(data, 1, root);
+        Collections.reverse(data);
+        return data;
+    }
+
+    /**
+     * 遍历二叉树所有节点
+     *
+     * @param data  遍历结果
+     * @param level 层级
+     * @param root  根节点
+     */
+    private static void leftAndRight(List<List<Integer>> data, int level,
+                                     TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return;
+        }
+        List<Integer> list = new ArrayList<>();
+        if (data.size() > level) {
+            list = data.get(level);
+            data.remove(level);
+        }
+        if (root.left != null) {
+            list.add(root.left.val);
+        }
+        if (root.right != null) {
+            list.add(root.right.val);
+        }
+        data.add(level, list);
+        if (root.left != null) {
+            leftAndRight(data, level + 1, root.left);
+        }
+        if (root.right != null) {
+            leftAndRight(data, level + 1, root.right);
+        }
     }
 
     public class TreeNode {
