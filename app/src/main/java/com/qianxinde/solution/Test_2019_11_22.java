@@ -108,6 +108,42 @@ public class Test_2019_11_22 {
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
+    /**
+     * 101. 对称二叉树
+     * 给定一个二叉树，检查它是否是镜像对称的。
+     * 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+     *
+     * @param root 根结点
+     * @return 是否对称
+     */
+    private static boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return isMirror(root.left, root.right);
+    }
+
+    /**
+     * 根结点对称判断
+     *
+     * @param t1 根结点左子树
+     * @param t2 根节点右子树
+     * @return 是否对称
+     */
+    private static boolean isMirror(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) {
+            return true;
+        }
+        if (t1 == null || t2 == null) {
+            return false;
+        }
+
+        if (t1.val == t2.val) {
+            return true;
+        }
+        return isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
+    }
+
     public class TreeNode {
         int val;
         TreeNode left;
@@ -117,4 +153,6 @@ public class Test_2019_11_22 {
             val = x;
         }
     }
+
+
 }
