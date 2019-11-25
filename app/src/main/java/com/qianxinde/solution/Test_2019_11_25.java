@@ -12,6 +12,8 @@ public class Test_2019_11_25 {
 
     public static void main(String[] args) {
         System.out.println(mySqrt(8));
+
+        generate(5);
     }
 
     /**
@@ -150,5 +152,32 @@ public class Test_2019_11_25 {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 118. 杨辉三角
+     * 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+     *
+     * @param numRows 生成行数
+     * @return 返回生成结果
+     */
+    private static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> data = new ArrayList<>();
+        if (numRows == 0) {
+            return data;
+        }
+        for (int i = 1; i <= numRows; i++) {
+            List<Integer> list = new ArrayList<>();
+            for (int j = 0; j < i; j++) {
+                if (j == 0 || j == i - 1) {
+                    list.add(1);
+                } else {
+                    List<Integer> oldList = data.get(data.size() - 1);
+                    list.add(oldList.get(j - 1) + oldList.get(j));
+                }
+            }
+            data.add(list);
+        }
+        return data;
     }
 }
