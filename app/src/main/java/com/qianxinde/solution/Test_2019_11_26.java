@@ -1,6 +1,7 @@
 package com.qianxinde.solution;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,6 +15,9 @@ public class Test_2019_11_26 {
 
         int[] nums = {1, 2};
         System.out.println(maxProfit1(nums));
+
+        int[] nums1 = {17, 12, 5, -6, 12, 4, 17, -5, 2, -3, 2, 4, 5, 16, -3, -4, 15, 15, -4, -5, -6};
+        System.out.println(singleNumber(nums1));
     }
 
     /**
@@ -80,5 +84,43 @@ public class Test_2019_11_26 {
             }
         }
         return maxProfit;
+    }
+
+    /**
+     * 136. 只出现一次的数字
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+     * 方法1，排序后，判断前后两个是否相同
+     *
+     * @param nums 数组
+     * @return 返回唯一值
+     */
+    private static int singleNumber(int[] nums) {
+        Arrays.sort(nums);
+        int single = nums[0];
+        int i = 1;
+        while (i < nums.length - 1) {
+            if (single == nums[i]) {
+                single = nums[i + 1];
+                i++;
+            }
+            i++;
+        }
+        return single;
+    }
+
+    /**
+     * 136. 只出现一次的数字
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+     * 方法2，异或，n^n=0,0^n=n
+     *
+     * @param nums 数组
+     * @return 返回唯一值
+     */
+    private static int singleNumber1(int[] nums) {
+        int single = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            single = single ^ nums[i];
+        }
+        return single;
     }
 }
