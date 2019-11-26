@@ -27,6 +27,8 @@ public class Test_2019_11_26 {
         System.out.println(isPalindrome("race a car"));
 
         System.out.println(convertToTitle(1));
+
+        System.out.println(titleToNumber("AAA"));
     }
 
     /**
@@ -305,10 +307,9 @@ public class Test_2019_11_26 {
 
         public void push(int x) {
             if (head == null) {
-                head = new Node(x, x);
+                head = new Node(x, Math.min(0, x));
             } else {
-                int min = Math.min(head.min, x);
-                Node n = new Node(x, min);
+                Node n = new Node(x, Math.min(head.min, x));
                 n.next = head;
                 head = n;
             }
@@ -346,14 +347,32 @@ public class Test_2019_11_26 {
      * @return 转换成大写
      */
     private static String convertToTitle(int n) {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         while (n > 0) {
             //从‘A’开始算，所以需要减1
             n--;
-            stringBuffer.append((char) (n % 26 + 'A'));
+            stringBuilder.append((char) (n % 26 + 'A'));
             n /= 26;
         }
         //颠倒顺序
-        return stringBuffer.reverse().toString();
+        return stringBuilder.reverse().toString();
+    }
+
+    /**
+     * 171. Excel表列序号
+     * 给定一个Excel表格中的列名称，返回其相应的列序号。
+     * A -> 1
+     * B -> 2
+     * C -> 3
+     *
+     * @param s 表列序号
+     * @return 行数
+     */
+    private static int titleToNumber(String s) {
+        int row = 0;
+        for (int i = 0; i < s.length(); i++) {
+            row = row * 26 + (s.charAt(i) - 'A' + 1);
+        }
+        return row;
     }
 }
