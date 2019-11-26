@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * @author :yangbw
@@ -24,6 +25,11 @@ public class Test_2019_11_26 {
         System.out.println(singleNumber(nums1));
 
         System.out.println(isPalindrome("race a car"));
+
+        MinStack obj = new MinStack();
+        obj.pop();
+        int param_3 = obj.top();
+        int param_4 = obj.getMin();
     }
 
     /**
@@ -230,6 +236,105 @@ public class Test_2019_11_26 {
         @Override
         public boolean equals(@Nullable Object obj) {
             return super.equals(obj);
+        }
+    }
+
+    public static class MinStack {
+
+        private Stack<Integer> stack;
+        private Stack<Integer> helper;
+
+        /**
+         * initialize your data structure here.
+         */
+        public MinStack() {
+            stack = new Stack<>();
+            helper = new Stack<>();
+        }
+
+        public void push(int x) {
+            stack.add(x);
+            if (helper.isEmpty() || helper.peek() > x) {
+                helper.push(x);
+            }
+        }
+
+        public void pop() {
+            if (!stack.isEmpty()) {
+                int num = stack.pop();
+                if (num == helper.peek()) {
+                    helper.pop();
+                }
+            }
+        }
+
+        public int top() {
+            if (stack.isEmpty()) {
+                return stack.peek();
+            }
+            throw new RuntimeException("栈中元素为空，此操作非法");
+        }
+
+        public int getMin() {
+            if (helper.isEmpty()) {
+                return helper.peek();
+            }
+            throw new RuntimeException("栈中元素为空，此操作非法");
+        }
+    }
+
+    static class MinStack1 {
+
+        class Node {
+            int val;
+            int min;
+            Node next;
+
+            Node(int x, int y) {
+                val = x;
+                min = y;
+                next = null;
+            }
+
+        }
+
+        Node head;
+
+        /**
+         * initialize your data structure here.
+         */
+        public MinStack1() {
+        }
+
+        public void push(int x) {
+            if (head == null) {
+                head = new Node(x, x);
+            } else {
+                int min = Math.min(head.min, x);
+                Node n = new Node(x, min);
+                n.next = head;
+                head = n;
+            }
+        }
+
+        public void pop() {
+            if (head != null) {
+                head = head.next;
+            }
+        }
+
+        public int top() {
+            if (head != null) {
+                return head.val;
+            }
+            return -1;
+        }
+
+        public int getMin() {
+            if (null != head) {
+                return head.min;
+            }
+            return -1;
         }
     }
 }
