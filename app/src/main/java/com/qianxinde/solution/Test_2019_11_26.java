@@ -18,6 +18,8 @@ public class Test_2019_11_26 {
 
         int[] nums1 = {17, 12, 5, -6, 12, 4, 17, -5, 2, -3, 2, 4, 5, 16, -3, -4, 15, 15, -4, -5, -6};
         System.out.println(singleNumber(nums1));
+
+        System.out.println(isPalindrome("race a car"));
     }
 
     /**
@@ -122,5 +124,36 @@ public class Test_2019_11_26 {
             single = single ^ nums[i];
         }
         return single;
+    }
+
+    /**
+     * 125. 验证回文串
+     * 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+     * 说明：本题中，我们将空字符串定义为有效的回文串。
+     *
+     * @param s 字符串
+     * @return 返回是否为回文
+     */
+    private static boolean isPalindrome(String s) {
+        if (s.length() == 0) {
+            return true;
+        }
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            if (!Character.isLetterOrDigit(s.charAt(i))) {
+                i++;
+                continue;
+            }
+            if (!Character.isLetterOrDigit(s.charAt(j))) {
+                j--;
+                continue;
+            }
+            if (Character.toUpperCase(s.charAt(i)) != Character.toUpperCase(s.charAt(j))) {
+                return false;
+            }
+            j--;
+            i++;
+        }
+        return true;
     }
 }
