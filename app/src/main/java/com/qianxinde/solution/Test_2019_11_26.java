@@ -1,8 +1,12 @@
 package com.qianxinde.solution;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author :yangbw
@@ -155,5 +159,77 @@ public class Test_2019_11_26 {
             i++;
         }
         return true;
+    }
+
+    /**
+     * 141. 环形链表
+     * 给定一个链表，判断链表中是否有环。
+     * 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。
+     * 如果 pos 是 -1，则在该链表中没有环。
+     * 方法1，快慢双指针
+     *
+     * @param head 链表
+     * @return 是否有环
+     */
+    private static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
+    }
+
+    /**
+     * 141. 环形链表
+     * 给定一个链表，判断链表中是否有环。
+     * 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。
+     * 如果 pos 是 -1，则在该链表中没有环。
+     * 方法1，集合
+     *
+     * @param head 链表
+     * @return 是否有环
+     */
+    private static boolean hasCycle1(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        Set<ListNode> listNodes = new HashSet<>();
+        while (head.next != null) {
+            if (listNodes.contains(head)) {
+                return true;
+            } else {
+                listNodes.add(head);
+                head = head.next;
+            }
+        }
+        return false;
+    }
+
+    class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode();
+        }
+
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            return super.equals(obj);
+        }
     }
 }
