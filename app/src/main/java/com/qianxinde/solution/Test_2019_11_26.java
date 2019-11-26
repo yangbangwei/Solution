@@ -26,10 +26,7 @@ public class Test_2019_11_26 {
 
         System.out.println(isPalindrome("race a car"));
 
-        MinStack obj = new MinStack();
-        obj.pop();
-        int param_3 = obj.top();
-        int param_4 = obj.getMin();
+        System.out.println(convertToTitle(1));
     }
 
     /**
@@ -336,5 +333,27 @@ public class Test_2019_11_26 {
             }
             return -1;
         }
+    }
+
+    /**
+     * 168. Excel表列名称
+     * 给定一个正整数，返回它在 Excel 表中相对应的列名称。
+     * 1 -> A
+     * 2 -> B
+     * 3 -> C
+     *
+     * @param n 行数
+     * @return 转换成大写
+     */
+    private static String convertToTitle(int n) {
+        StringBuffer stringBuffer = new StringBuffer();
+        while (n > 0) {
+            //从‘A’开始算，所以需要减1
+            n--;
+            stringBuffer.append((char) (n % 26 + 'A'));
+            n /= 26;
+        }
+        //颠倒顺序
+        return stringBuffer.reverse().toString();
     }
 }
