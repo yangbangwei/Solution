@@ -29,6 +29,10 @@ public class Test_2019_11_26 {
         System.out.println(convertToTitle(1));
 
         System.out.println(titleToNumber("AAA"));
+
+        int[] nums3 = {3, 3, 4};
+        System.out.println(majorityElement(nums3));
+        System.out.println(majorityElement1(nums3));
     }
 
     /**
@@ -374,5 +378,40 @@ public class Test_2019_11_26 {
             row = row * 26 + (s.charAt(i) - 'A' + 1);
         }
         return row;
+    }
+
+    /**
+     * 169. 多数元素
+     * 给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+     * 你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+     * 方法1，排序后根据，大于n/2的规则得出
+     *
+     * @param nums 数组
+     * @return 返回出现最多次数的数
+     */
+    private static int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length / 2];
+    }
+
+    /**
+     * 169. 多数元素
+     * 给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+     * 你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+     * 方法1，排序后根据，大于n/2的规则得出
+     *
+     * @param nums 数组
+     * @return 返回出现最多次数的数
+     */
+    private static int majorityElement1(int[] nums) {
+        int count = 0;
+        int num = 0;
+        for (int value : nums) {
+            if (count == 0) {
+                num = value;
+            }
+            count += (num == value) ? 1 : -1;
+        }
+        return num;
     }
 }
