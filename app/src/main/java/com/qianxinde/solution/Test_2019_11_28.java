@@ -8,6 +8,8 @@ public class Test_2019_11_28 {
 
     public static void main(String[] args) {
         System.out.println(reverse(1000000111));
+        System.out.println(addDigits(138));
+        System.out.println(addDigits1(138));
     }
 
     /**
@@ -35,5 +37,35 @@ public class Test_2019_11_28 {
             rev = rev * 10 + pop;
         }
         return rev;
+    }
+
+    /**
+     * 258. 各位相加
+     * 给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。
+     *
+     * @param num 非负整数
+     * @return 相加一位数结果
+     */
+    private static int addDigits(int num) {
+        int value = 0;
+        while (num != 0) {
+            value = value + num % 10;
+            num /= 10;
+        }
+        if (value >= 10) {
+            return addDigits(value);
+        }
+        return value;
+    }
+
+    /**
+     * 258. 各位相加
+     * 给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。
+     *
+     * @param num 非负整数
+     * @return 相加一位数结果
+     */
+    private static int addDigits1(int num) {
+        return (num - 1) % 9 + 1;
     }
 }
