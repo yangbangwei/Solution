@@ -10,6 +10,9 @@ public class Test_2019_11_28 {
         System.out.println(reverse(1000000111));
         System.out.println(addDigits(138));
         System.out.println(addDigits1(138));
+
+        int[] nums = {0, 1, 0, 3, 12};
+        moveZeroes(nums);
     }
 
     /**
@@ -67,5 +70,24 @@ public class Test_2019_11_28 {
      */
     private static int addDigits1(int num) {
         return (num - 1) % 9 + 1;
+    }
+
+    /**
+     * 283. 移动零
+     * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+     *
+     * @param nums 数组
+     */
+    private static void moveZeroes(int[] nums) {
+        int index = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        for (int i = index; i < nums.length; i++) {
+            nums[i] = 0;
+        }
     }
 }
