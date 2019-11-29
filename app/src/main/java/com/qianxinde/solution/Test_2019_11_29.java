@@ -1,5 +1,9 @@
 package com.qianxinde.solution;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.Arrays;
 
 /**
@@ -11,6 +15,7 @@ public class Test_2019_11_29 {
     public static void main(String[] args) {
         System.out.println(isAnagram("anagram", "nagaram"));
         System.out.println(isAnagram1("aaaa", "a"));
+        System.out.println(canConstruct("a", "b"));
     }
 
     private static class ListNode {
@@ -143,6 +148,7 @@ public class Test_2019_11_29 {
      * @param n 最大范围
      * @return 猜对的值
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static int guessNumber(int n) {
         int low = 1;
         int high = n;
@@ -171,6 +177,7 @@ public class Test_2019_11_29 {
      * @param n 最大范围
      * @return 猜对的值
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static int guessNumber1(int n) {
         int low = 1;
         int high = n;
@@ -195,14 +202,33 @@ public class Test_2019_11_29 {
         return -1;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static int guess(int num) {
         int result = 10;
-        if (num > result) {
-            return 1;
-        } else if (num < result) {
-            return -1;
-        } else {
-            return 0;
+        return Integer.compare(num, result);
+    }
+
+    /**
+     * 383. 赎金信
+     * 给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，
+     * 判断第一个字符串ransom能不能由第二个字符串magazines里面的字符构成。
+     * 如果可以构成，返回 true ；否则返回 false。
+     *
+     * @param ransomNote 赎金信
+     * @param magazine   杂志
+     * @return 是否构成
+     */
+    private static boolean canConstruct(String ransomNote, String magazine) {
+        int[] counts = new int[26];
+        for (char m : magazine.toCharArray()) {
+            counts[m - 'a']++;
         }
+        for (char r : ransomNote.toCharArray()) {
+            if (counts[r - 'a'] == 0) {
+                return false;
+            }
+            counts[r - 'a']--;
+        }
+        return true;
     }
 }
