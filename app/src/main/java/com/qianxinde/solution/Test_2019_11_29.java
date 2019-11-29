@@ -10,7 +10,7 @@ public class Test_2019_11_29 {
 
     }
 
-    public static class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
 
@@ -25,8 +25,26 @@ public class Test_2019_11_29 {
      *
      * @param node 删除节点
      */
-    public static void deleteNode(ListNode node) {
+    private static void deleteNode(ListNode node) {
         node.val = node.next.val;
         node.next = node.next.next;
+    }
+
+    /**
+     * 344. 反转字符串
+     * 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
+     * 不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+     *
+     * @param s 字符串
+     */
+    private static void reverseString(char[] s) {
+        int i = 0, j = s.length - 1;
+        while (i < j) {
+            char temp = s[i];
+            s[i] = s[j];
+            s[j] = temp;
+            i++;
+            j--;
+        }
     }
 }
