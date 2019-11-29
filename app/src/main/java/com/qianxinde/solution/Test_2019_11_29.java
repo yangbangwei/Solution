@@ -85,16 +85,50 @@ public class Test_2019_11_29 {
         if (s.length() != t.length()) {
             return false;
         }
-        int[] table = new int[26];
+        int[] cnt = new int[26];
+
         for (int i = 0; i < s.length(); i++) {
-            table[s.charAt(i) - 'a']++;
+            cnt[s.charAt(i) - 'a']++;
+            cnt[t.charAt(i) - 'a']--;
         }
-        for (int i = 0; i < t.length(); i++) {
-            table[t.charAt(i) - 'a']--;
-            if (table[t.charAt(i) - 'a'] < 0) {
+        for (int i : cnt) {
+            if (i != 0) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * 226. 翻转二叉树
+     * 翻转一棵二叉树。
+     *
+     * @param root 二叉树
+     * @return 翻转之后的二叉树
+     */
+    private static TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        if (root.left != null) {
+            invertTree(root.left);
+        }
+        if (root.right != null) {
+            invertTree(root.right);
+        }
+        return root;
+    }
+
+    private static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
     }
 }
