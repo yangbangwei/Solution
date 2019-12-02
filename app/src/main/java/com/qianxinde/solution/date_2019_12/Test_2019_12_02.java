@@ -45,4 +45,31 @@ public class Test_2019_12_02 {
             return sum[j + 1] - sum[i];
         }
     }
+
+    /**
+     * 389. 找不同
+     * 给定两个字符串 s 和 t，它们只包含小写字母。
+     * 字符串 t 由字符串 s 随机重排，然后在随机位置添加一个字母。
+     * 请找出在 t 中被添加的字母。
+     *
+     * @param s 字符串s
+     * @param t 字符串t
+     * @return 添加的字母
+     */
+    private static char findTheDifference(String s, String t) {
+        char[] oldChar = s.toCharArray();
+        char[] newChar = t.toCharArray();
+        int[] nums = new int[26];
+        for (char c : oldChar) {
+            nums[c - 'a']++;
+        }
+        for (char c : newChar) {
+            if (nums[c - 'a'] == 0) {
+                return c;
+            }
+            nums[c - 'a']--;
+        }
+
+        return ' ';
+    }
 }
