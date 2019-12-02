@@ -1,4 +1,4 @@
-package com.qianxinde.solution;
+package com.qianxinde.solution.date_2019_11;
 
 import java.util.Arrays;
 
@@ -9,9 +9,13 @@ import java.util.Arrays;
 public class Test_2019_11_13 {
 
     public static void main(String[] args) {
-        game();
-        uniqueOccurrences();
-        System.out.println(isValid());
+        int[] guess = {1, 2, 3};
+        int[] answer = {1, 2, 3};
+        System.out.println(game(guess, answer));
+        int[] arr = {1, 2, 2, 3, 3, 3};
+        uniqueOccurrences(arr);
+        String s = "{[]{}}";
+        System.out.println(isValid(s));
         System.out.println(removeElement());
     }
 
@@ -20,11 +24,10 @@ public class Test_2019_11_13 {
      * 小A 和 小B 在玩猜数字。小B 每次从 1, 2, 3 中随机选择一个，小A 每次也从 1, 2, 3
      * 中选择一个猜。他们一共进行三次这个游戏，请返回 小A 猜对了几次？
      *
-     * @return
+     * @return 返回猜对次数
      */
-    public static int game() {
-        int[] guess = {1, 2, 3};
-        int[] answer = {1, 2, 3};
+    private static int game(int[] guess, int[] answer) {
+
         int num = 0;
         for (int i = 0; i < 3; i++) {
             if (guess[i] == answer[i]) {
@@ -39,10 +42,9 @@ public class Test_2019_11_13 {
      * 给你一个整数数组 arr，请你帮忙统计数组中每个数的出现次数。
      * 如果每个数的出现次数都是独一无二的，就返回 true；否则返回 false。
      *
-     * @return
+     * @return 返回独立无二的数
      */
-    public static boolean uniqueOccurrences() {
-        int[] arr = {1, 2, 2, 3, 3, 3};
+    private static boolean uniqueOccurrences(int[] arr) {
 //        Map<Integer, Integer> counter = new HashMap<>();
 //        for (int elem : arr) {
 //            counter.put(elem, counter.getOrDefault(elem, 0) + 1);
@@ -53,22 +55,22 @@ public class Test_2019_11_13 {
         if (arr.length <= 1) {
             return true;
         }
-        int a[] = new int[arr.length];
+        int[] temp = new int[arr.length];
         int nTime = 1;
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] == arr[i + 1]) {
                 nTime++;
             } else {
                 //1 1 2 2 3
-                if (a[nTime] == 1) {
+                if (temp[nTime] == 1) {
                     return false;
                 } else {
-                    a[nTime] = 1;
+                    temp[nTime] = 1;
                     nTime = 1;
                 }
                 //5-2=3
                 if (i == arr.length - 2) {
-                    if (a[1] == 1) {
+                    if (temp[1] == 1) {
                         return false;
                     }
                 }
@@ -84,10 +86,9 @@ public class Test_2019_11_13 {
      * 左括号必须用相同类型的右括号闭合。
      * 左括号必须以正确的顺序闭合。
      *
-     * @return
+     * @return 返回是否闭合
      */
-    public static boolean isValid() {
-        String s = "{[]{}}";
+    private static boolean isValid(String s) {
 //        Stack<String> stack = new Stack<>();
 //        for (int i = 0; i < s.length(); i++) {
 //            String a = String.valueOf(s.charAt(i));
@@ -124,13 +125,13 @@ public class Test_2019_11_13 {
         char[] stack = new char[data.length];
         stack[0] = '0';
 
-        for (int i = 0; i < data.length; i++) {
-            if (data[i] == '[' || data[i] == '{' || data[i] == '(') {
-                stack[stackIndex++] = data[i];
+        for (char datum : data) {
+            if (datum == '[' || datum == '{' || datum == '(') {
+                stack[stackIndex++] = datum;
             } else if (stackIndex == 0
-                    || data[i] == ']' && stack[stackIndex - 1] != '['
-                    || data[i] == '}' && stack[stackIndex - 1] != '{'
-                    || data[i] == ')' && stack[stackIndex - 1] != '(') {
+                    || datum == ']' && stack[stackIndex - 1] != '['
+                    || datum == '}' && stack[stackIndex - 1] != '{'
+                    || datum == ')' && stack[stackIndex - 1] != '(') {
                 return false;
             } else {
                 stack[--stackIndex] = '0';
@@ -145,15 +146,15 @@ public class Test_2019_11_13 {
      * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
      * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
      *
-     * @return
+     * @return 移除结果
      */
-    public static int removeElement() {
+    private static int removeElement() {
         int[] nums = {3, 2, 2, 3};
         int val = 3;
         int index = 0;
-        for (int i = nums.length-1; i >=0; i--) {
-            if (nums[i] != val){
-                nums[index] =  nums[i];
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (nums[i] != val) {
+                nums[index] = nums[i];
                 index++;
             }
         }

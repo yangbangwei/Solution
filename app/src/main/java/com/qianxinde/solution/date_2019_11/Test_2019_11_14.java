@@ -1,4 +1,4 @@
-package com.qianxinde.solution;
+package com.qianxinde.solution.date_2019_11;
 
 /**
  * @author :yangbw
@@ -14,24 +14,13 @@ public class Test_2019_11_14 {
      * 28. 实现 strStr()
      * 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle
      * 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
-     * <p>
      * KMP算法
      *
-     * @return
+     * @return 返回查找结果
      */
-    public static int strStr() {
+    private static int strStr() {
         String haystack = "hello";
         String needle = "l";
-        if (haystack.equals("") &&!needle.equals("")) {
-            return -1;
-        }
-        if (haystack.equals("") && needle.equals("")) {
-            return 0;
-        }
-        if (!haystack.equals("") && needle.equals("")) {
-            return 0;
-        }
-
         char[] target = haystack.toCharArray();
         char[] pattern = needle.toCharArray();
         // 目标字符串下标
@@ -64,10 +53,10 @@ public class Test_2019_11_14 {
     /**
      * 获取偏移位数
      *
-     * @param pattern
-     * @return
+     * @param pattern 字符串
+     * @return 偏移位数
      */
-    public static int[] getNext(String pattern) {
+    private static int[] getNext(String pattern) {
         char[] p = pattern.toCharArray();
         int[] next = new int[p.length];
         // 第一位设为-1，方便判断当前位置是否为搜索词的最开始

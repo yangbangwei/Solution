@@ -1,4 +1,4 @@
-package com.qianxinde.solution;
+package com.qianxinde.solution.date_2019_11;
 
 /**
  * @author :yangbw
@@ -9,8 +9,8 @@ public class Test_2019_11_19 {
     public static void main(String[] args) {
         int[] digits = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
         digits = plusOne(digits);
-        for (int i = 0; i < digits.length; i++) {
-            System.out.println(digits[i]);
+        for (int digit : digits) {
+            System.out.println(digit);
         }
     }
 
@@ -20,8 +20,8 @@ public class Test_2019_11_19 {
      * 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
      * 你可以假设除了整数 0 之外，这个整数不会以零开头。
      *
-     * @param digits
-     * @return
+     * @param digits 旧数组
+     * @return 加1后数组
      */
     private static int[] plusOne(int[] digits) {
         for (int i = digits.length - 1; i >= 0; i--) {
