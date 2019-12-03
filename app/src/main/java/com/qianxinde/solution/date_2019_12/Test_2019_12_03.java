@@ -17,8 +17,10 @@ public class Test_2019_12_03 {
                 {1, 1, 0, 0}};
         System.out.println(islandPerimeter(grid));
 
-        int[] nums = {3, 2, 2, 2, 2,1};
+        int[] nums = {3, 2, 2, 2, 2, 1};
         System.out.println(thirdMax(nums));
+
+        System.out.println(arrangeCoins(8));
     }
 
     /**
@@ -128,6 +130,14 @@ public class Test_2019_12_03 {
         }
     }
 
+    /**
+     * 414. 第三大的数
+     * 给定一个非空数组，返回此数组中第三大的数。如果不存在，则返回数组中最大的数。
+     * 要求算法时间复杂度必须是O(n)。
+     *
+     * @param nums 数组
+     * @return 第三大的数
+     */
     private static int thirdMax(int[] nums) {
         long[] max = new long[3];
         max[0] = Long.MIN_VALUE;
@@ -146,5 +156,18 @@ public class Test_2019_12_03 {
             }
         }
         return (int) ((max[2] == Long.MIN_VALUE) ? max[0] : max[2]);
+    }
+
+    /**
+     * 441. 排列硬币
+     * 你总共有 n 枚硬币，你需要将它们摆成一个阶梯形状，第 k 行就必须正好有 k 枚硬币。
+     * 给定一个数字 n，找出可形成完整阶梯行的总行数。
+     * n 是一个非负整数，并且在32位有符号整型的范围内。
+     *
+     * @param n 硬币数
+     * @return 行数
+     */
+    private static int arrangeCoins(int n) {
+        return (int) ((Math.sqrt(1 + n * 8L) - 1) / 2);
     }
 }
