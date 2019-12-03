@@ -52,7 +52,7 @@ public class Test_2019_12_03 {
      * @param root 树
      * @return 返回遍历结果
      */
-    public List<Integer> preorder(Node root) {
+    private static List<Integer> preorder(Node root) {
         List<Integer> data = new ArrayList<>();
         if (root == null) {
             return data;
@@ -72,7 +72,7 @@ public class Test_2019_12_03 {
      * @param root 树
      * @return 返回遍历结果
      */
-    public List<Integer> preorder1(Node root) {
+    private static List<Integer> preorder1(Node root) {
         List<Integer> data = new ArrayList<>();
         if (root == null) {
             return data;
@@ -89,9 +89,28 @@ public class Test_2019_12_03 {
         return data;
     }
 
+    /**
+     * 590. N叉树的后序遍历
+     * 给定一个 N 叉树，返回其节点值的后序遍历。
+     *
+     * @param root N叉树
+     * @return 返回遍历的结果
+     */
+    private static List<Integer> postorder(Node root) {
+        List<Integer> data = new ArrayList<>();
+        if (root == null) {
+            return data;
+        }
+        for (Node child : root.children) {
+            data.addAll(preorder(child));
+        }
+        data.add(root.val);
+        return data;
+    }
+
     private static class Node {
-        public int val;
-        public List<Node> children;
+        private int val;
+        private List<Node> children;
 
         public Node() {
         }
