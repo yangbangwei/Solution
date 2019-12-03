@@ -23,6 +23,8 @@ public class Test_2019_12_03 {
         System.out.println(arrangeCoins(8));
 
         System.out.println(addStrings("1", "1"));
+
+        System.out.println(maxNumberOfBalloons("nlaebolko"));
     }
 
     /**
@@ -212,5 +214,36 @@ public class Test_2019_12_03 {
                     .append(" ");
         }
         return stringBuilder.toString().trim();
+    }
+
+    /**
+     * 1189. “气球” 的最大数量
+     *
+     * @param text 字符串
+     * @return 返回符合“balloon”的个数
+     */
+    private static int maxNumberOfBalloons(String text) {
+        int[] all = new int[5];
+        for (char k : text.toCharArray()) {
+            if (k == 'b') {
+                all[0]++;
+            } else if (k == 'a') {
+                all[1]++;
+            } else if (k == 'l') {
+                all[2]++;
+            } else if (k == 'o') {
+                all[3]++;
+            } else if (k == 'n') {
+                all[4]++;
+            }
+        }
+        int time = Integer.MAX_VALUE;
+        for (int i = 0; i < all.length; i++) {
+            if (i == 2 || i == 3) {
+                all[i] /= 2;
+            }
+            time = Math.min(time, all[i]);
+        }
+        return time;
     }
 }
