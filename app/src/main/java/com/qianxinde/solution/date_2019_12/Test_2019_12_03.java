@@ -16,6 +16,9 @@ public class Test_2019_12_03 {
                 {0, 1, 0, 0},
                 {1, 1, 0, 0}};
         System.out.println(islandPerimeter(grid));
+
+        int[] nums = {3, 2, 2, 2, 2,1};
+        System.out.println(thirdMax(nums));
     }
 
     /**
@@ -123,5 +126,25 @@ public class Test_2019_12_03 {
             val = _val;
             children = _children;
         }
+    }
+
+    private static int thirdMax(int[] nums) {
+        long[] max = new long[3];
+        max[0] = Long.MIN_VALUE;
+        max[1] = Long.MIN_VALUE;
+        max[2] = Long.MIN_VALUE;
+        for (int num : nums) {
+            if (num > max[0]) {
+                max[2] = max[1];
+                max[1] = max[0];
+                max[0] = num;
+            } else if (max[0] > num && num > max[1]) {
+                max[2] = max[1];
+                max[1] = num;
+            } else if (max[1] > num && num > max[2]) {
+                max[2] = num;
+            }
+        }
+        return (int) ((max[2] == Long.MIN_VALUE) ? max[0] : max[2]);
     }
 }
