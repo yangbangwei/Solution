@@ -21,6 +21,8 @@ public class Test_2019_12_03 {
         System.out.println(thirdMax(nums));
 
         System.out.println(arrangeCoins(8));
+
+        System.out.println(addStrings("1", "1"));
     }
 
     /**
@@ -169,5 +171,46 @@ public class Test_2019_12_03 {
      */
     private static int arrangeCoins(int n) {
         return (int) ((Math.sqrt(1 + n * 8L) - 1) / 2);
+    }
+
+    private static String addStrings(String num1, String num2) {
+        char[] char1 = num1.toCharArray();
+        char[] char2 = num2.toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        int temp = 0;
+        for (int i = char1.length - 1, j = char2.length - 1; i >= 0 || j >= 0; i--, j--) {
+            int a = 0;
+            if (i >= 0) {
+                a = char1[i] - '0';
+            }
+            int b = 0;
+            if (j >= 0) {
+                b = char2[j] - '0';
+            }
+            temp = a + b + temp;
+            stringBuilder.append(temp % 10);
+            temp /= 10;
+        }
+        if (temp == 1) {
+            stringBuilder.append(temp);
+        }
+        return stringBuilder.reverse().toString();
+    }
+
+    /**
+     * 557. 反转字符串中的单词 III
+     * 给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+     *
+     * @param s 单词
+     * @return 反转的单词
+     */
+    private static String reverseWords(String s) {
+        String[] words = s.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String word : words) {
+            stringBuilder.append(new StringBuilder(word).reverse().toString())
+                    .append(" ");
+        }
+        return stringBuilder.toString().trim();
     }
 }
