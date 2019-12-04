@@ -1,6 +1,7 @@
 package com.qianxinde.solution.date_2019_12;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -246,4 +247,65 @@ public class Test_2019_12_03 {
         }
         return time;
     }
+
+    /**
+     * 1200. 最小绝对差
+     * 给你个整数数组 arr，其中每个元素都 不相同。
+     * 请你找到所有具有最小绝对差的元素对，并且按升序的顺序返回。
+     *
+     * @param arr 数组
+     * @return 最小元素对
+     */
+    private static List<List<Integer>> minimumAbsDifference(int[] arr) {
+        List<List<Integer>> data = new ArrayList<>();
+        Arrays.sort(arr);
+        int oldValue = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            int newValue = arr[i + 1] - arr[i];
+            List<Integer> temp = new ArrayList<>();
+            if (data.isEmpty()) {
+                temp.add(arr[i]);
+                temp.add(arr[i + 1]);
+                oldValue = newValue;
+                data.add(temp);
+            } else {
+                if (newValue < oldValue) {
+                    data.clear();
+                    temp.add(arr[i]);
+                    temp.add(arr[i + 1]);
+                    oldValue = newValue;
+                    data.add(temp);
+                } else if (newValue == oldValue) {
+                    temp.add(arr[i]);
+                    temp.add(arr[i + 1]);
+                    data.add(temp);
+                }
+            }
+        }
+        return data;
+    }
+
+    /**
+     * 1200. 最小绝对差
+     * 给你个整数数组 arr，其中每个元素都 不相同。
+     * 请你找到所有具有最小绝对差的元素对，并且按升序的顺序返回。
+     *
+     * @param arr 数组
+     * @return 最小元素对
+     */
+    private static List<List<Integer>> minimumAbsDifference1(int[] arr) {
+        Arrays.sort(arr);
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < arr.length - 1; i++) {
+            min = Math.min(min, arr[i + 1] - arr[i]);
+        }
+        List<List<Integer>> data = new ArrayList<>();
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i + 1] - arr[i] == min) {
+                data.add(Arrays.asList(arr[i], arr[i + 1]));
+            }
+        }
+        return data;
+    }
+
 }
