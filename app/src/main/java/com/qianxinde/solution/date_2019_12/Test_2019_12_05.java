@@ -82,7 +82,8 @@ public class Test_2019_12_05 {
         StringBuilder sb = new StringBuilder();
         for (char c : str.toCharArray()) {
             if (c > 64 && c < 91) {
-                sb.append(c + 32);
+                char a = (char) (c + 32);
+                sb.append(a);
             } else {
                 sb.append(c);
             }
