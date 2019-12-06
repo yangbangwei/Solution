@@ -1,7 +1,6 @@
 package com.qianxinde.solution.date_2019_12;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
@@ -13,18 +12,7 @@ import java.util.Stack;
 public class Test_2019_12_06 {
 
     public static void main(String[] args) {
-
-        Employee employee = new Employee();
-        employee.id = 1;
-        employee.importance = 2;
-        employee.subordinates = Collections.singletonList(2);
-
-        Employee employee1 = new Employee();
-        employee1.id = 2;
-        employee1.importance = 3;
-        employee1.subordinates = null;
-
-        System.out.println(getImportance(Arrays.asList(employee, employee1), 1));
+        System.out.println(selfDividingNumbers(1, 22));
     }
 
     private static TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
@@ -112,12 +100,45 @@ public class Test_2019_12_06 {
     }
 
     private static class Employee {
-        // It's the unique id of each node;
-        // unique id of this employee
         private int id;
-        // the importance value of this employee
         private int importance;
-        // the id of direct subordinates
         private List<Integer> subordinates;
+    }
+
+    /**
+     * 728. 自除数
+     * 自除数 是指可以被它包含的每一位数除尽的数。
+     * 给定上边界和下边界数字，输出一个列表，列表的元素是边界（含边界）内所有的自除数。
+     *
+     * @param left  左边界
+     * @param right 右边界
+     * @return 返回所有自除数
+     */
+    private static List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> nums = new ArrayList<>();
+        for (int i = left; i <= right; i++) {
+            if (isZero(i)) {
+                nums.add(i);
+            }
+        }
+        return nums;
+    }
+
+    /**
+     * 判断是否符合条件
+     *
+     * @param n 当前这个数
+     * @return 返回结果
+     */
+    private static boolean isZero(int n) {
+        int m = n;
+        while (n > 0) {
+            int k = n % 10;
+            if (k == 0 || m % k != 0) {
+                return false;
+            }
+            n = n / 10;
+        }
+        return true;
     }
 }
