@@ -279,4 +279,22 @@ public class Test_2019_12_09 {
         }
         return ans;
     }
+
+    /**
+     * 657. 机器人能否返回原点
+     * 在二维平面上，有一个机器人从原点 (0, 0) 开始。给出它的移动顺序，
+     * 判断这个机器人在完成移动后是否在 (0, 0) 处结束。
+     * 移动顺序由字符串表示。字符 move[i] 表示其第 i 次移动。
+     * 机器人的有效动作有 R（右），L（左），U（上）和 D（下）。如果机器人
+     *
+     * @param moves 移动顺序
+     * @return 是否返回原点
+     */
+    private static boolean judgeCircle(String moves) {
+        int[] nums = new int[26];
+        for (char c : moves.toCharArray()) {
+            nums[c - 'A']++;
+        }
+        return nums['L' - 'A'] == nums['R' - 'A'] && nums['U' - 'A'] == nums['D' - 'A'];
+    }
 }
