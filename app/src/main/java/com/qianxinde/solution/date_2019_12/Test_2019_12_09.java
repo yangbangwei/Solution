@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * @author :yangbw
@@ -20,7 +21,9 @@ public class Test_2019_12_09 {
         };
         System.out.println(Arrays.toString(findWords(words)));
 
-        System.out.println((toGoatLatin("The quick brown fox jumped over the lazy dog")));
+        System.out.println(toGoatLatin("The quick brown fox jumped over the lazy dog"));
+
+        System.out.println(calPoints(new String[]{"5", "2", "C", "D", "+"}));
     }
 
     /**
@@ -233,5 +236,47 @@ public class Test_2019_12_09 {
             stringBuilder.append(sb.toString()).append(" ");
         }
         return stringBuilder.toString().trim();
+    }
+
+    /**
+     * 682. 棒球比赛
+     * 你现在是棒球比赛记录员。
+     * 给定一个字符串列表，每个字符串可以是以下四种类型之一：
+     * 1.整数（一轮的得分）：直接表示您在本轮中获得的积分数。
+     * 2. "+"（一轮的得分）：表示本轮获得的得分是前两轮有效 回合得分的总和。
+     * 3. "D"（一轮的得分）：表示本轮获得的得分是前一轮有效 回合得分的两倍。
+     * 4. "C"（一个操作，这不是一个回合的分数）：表示您获得的最后一个有效 回合的分数是无效的，应该被移除。
+     *
+     * @param ops 比赛记录
+     * @return 得分
+     */
+    private static int calPoints(String[] ops) {
+        int ans = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (String op : ops) {
+            switch (op) {
+                case "+":
+                    int a = stack.peek();
+                    int b = stack.get(stack.size() - 2);
+                    int c = a + b;
+                    ans += c;
+                    stack.push(c);
+                    break;
+                case "C":
+                    ans -= stack.pop();
+                    break;
+                case "D":
+                    int d = stack.peek() * 2;
+                    stack.push(d);
+                    ans += d;
+                    break;
+                default:
+                    int num = Integer.valueOf(op);
+                    ans += num;
+                    stack.push(num);
+                    break;
+            }
+        }
+        return ans;
     }
 }
