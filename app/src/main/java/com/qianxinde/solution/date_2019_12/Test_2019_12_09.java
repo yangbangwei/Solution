@@ -81,4 +81,30 @@ public class Test_2019_12_09 {
         }
         return true;
     }
+
+    /**
+     * 412. Fizz Buzz
+     * 1. 如果 n 是3的倍数，输出“Fizz”；
+     * 2. 如果 n 是5的倍数，输出“Buzz”；
+     * 3.如果 n 同时是3和5的倍数，输出 “FizzBuzz”。
+     *
+     * @param n n以内
+     * @return 输出结果
+     */
+    private static List<String> fizzBuzz(int n) {
+        String[] ans = new String[n];
+        for (int i = 1; i <= n; i++) {
+            ans[i - 1] = String.valueOf(i);
+        }
+        for (int i = 3; i <= n; i += 3) {
+            ans[i - 1] = "Fizz";
+        }
+        for (int i = 5; i <= n; i += 5) {
+            ans[i - 1] = "Buzz";
+        }
+        for (int i = 15; i <= n; i += 15) {
+            ans[i - 1] = "FizzBuzz";
+        }
+        return Arrays.asList(ans);
+    }
 }
