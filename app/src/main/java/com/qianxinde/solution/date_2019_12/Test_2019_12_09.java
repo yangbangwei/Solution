@@ -169,4 +169,25 @@ public class Test_2019_12_09 {
             val = x;
         }
     }
+
+    /**
+     * 832. 翻转图像
+     * 给定一个二进制矩阵 A，我们想先水平翻转图像，然后反转图像并返回结果。
+     *
+     * @param A 二进制矩阵
+     * @return 水平翻转，翻转图片后的矩阵
+     */
+    private static int[][] flipAndInvertImage(int[][] A) {
+        for (int[] ints : A) {
+            int length = ints.length % 2 == 0 ? ints.length / 2 : ints.length / 2 + 1;
+            for (int i = 0; i < length; i++) {
+                int temp = ints[i];
+                int j = ints.length - i - 1;
+                ints[i] = ints[j] ^ 1;
+                ints[j] = temp ^ 1;
+            }
+        }
+        return A;
+    }
+
 }
