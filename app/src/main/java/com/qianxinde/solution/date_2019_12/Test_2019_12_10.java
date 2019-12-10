@@ -18,6 +18,8 @@ public class Test_2019_12_10 {
 
         int[] widths = {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
         System.out.println(Arrays.toString(numberOfLines(widths, "abcdefghijklmnopqrstuvwxyz")));
+
+        System.out.println(Arrays.toString(shortestToChar("loveleetcode", 'e')));
     }
 
     /**
@@ -160,5 +162,31 @@ public class Test_2019_12_10 {
             }
         }
         return ans;
+    }
+
+    /**
+     * 821. 字符的最短距离
+     * 给定一个字符串 S 和一个字符 C。返回一个代表字符串 S 中每个字符到字符串 S 中的字符 C 的最短距离的数组。
+     *
+     * @param S 字符串S
+     * @param C 字符C
+     * @return 返回最短距离数组
+     */
+    private static int[] shortestToChar(String S, char C) {
+        int[] nums = new int[S.length()];
+        int first = S.indexOf(C);
+        int scond = S.indexOf(C, first + 1);
+        for (int i = 0; i < S.length(); i++) {
+            nums[i] = Math.abs(first - i);
+            if (scond != -1) {
+                nums[i] = Math.min(nums[i], scond - i);
+                if (scond == i) {
+                    nums[i] = 0;
+                    first = scond;
+                    scond = S.indexOf(C, first + 1);
+                }
+            }
+        }
+        return nums;
     }
 }
