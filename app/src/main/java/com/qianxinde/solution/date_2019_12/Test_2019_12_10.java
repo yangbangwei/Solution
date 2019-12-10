@@ -1,5 +1,8 @@
 package com.qianxinde.solution.date_2019_12;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author :yangbw
  * @date :2019-12-10
@@ -7,7 +10,8 @@ package com.qianxinde.solution.date_2019_12;
 public class Test_2019_12_10 {
 
     public static void main(String[] args) {
-
+        System.out.println(commonChars(new String[]{"acabcddd", "bcbdbcbd", "baddbadb",
+                "cbdddcac", "aacbcccd", "ccccddda", "cababaab", "addcaccd"}));
     }
 
     /**
@@ -61,6 +65,36 @@ public class Test_2019_12_10 {
                 break;
             } else if (board[x][i] == 'B') {
                 break;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 1002. 查找常用字符
+     * 给定仅有小写字母组成的字符串数组 A，返回列表中的每个字符串中都显示的全部字符
+     * （包括重复字符）组成的列表。例如，如果一个字符在每个字符串中出现 3 次，但不是 4 次，
+     * 则需要在最终答案中包含该字符 3 次。
+     * 你可以按任意顺序返回答案。
+     *
+     * @param A 字符串数组
+     * @return 重复出现的字符
+     */
+    private static List<String> commonChars(String[] A) {
+        int[][] nums = new int[A.length][26];
+        for (int i = 0; i < A.length; i++) {
+            for (char c : A[i].toCharArray()) {
+                nums[i][c - 'a']++;
+            }
+        }
+        List<String> ans = new ArrayList<>();
+        for (int j = 0; j < 26; j++) {
+            int min = Integer.MAX_VALUE;
+            for (int i = 0; i < A.length; i++) {
+                min = Math.min(min, nums[i][j]);
+            }
+            for (int i = 0; i < min; i++) {
+                ans.add(String.valueOf((char) (j + 'a')));
             }
         }
         return ans;
