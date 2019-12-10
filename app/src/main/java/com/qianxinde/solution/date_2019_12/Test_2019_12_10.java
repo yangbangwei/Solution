@@ -12,6 +12,8 @@ public class Test_2019_12_10 {
     public static void main(String[] args) {
         System.out.println(commonChars(new String[]{"acabcddd", "bcbdbcbd", "baddbadb",
                 "cbdddcac", "aacbcccd", "ccccddda", "cababaab", "addcaccd"}));
+
+        System.out.println(detectCapitalUse("mL"));
     }
 
     /**
@@ -98,5 +100,34 @@ public class Test_2019_12_10 {
             }
         }
         return ans;
+    }
+
+    /**
+     * 520. 检测大写字母
+     * 给定一个单词，你需要判断单词的大写使用是否正确。
+     * 我们定义，在以下情况时，单词的大写用法是正确的：
+     * 全部字母都是大写，比如"USA"。
+     * 单词中所有字母都不是大写，比如"leetcode"。
+     * 如果单词不只含有一个字母，只有首字母大写， 比如 "Google"。
+     * 否则，我们定义这个单词没有正确使用大写字母。
+     *
+     * @param word 单词
+     * @return 是否大写正确
+     */
+    private static boolean detectCapitalUse(String word) {
+        int num = 0;
+        char first = word.charAt(0);
+        word = word.substring(1);
+        for (char c : word.toCharArray()) {
+            if (c >= 'a' && c <= 'z') {
+                num++;
+            }
+        }
+        int length = word.length();
+        if (first >= 'a' && first <= 'z') {
+            return num == length;
+        } else {
+            return num == length || num == 0;
+        }
     }
 }
