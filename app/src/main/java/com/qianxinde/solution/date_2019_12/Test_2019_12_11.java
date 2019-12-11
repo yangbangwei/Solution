@@ -69,4 +69,20 @@ public class Test_2019_12_11 {
         }
         return -1;
     }
+
+    /**
+     * 371. 两整数之和
+     *
+     * @param a 整数a
+     * @param b 整数b
+     * @return 两者之和
+     */
+    private static int getSum(int a, int b) {
+        while (b != 0) {
+            int temp = a ^ b;
+            b = (a & b) << 1;
+            a = temp;
+        }
+        return a;
+    }
 }
