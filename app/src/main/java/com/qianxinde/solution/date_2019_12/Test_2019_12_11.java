@@ -9,7 +9,10 @@ public class Test_2019_12_11 {
     public static void main(String[] args) {
 
         System.out.println(hammingDistance(2, 3));
+
         System.out.println(findComplement(2));
+
+        System.out.println(firstUniqChar("loveleetcode"));
     }
 
     /**
@@ -47,5 +50,23 @@ public class Test_2019_12_11 {
         }
         num2--;
         return (int) num2 ^ num;
+    }
+
+    /**
+     * 387. 字符串中的第一个唯一字符
+     * 给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+     *
+     * @param s 字符串
+     * @return 返回不重复字符下标
+     */
+    private static int firstUniqChar(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char temp = s.charAt(i);
+            int num = s.indexOf(temp);
+            if (s.indexOf(temp, num + 1) == -1) {
+                return num;
+            }
+        }
+        return -1;
     }
 }
