@@ -167,4 +167,38 @@ public class Test_2019_12_11 {
         }
         return missing;
     }
+
+    /**
+     * 404. 左叶子之和
+     * 计算给定二叉树的所有左叶子之和。(无子节点）
+     *
+     * @param root 二叉树
+     * @return 右叶子之和
+     */
+    private static int sumOfLeftLeaves(TreeNode root) {
+        int ans = 0;
+        if (root == null) {
+            return ans;
+        }
+        if (root.left != null) {
+            if (root.left.left == null && root.left.right == null) {
+                ans += root.left.val;
+            }
+            ans += sumOfLeftLeaves(root.left);
+        }
+        if (root.right != null) {
+            ans += sumOfLeftLeaves(root.right);
+        }
+        return ans;
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
 }
