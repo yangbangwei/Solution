@@ -9,6 +9,7 @@ public class Test_2019_12_11 {
     public static void main(String[] args) {
 
         System.out.println(hammingDistance(2, 3));
+        System.out.println(findComplement(2));
     }
 
     /**
@@ -30,5 +31,21 @@ public class Test_2019_12_11 {
             temp = temp >>> 1;
         }
         return count;
+    }
+
+    /**
+     * 476. 数字的补数
+     * 给定一个正整数，输出它的补数。补数是对该数的二进制表示取反。
+     *
+     * @param num 正整数
+     * @return 补数
+     */
+    private static int findComplement(int num) {
+        long num2 = 1;
+        while (num2 <= num) {
+            num2 = num2 << 1;
+        }
+        num2--;
+        return (int) num2 ^ num;
     }
 }
