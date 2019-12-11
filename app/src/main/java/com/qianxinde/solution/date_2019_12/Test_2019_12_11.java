@@ -1,5 +1,7 @@
 package com.qianxinde.solution.date_2019_12;
 
+import java.util.Arrays;
+
 /**
  * @author :yangbw
  * @date :2019-12-11
@@ -129,5 +131,40 @@ public class Test_2019_12_11 {
         ListNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 268. 缺失数字
+     * 给定一个包含 0, 1, 2, ..., n 中 n 个数的序列，找出 0 .. n 中没有出现在序列中的那个数。
+     *
+     * @param nums 整数数组
+     * @return 缺失数字
+     */
+    private static int missingNumber(int[] nums) {
+        Arrays.sort(nums);
+        int temp = 0;
+        for (int num : nums) {
+            if (num == temp) {
+                temp++;
+            } else {
+                return num;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 268. 缺失数字
+     * 给定一个包含 0, 1, 2, ..., n 中 n 个数的序列，找出 0 .. n 中没有出现在序列中的那个数。
+     *
+     * @param nums 整数数组
+     * @return 缺失数字
+     */
+    private static int missingNumber1(int[] nums) {
+        int missing = nums.length;
+        for (int i = 0; i < nums.length; i++) {
+            missing ^= i ^ nums[i];
+        }
+        return missing;
     }
 }
