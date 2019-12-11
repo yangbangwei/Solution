@@ -1,6 +1,7 @@
 package com.qianxinde.solution.date_2019_12;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @author :yangbw
@@ -15,6 +16,8 @@ public class Test_2019_12_11 {
         System.out.println(findComplement(2));
 
         System.out.println(firstUniqChar("loveleetcode"));
+
+        System.out.println(wordPattern("abba", "dog cat cat dog"));
     }
 
     /**
@@ -200,5 +203,38 @@ public class Test_2019_12_11 {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 290. 单词规律
+     * 给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。
+     * 这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串 
+     * str 中的每个非空单词之间存在着双向连接的对应规律。
+     *
+     * @param pattern 规律
+     * @param str     字符串
+     * @return 是否符合对应规律
+     */
+    private static boolean wordPattern(String pattern, String str) {
+        HashMap<Character, String> hashMap = new HashMap<>();
+        String[] words = str.split(" ");
+        if (words.length != pattern.length()) {
+            return false;
+        }
+        for (int i = 0; i < words.length; i++) {
+            char key = pattern.charAt(i);
+            if (hashMap.containsKey(key)) {
+                String word = hashMap.get(key);
+                if (!word.equals(words[i])) {
+                    return false;
+                }
+            } else {
+                if (hashMap.containsValue(words[i])) {
+                    return false;
+                }
+                hashMap.put(key, words[i]);
+            }
+        }
+        return true;
     }
 }
