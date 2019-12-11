@@ -85,4 +85,49 @@ public class Test_2019_12_11 {
         }
         return a;
     }
+
+    /**
+     * 206. 反转链表
+     * 反转一个单链表
+     *
+     * @param head 链表
+     * @return 反转后链表
+     */
+    private static ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+        return prev;
+    }
+
+    /**
+     * 206. 反转链表
+     * 反转一个单链表
+     *
+     * @param head 链表
+     * @return 反转后链表
+     */
+    private static ListNode reverseList1(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode p = reverseList1(head.next);
+        head.next.next = head;
+        head.next = null;
+        return p;
+    }
+
+    static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
 }
