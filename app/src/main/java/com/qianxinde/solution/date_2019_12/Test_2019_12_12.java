@@ -1,7 +1,5 @@
 package com.qianxinde.solution.date_2019_12;
 
-import android.util.SparseIntArray;
-
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -182,5 +180,24 @@ public class Test_2019_12_12 {
             n /= 3;
         }
         return n == 1;
+    }
+
+    /**
+     * 342. 4的幂
+     * 给定一个整数 (32 位有符号整数)，请编写一个函数来判断它是否是 4 的幂次方。
+     *
+     * @param num 整数
+     * @return 是否为4的幂次方
+     */
+    private static boolean isPowerOfFour(int num) {
+        if (num <= 0) {
+            return false;
+        }
+        //先判断是否是 2 的幂
+        if ((num & num - 1) != 0) {
+            return false;
+        }
+        //如果与运算之后是本身则是 4 的幂
+        return (num & 0x55555555) == num;
     }
 }
