@@ -200,4 +200,15 @@ public class Test_2019_12_12 {
         //如果与运算之后是本身则是 4 的幂
         return (num & 0x55555555) == num;
     }
+
+    /**
+     * 231. 2的幂
+     * 给定一个整数，编写一个函数来判断它是否是 2 的幂次方
+     *
+     * @param num 整数
+     * @return 是否为2的幂次方
+     */
+    private static boolean isPowerOfTwo(int num) {
+        return num > 0 && (num & num - 1) != 0;
+    }
 }
