@@ -3,6 +3,7 @@ package com.qianxinde.solution.date_2019_12;
 import android.util.SparseIntArray;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @author :yangbw
@@ -18,6 +19,7 @@ public class Test_2019_12_12 {
         rotate1(new int[]{1, 2}, 1);
         rotate2(new int[]{1, 2}, 1);
 
+        System.out.println(isPowerOfThree(9));
     }
 
     /**
@@ -66,13 +68,13 @@ public class Test_2019_12_12 {
         if (nums == null || nums.length == 0 || nums.length == 1) {
             return;
         }
-        SparseIntArray sparseArray = new SparseIntArray();
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            sparseArray.put(i, nums[i]);
+            hashMap.put(i, nums[i]);
         }
         for (int i = 0; i < nums.length; i++) {
             int j = (i + k) % nums.length;
-            nums[j] = sparseArray.get(i);
+            nums[j] = hashMap.get(i);
         }
         System.out.println(Arrays.toString(nums));
     }
@@ -165,5 +167,20 @@ public class Test_2019_12_12 {
         return false;
     }
 
-
+    /**
+     * 326. 3的幂
+     * 给定一个整数，写一个函数来判断它是否是 3 的幂次方。
+     *
+     * @param n 整数
+     * @return 是否为3的幂次方
+     */
+    private static boolean isPowerOfThree(int n) {
+        if (n < 1) {
+            return false;
+        }
+        while (n % 3 == 0) {
+            n /= 3;
+        }
+        return n == 1;
+    }
 }
