@@ -1,7 +1,8 @@
 package com.qianxinde.solution.date_2019_12;
 
+import android.util.SparseIntArray;
+
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * @author :yangbw
@@ -65,13 +66,13 @@ public class Test_2019_12_12 {
         if (nums == null || nums.length == 0 || nums.length == 1) {
             return;
         }
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        SparseIntArray sparseArray = new SparseIntArray();
         for (int i = 0; i < nums.length; i++) {
-            hashMap.put(i, nums[i]);
+            sparseArray.put(i, nums[i]);
         }
         for (int i = 0; i < nums.length; i++) {
             int j = (i + k) % nums.length;
-            nums[j] = hashMap.get(i);
+            nums[j] = sparseArray.get(i);
         }
         System.out.println(Arrays.toString(nums));
     }
@@ -130,4 +131,39 @@ public class Test_2019_12_12 {
         }
         return true;
     }
+
+    /**
+     * 278. 第一个错误的版本
+     * 假设你有 n 个版本 [1, 2, ..., n]，你想找出导致之后所有版本出错的第一个错误的版本。
+     * 你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。
+     * 实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。
+     *
+     * @param n 版本号
+     * @return 返回第一错误版本
+     */
+    private static int firstBadVersion(int n) {
+        int low = 1;
+        int hight = n;
+        while (low < hight) {
+            int mid = hight - (hight - low) / 2;
+            if (isBadVersion(mid)) {
+                hight = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+    /**
+     * 判断是否为错误版本
+     *
+     * @param n 版本号
+     * @return 是否为错误版本
+     */
+    private static boolean isBadVersion(int n) {
+        return false;
+    }
+
+
 }
