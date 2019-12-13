@@ -137,4 +137,24 @@ public class Test_2019_12_13 {
         return temp.substring(1, temp.length() - 1).contains(s);
     }
 
+    /**
+     * 485. 最大连续1的个数
+     * 给定一个二进制数组， 计算其中最大连续1的个数。
+     *
+     * @param nums 数组
+     * @return 最大连续1的个数
+     */
+    private static int findMaxConsecutiveOnes(int[] nums) {
+        int total = 0;
+        int max = 0;
+        for (int num : nums) {
+            if (num == 1) {
+                total++;
+                max = Math.max(total, max);
+            } else {
+                total = 0;
+            }
+        }
+        return max;
+    }
 }
