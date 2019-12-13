@@ -8,7 +8,14 @@ public class Test_2019_12_13 {
 
     public static void main(String[] args) {
 
+        ListNode listNode = new ListNode(1);
+        listNode.next = new ListNode(2);
+        listNode.next.next = new ListNode(6);
+        listNode.next.next.next = new ListNode(4);
+        listNode.next.next.next.next = new ListNode(5);
+        listNode.next.next.next.next.next = new ListNode(6);
 
+        removeElements(listNode, 6);
     }
 
     /**
@@ -43,5 +50,54 @@ public class Test_2019_12_13 {
         }
         cows = s.length - cows - bulls;
         return bulls + "A" + cows + "B";
+    }
+
+    /**
+     * 203. 移除链表元素
+     * 删除链表中等于给定值 val 的所有节点。
+     *
+     * @param head 链表
+     * @param val  删除节点
+     * @return 删除后链表
+     */
+    private static ListNode removeElements(ListNode head, int val) {
+        ListNode ans = new ListNode(0);
+        ans.next = head;
+        ListNode prev = ans;
+        while (head != null) {
+            if (head.val != val) {
+                prev.next = head;
+                prev = head;
+            } else {
+                prev.next = head.next;
+            }
+            head = head.next;
+        }
+        return ans.next;
+    }
+
+    /**
+     * 203. 移除链表元素
+     * 删除链表中等于给定值 val 的所有节点。
+     *
+     * @param head 链表
+     * @param val  删除节点
+     * @return 删除后链表
+     */
+    private static ListNode removeElements1(ListNode head, int val) {
+        if (head == null) {
+            return null;
+        }
+        head.next = removeElements(head.next, val);
+        return head.val == val ? head.next : head;
+    }
+
+    private static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
     }
 }
