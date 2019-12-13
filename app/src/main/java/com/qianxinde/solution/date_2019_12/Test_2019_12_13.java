@@ -150,11 +150,45 @@ public class Test_2019_12_13 {
         for (int num : nums) {
             if (num == 1) {
                 total++;
-                max = Math.max(total, max);
             } else {
+                max = Math.max(total, max);
                 total = 0;
             }
         }
         return max;
+    }
+
+    /**
+     * 434. 字符串中的单词数
+     * 统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。
+     *
+     * @param s 字符串
+     * @return 单词个数
+     */
+    private static int countSegments(String s) {
+        s = s.trim();
+        if (s.length() == 0) {
+            return 0;
+        }
+        return s.split("\\s+").length;
+    }
+
+    /**
+     * 434. 字符串中的单词数
+     * 统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。
+     *
+     * @param s 字符串
+     * @return 单词个数
+     */
+    private static int countSegments1(String s) {
+        int num = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (i == 0 || s.charAt(i - 1) == ' ') {
+                if (s.charAt(i) != ' ') {
+                    num++;
+                }
+            }
+        }
+        return num;
     }
 }
