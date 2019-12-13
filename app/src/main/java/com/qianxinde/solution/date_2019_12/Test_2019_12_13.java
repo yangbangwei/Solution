@@ -123,4 +123,18 @@ public class Test_2019_12_13 {
         }
         return false;
     }
+
+    /**
+     * 459. 重复的子字符串
+     * 给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。
+     * 给定的字符串只含有小写英文字母，并且长度不超过10000。
+     *
+     * @param s 字符串
+     * @return 是否为重复字符
+     */
+    private static boolean repeatedSubstringPattern(String s) {
+        String temp = s + s;
+        return temp.substring(1, temp.length() - 1).contains(s);
+    }
+
 }
