@@ -138,4 +138,34 @@ public class Test_2019_12_16 {
         }
         return aNums <= 1 && lNums <= 2;
     }
+
+    /**
+     * 504. 七进制数
+     * 给定一个整数，将其转化为7进制，并以字符串形式输出。
+     *
+     * @param num 整数
+     * @return 7进制
+     */
+    private static String convertToBase7(int num) {
+        if (num == 0) {
+            return "0";
+        }
+        StringBuilder sb = new StringBuilder();
+        int temp = num;
+        if (num < 0) {
+            num = -num;
+        }
+        while (num >= 7) {
+            sb.append(num % 7);
+            num = num / 7;
+        }
+        if (num > 0) {
+            sb.append(num);
+        }
+        String s = sb.reverse().toString();
+        if (temp < 0) {
+            s = "-" + s;
+        }
+        return s;
+    }
 }
