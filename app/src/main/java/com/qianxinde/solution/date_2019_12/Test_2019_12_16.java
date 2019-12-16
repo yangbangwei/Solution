@@ -13,6 +13,8 @@ public class Test_2019_12_16 {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(findRelativeRanks(new int[]{5, 4, 3, 2, 1})));
+
+        System.out.println(checkRecord("LLLPA"));
     }
 
     /**
@@ -104,5 +106,36 @@ public class Test_2019_12_16 {
             res[i] = s;
         }
         return res;
+    }
+
+    /**
+     * 551. 学生出勤记录 I
+     * 给定一个字符串来代表一个学生的出勤记录，这个记录仅包含以下三个字符：
+     * 'A' : Absent，缺勤
+     * 'L' : Late，迟到
+     * 'P' : Present，到场
+     * 如果一个学生的出勤记录中不超过一个'A'(缺勤)并且不超过两个连续的'L'(迟到),那么这个学生会被奖赏。
+     *
+     * @param s 出勤记录
+     * @return 是否被奖赏
+     */
+    private static boolean checkRecord(String s) {
+        int aNums = 0;
+        int lNums = 0;
+        char[] words = s.toCharArray();
+        for (char word : words) {
+            if (aNums > 1 || lNums > 2) {
+                return false;
+            }
+            if (word == 'A') {
+                aNums++;
+                lNums = 0;
+            } else if (word == 'L') {
+                lNums++;
+            } else {
+                lNums = 0;
+            }
+        }
+        return aNums <= 1 && lNums <= 2;
     }
 }
