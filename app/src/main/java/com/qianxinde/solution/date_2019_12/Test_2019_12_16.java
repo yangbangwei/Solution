@@ -1,5 +1,10 @@
 package com.qianxinde.solution.date_2019_12;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author :yangbw
  * @date :2019-12-11
@@ -7,6 +12,7 @@ package com.qianxinde.solution.date_2019_12;
 public class Test_2019_12_16 {
 
     public static void main(String[] args) {
+        System.out.println(Arrays.toString(findRelativeRanks(new int[]{5, 4, 3, 2, 1})));
     }
 
     /**
@@ -56,5 +62,47 @@ public class Test_2019_12_16 {
             }
         }
         return total - num == num;
+    }
+
+    /**
+     * 506. 相对名次
+     * 给出 N 名运动员的成绩，找出他们的相对名次并授予前三名对应的奖牌。
+     * 前三名运动员将会被分别授予 “金牌”，“银牌” 和“ 铜牌”（
+     * "Gold Medal", "Silver Medal", "Bronze Medal"）。
+     *
+     * @param nums 运动员成绩
+     * @return 排名
+     */
+    private static String[] findRelativeRanks(int[] nums) {
+        Integer[] copy = new Integer[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            copy[i] = nums[i];
+        }
+        Arrays.sort(copy, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2 - o1;
+            }
+        });
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < copy.length; i++) {
+            map.put(copy[i], i + 1);
+        }
+        String[] res = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            int order = map.get(nums[i]);
+            String s;
+            if (order == 1) {
+                s = "Gold Medal";
+            } else if (order == 2) {
+                s = "Silver Medal";
+            } else if (order == 3) {
+                s = "Bronze Medal";
+            } else {
+                s = String.valueOf(order);
+            }
+            res[i] = s;
+        }
+        return res;
     }
 }
