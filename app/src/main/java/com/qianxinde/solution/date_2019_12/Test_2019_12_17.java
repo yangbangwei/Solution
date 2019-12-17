@@ -2,6 +2,7 @@ package com.qianxinde.solution.date_2019_12;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,6 +17,9 @@ public class Test_2019_12_17 {
         System.out.println(judgeSquareSum(4));
 
         System.out.println(rotatedDigits(857));
+
+        System.out.println(mostCommonWord("Bob",
+                new String[]{"hit"}));
     }
 
     /**
@@ -231,5 +235,48 @@ public class Test_2019_12_17 {
             }
         }
         return total;
+    }
+
+    /**
+     * 819. 最常见的单词
+     * 给定一个段落 (paragraph) 和一个禁用单词列表 (banned)。返回出现次数最多，
+     * 同时不在禁用列表中的单词。题目保证至少有一个词不在禁用列表中，而且答案唯一。
+     *
+     * @param paragraph 段落
+     * @param banned    禁用单词列表
+     * @return 返回常见单词
+     */
+    private static String mostCommonWord(String paragraph, String[] banned) {
+        paragraph += ".";
+        HashMap<String, String> bannedMap = new HashMap<>();
+        for (String s : banned) {
+            bannedMap.put(s, s);
+        }
+        int max = 0;
+        String key = "";
+        HashMap<String, Integer> numMap = new HashMap<>();
+        StringBuilder word = new StringBuilder();
+        for (char c : paragraph.toCharArray()) {
+            if (Character.isLetter(c)) {
+                word.append(Character.toLowerCase(c));
+            } else if (word.length() > 0) {
+                String finalword = word.toString();
+                if (!bannedMap.containsKey(finalword)) {
+                    int num = 1;
+                    if (numMap.containsKey(finalword)) {
+                        num = numMap.get(finalword);
+                        numMap.put(finalword, ++num);
+                    } else {
+                        numMap.put(finalword, num);
+                    }
+                    if (max < num) {
+                        max = num;
+                        key = finalword;
+                    }
+                }
+                word = new StringBuilder();
+            }
+        }
+        return key;
     }
 }
