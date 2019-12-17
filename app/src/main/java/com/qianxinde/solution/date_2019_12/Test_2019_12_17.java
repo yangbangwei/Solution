@@ -20,6 +20,8 @@ public class Test_2019_12_17 {
 
         System.out.println(mostCommonWord("Bob",
                 new String[]{"hit"}));
+
+        System.out.println(reverseOnlyLetters("ab-cd"));
     }
 
     /**
@@ -278,5 +280,32 @@ public class Test_2019_12_17 {
             }
         }
         return key;
+    }
+
+    /**
+     * 917. 仅仅反转字母
+     * 给定一个字符串 S，返回 “反转后的” 字符串，其中不是字母的字符都保留在原地，而所有字母的位置发生反转。
+     *
+     * @param S 字符串
+     * @return 仅反转字母后的字符串
+     */
+    private static String reverseOnlyLetters(String S) {
+        int left = 0;
+        int right = S.length() - 1;
+        char[] words = S.toCharArray();
+        while (left < right) {
+            if (!Character.isLetter(words[left])) {
+                left++;
+            } else if (!Character.isLetter(words[right])) {
+                right--;
+            } else {
+                char temp = words[right];
+                words[right] = words[left];
+                words[left] = temp;
+                left++;
+                right--;
+            }
+        }
+        return String.valueOf(words);
     }
 }
