@@ -1,6 +1,7 @@
 package com.qianxinde.solution.date_2019_12;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
 public class Test_2019_12_17 {
 
     public static void main(String[] args) {
-
+        System.out.println(maximumProduct1(new int[]{1, 2, 3, 4}));
     }
 
     /**
@@ -61,6 +62,51 @@ public class Test_2019_12_17 {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 628. 三个数的最大乘积
+     * 给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+     *
+     * @param nums 整数数组
+     * @return 3个数最大乘积
+     */
+    private static int maximumProduct(int[] nums) {
+        Arrays.sort(nums);
+        return Math.max(nums[0] * nums[1] * nums[nums.length - 1],
+                nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3]);
+    }
+
+    /**
+     * 628. 三个数的最大乘积
+     * 给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+     *
+     * @param nums 整数数组
+     * @return 3个数最大乘积
+     */
+    private static int maximumProduct1(int[] nums) {
+        int m1 = Integer.MIN_VALUE, m2 = Integer.MIN_VALUE, m3 = Integer.MIN_VALUE;
+        int n1 = Integer.MAX_VALUE, n2 = Integer.MAX_VALUE;
+        for (int num : nums) {
+            if (num > m1) {
+                m3 = m2;
+                m2 = m1;
+                m1 = num;
+            } else if (num > m2) {
+                m3 = m2;
+                m2 = num;
+            } else if (num > m3) {
+                m3 = num;
+            }
+            if (n1 > num) {
+                n2 = n1;
+                n1 = num;
+            } else if (n2 > num) {
+                n2 = num;
+            }
+        }
+
+        return Math.max(m1 * m2 * m3, m1 * n1 * n2);
     }
 
 }
