@@ -12,6 +12,8 @@ public class Test_2019_12_17 {
 
     public static void main(String[] args) {
         System.out.println(maximumProduct1(new int[]{1, 2, 3, 4}));
+
+        System.out.println(judgeSquareSum(4));
     }
 
     /**
@@ -107,6 +109,73 @@ public class Test_2019_12_17 {
         }
 
         return Math.max(m1 * m2 * m3, m1 * n1 * n2);
+    }
+
+    /**
+     * 633. 平方数之和
+     * 给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c。
+     * 方法1，开平方
+     *
+     * @param c 非负整数
+     * @return 是否有两个整数的平方和为c
+     */
+    private static boolean judgeSquareSum(int c) {
+        for (long i = 0; i * i <= c; i++) {
+            double temp = Math.sqrt(c - i * i);
+            if (temp == (int) temp) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 633. 平方数之和
+     * 给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c。
+     * 方法2，双指针
+     *
+     * @param c 非负整数
+     * @return 是否有两个整数的平方和为c
+     */
+    private static boolean judgeSquareSum1(int c) {
+        int left = 0;
+        int right = (int) Math.sqrt(c);
+        while (left < right) {
+            int num = left * left + right * right;
+            if (num == c) {
+                return true;
+            } else if (num < c) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 633. 平方数之和
+     * 给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c。
+     * 方法3，费马平方和
+     *
+     * @param c 非负整数
+     * @return 是否有两个整数的平方和为c
+     */
+    private static boolean judgeSquareSum2(int c) {
+        for (int i = 2; i * i <= c; i++) {
+            int count = 0;
+            if (c % i == 0) {
+                while (c % i == 0) {
+                    count++;
+                    c /= i;
+                }
+                if (i % 4 == 3 && count % 2 != 0) {
+                    return false;
+                }
+            }
+
+        }
+        return c % 4 != 3;
     }
 
 }
