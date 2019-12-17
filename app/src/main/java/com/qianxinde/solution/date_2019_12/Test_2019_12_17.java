@@ -178,4 +178,22 @@ public class Test_2019_12_17 {
         return c % 4 != 3;
     }
 
+    /**
+     * 961. 重复 N 次的元素
+     * 在大小为 2N 的数组 A 中有 N+1 个不同的元素，其中有一个元素重复了 N 次。
+     * 返回重复了 N 次的那个元素。
+     *
+     * @param A 数组A
+     * @return 重复的那个元素
+     */
+    private static int repeatedNTimes(int[] A) {
+        int[] nums = new int[10001];
+        for (int i : A) {
+            nums[i]++;
+            if (nums[i] > 1) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }
