@@ -12,6 +12,8 @@ public class Test_2019_12_18 {
         System.out.println(heightChecker1(new int[]{13, 13, 14, 12, 1, 3}));
 
         System.out.println(divisorGame(3));
+
+        System.out.println(rotateString("abcde", "abced"));
     }
 
     /**
@@ -72,5 +74,45 @@ public class Test_2019_12_18 {
      */
     private static boolean divisorGame(int N) {
         return N % 2 == 0;
+    }
+
+    /**
+     * 796. 旋转字符串
+     * 给定两个字符串, A 和 B。
+     * A 的旋转操作就是将 A 最左边的字符移动到最右边。 例如, 若 A = 'abcde'，
+     * 在移动一次之后结果就是'bcdea' 。如果在若干次旋转操作之后，A 能变成B，那么返回True。
+     *
+     * @param A 字符串A
+     * @param B 字符串B
+     * @return 判断是否旋转后的得到
+     */
+    private static boolean rotateString(String A, String B) {
+        if (A.length() == 0 && B.length() == 0) {
+            return true;
+        }
+        char[] charA = A.toCharArray();
+        for (int i = 1; i < charA.length; i++) {
+            char temp = charA[charA.length - 1];
+            System.arraycopy(charA, 0, charA, 1, charA.length - 1);
+            charA[0] = temp;
+            if (String.valueOf(charA).equals(B)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 796. 旋转字符串
+     * 给定两个字符串, A 和 B。
+     * A 的旋转操作就是将 A 最左边的字符移动到最右边。 例如, 若 A = 'abcde'，
+     * 在移动一次之后结果就是'bcdea' 。如果在若干次旋转操作之后，A 能变成B，那么返回True。
+     *
+     * @param A 字符串A
+     * @param B 字符串B
+     * @return 判断是否旋转后的得到
+     */
+    private static boolean rotateString1(String A, String B) {
+        return A.length() == B.length() && (A + A).contains(B);
     }
 }
