@@ -12,6 +12,8 @@ public class Test_2019_12_19 {
         System.out.println(Arrays.toString(sortArrayByParity(new int[]{0, 2})));
 
         System.out.println(Arrays.toString(duplicateZeros(new int[]{1, 0, 2, 3, 0, 4, 5, 0})));
+
+        System.out.println(lastStoneWeight(new int[]{2, 7, 4, 1, 8, 1}));
     }
 
     /**
@@ -126,13 +128,45 @@ public class Test_2019_12_19 {
     private static int[] duplicateZeros(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] == 0) {
-                if (arr.length - 1 - i + 1 >= 0) {
-                    System.arraycopy(arr, i + 1, arr, i + 2, arr.length - 1 - i + 1);
-                }
+                System.arraycopy(arr, i + 1, arr, i + 2, arr.length - i - 2);
                 arr[i + 1] = 0;
                 i++;
             }
         }
         return arr;
+    }
+
+    /**
+     * 1046. 最后一块石头的重量
+     * 有一堆石头，每块石头的重量都是正整数。
+     * 每一回合，从中选出两块最重的石头，然后将它们一起粉碎。假设石头的重量分别为 x 和 y，且 x <= y。
+     * 那么粉碎的可能结果如下：
+     * 如果 x == y，那么两块石头都会被完全粉碎；
+     * 如果 x != y，那么重量为 x 的石头将会完全粉碎，而重量为 y 的石头新重量为 y-x。
+     * 最后，最多只会剩下一块石头。返回此石头的重量。如果没有石头剩下，就返回 0。
+     *
+     * @param stones 数组
+     * @return 最后剩下的石头
+     */
+    private static int lastStoneWeight(int[] stones) {
+        int length = stones.length;
+        if (length == 1) {
+            return stones[0];
+        }
+        Arrays.sort(stones);
+        int temp = stones[length - 1] - stones[length - 2];
+        int[] newStones;
+        if (temp == 0) {
+            if (length == 2) {
+                return 0;
+            }
+            newStones = new int[length - 2];
+            System.arraycopy(stones, 0, newStones, 0, length - 2);
+        } else {
+            stones[length - 2] = temp;
+            newStones = new int[length - 1];
+            System.arraycopy(stones, 0, newStones, 0, length - 1);
+        }
+        return lastStoneWeight(newStones);
     }
 }
