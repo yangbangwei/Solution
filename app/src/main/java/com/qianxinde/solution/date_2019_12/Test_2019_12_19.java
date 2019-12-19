@@ -92,4 +92,24 @@ public class Test_2019_12_19 {
         }
         return sb.toString();
     }
+
+    /**
+     * 1108. IP 地址无效化
+     * 给你一个有效的 IPv4 地址 address，返回这个 IP 地址的无效化版本。
+     * 所谓无效化 IP 地址，其实就是用 "[.]" 代替了每个 "."。
+     *
+     * @param address ip地址
+     * @return 无效化的ip地址
+     */
+    public String defangIPaddr(String address) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : address.toCharArray()) {
+            if (c == '.') {
+                sb.append("[.]");
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 }
