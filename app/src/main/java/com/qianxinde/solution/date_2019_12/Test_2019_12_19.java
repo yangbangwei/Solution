@@ -39,4 +39,57 @@ public class Test_2019_12_19 {
         }
         return A;
     }
+
+
+    /**
+     * 1047. 删除字符串中的所有相邻重复项
+     * 给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+     * 在 S 上反复执行重复项删除操作，直到无法继续删除。
+     * 在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+     * 方法1，截取方式
+     *
+     * @param S 字符串s
+     * @return 去重后字符串
+     */
+    private static String removeDuplicates(String S) {
+        if (S.length() == 1) {
+            return S;
+        }
+        char[] s = S.toCharArray();
+        int i = 1;
+        while (i < s.length) {
+            if (s[i] == s[i - 1]) {
+                S = String.valueOf(s);
+                s = (S.substring(0, i - 1) + S.substring(i + 1, s.length)).toCharArray();
+                i = 1;
+            } else {
+                i++;
+            }
+        }
+        return String.valueOf(s);
+    }
+
+    /**
+     * 1047. 删除字符串中的所有相邻重复项
+     * 给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+     * 在 S 上反复执行重复项删除操作，直到无法继续删除。
+     * 在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+     * 方法2，通过栈的方式
+     *
+     * @param S 字符串s
+     * @return 去重后字符串
+     */
+    private static String removeDuplicates1(String S) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        for (char c : S.toCharArray()) {
+            if (i != 0 && c == sb.charAt(i - 1)) {
+                sb.deleteCharAt(i-- - 1);
+            } else {
+                sb.append(c);
+                i++;
+            }
+        }
+        return sb.toString();
+    }
 }
