@@ -205,4 +205,23 @@ public class Test_2019_12_19 {
         }
         return ans;
     }
+
+    /**
+     * 1281. 整数的各位积和之差
+     * 给你一个整数 n，请你帮忙计算并返回该整数「各位数字之积」与「各位数字之和」的差。
+     *
+     * @param n 整数
+     * @return 乘积-和
+     */
+    private static int subtractProductAndSum(int n) {
+        int add = 0;
+        int product = 1;
+        while (n > 0) {
+            int temp = n % 10;
+            add += temp;
+            product *= temp;
+            n /= 10;
+        }
+        return product - add;
+    }
 }
