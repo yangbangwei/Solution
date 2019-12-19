@@ -1,6 +1,8 @@
 package com.qianxinde.solution.date_2019_12;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author :yangbw
@@ -114,5 +116,85 @@ public class Test_2019_12_18 {
      */
     private static boolean rotateString1(String A, String B) {
         return A.length() == B.length() && (A + A).contains(B);
+    }
+
+    /**
+     * 897. 递增顺序查找树
+     * 给定一个树，按中序遍历重新排列树，使树中最左边的结点现在是树的根，
+     * 并且每个结点没有左子结点，只有一个右子结点。
+     * 解法1，中序遍历，构造新的树
+     *
+     * @param root 二叉树
+     * @return 重新排序后
+     */
+    private TreeNode increasingBST(TreeNode root) {
+        List<Integer> data = new ArrayList<>();
+        inOrder(root, data);
+        TreeNode head = new TreeNode(0);
+        TreeNode curr = head;
+        for (Integer num : data) {
+            TreeNode treeNode = new TreeNode(num);
+            curr.right = treeNode;
+            curr = treeNode;
+        }
+        return head.right;
+    }
+
+    /**
+     * 排序二叉树
+     *
+     * @param root 二叉树
+     * @param data 转为list
+     */
+    private void inOrder(TreeNode root, List<Integer> data) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left, data);
+        data.add(root.val);
+        inOrder(root.right, data);
+    }
+
+    /**
+     * 897. 递增顺序查找树
+     * 给定一个树，按中序遍历重新排列树，使树中最左边的结点现在是树的根，
+     * 并且每个结点没有左子结点，只有一个右子结点。
+     * 解法2，中序遍历，改变树的连接方式
+     *
+     * @param root 二叉树
+     * @return 重新排序后
+     */
+    private TreeNode increasingBST1(TreeNode root) {
+        TreeNode head = new TreeNode(0);
+        TreeNode curr = head;
+        inOrder1(root, curr);
+        return head.right;
+    }
+
+    /**
+     * 重新排序，修改二叉树结构
+     *
+     * @param root 二叉树
+     * @param curr 当前节点
+     */
+    private void inOrder1(TreeNode root, TreeNode curr) {
+        if (root == null) {
+            return;
+        }
+        inOrder1(root.left, curr);
+        root.left = null;
+        curr.right = root;
+        curr = root.right;
+        inOrder1(root.right, curr);
+    }
+
+    private class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
     }
 }
