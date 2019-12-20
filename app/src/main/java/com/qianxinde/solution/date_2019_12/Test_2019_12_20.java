@@ -30,6 +30,9 @@ public class Test_2019_12_20 {
         treeNode.right.right = new TreeNode(15);
         treeNode.right.left = new TreeNode(7);
         System.out.println(averageOfLevels(treeNode));
+
+        System.out.println(Arrays.toString(nextGreaterElement1(new int[]{1, 3, 5, 2, 4},
+                new int[]{6, 5, 4, 3, 2, 1, 7})));
     }
 
     private int ans;
@@ -226,5 +229,65 @@ public class Test_2019_12_20 {
             queue = temp;
         }
         return data;
+    }
+
+    /**
+     * 496. 下一个更大元素 I
+     * 给定两个没有重复元素的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。
+     * 找到 nums1 中每个元素在 nums2 中的下一个比其大的值。
+     * nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的右边的第一个比 x 大的元素。
+     * 如果不存在，对应位置输出-1。
+     *
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 更大元素
+     */
+    private static int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> hashMap = new HashMap<>(nums2.length);
+        for (int i = 0; i < nums2.length; i++) {
+            hashMap.put(nums2[i], i);
+        }
+        for (int i = 0; i < nums1.length; i++) {
+            int num = nums1[i];
+            int index = hashMap.get(num) + 1;
+            nums1[i] = -1;
+            if (index != 0) {
+                while (index < nums2.length) {
+                    if (num < nums2[index]) {
+                        nums1[i] = nums2[index];
+                        break;
+                    }
+                    index++;
+                }
+            }
+        }
+        return nums1;
+    }
+
+    /**
+     * 496. 下一个更大元素 I
+     * 给定两个没有重复元素的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。
+     * 找到 nums1 中每个元素在 nums2 中的下一个比其大的值。
+     * nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的右边的第一个比 x 大的元素。
+     * 如果不存在，对应位置输出-1。
+     *
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 更大元素
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private static int[] nextGreaterElement1(int[] nums1, int[] nums2) {
+        Stack<Integer> stack = new Stack<>();
+        HashMap<Integer, Integer> hasMap = new HashMap<>();
+        for(int num : nums2) {
+            while(!stack.isEmpty() && stack.peek()<num){
+                hasMap.put(stack.pop(), num);
+            }
+            stack.push(num);
+        }
+        for(int i = 0; i < nums1.length; i++) {
+            nums1[i] = hasMap.getOrDefault(nums1[i], -1);
+        }
+        return nums1;
     }
 }
