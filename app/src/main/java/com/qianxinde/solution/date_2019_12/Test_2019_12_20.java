@@ -1,5 +1,6 @@
 package com.qianxinde.solution.date_2019_12;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -9,7 +10,9 @@ import java.util.Stack;
 public class Test_2019_12_20 {
 
     public static void main(String[] args) {
-
+        int[] num1 = {2, 21, 43, 38, 0, 42, 33, 7, 24, 13, 12, 27, 12, 24, 5, 23, 29, 48, 30, 31};
+        int[] num2 = {2, 42, 38, 0, 43, 21};
+        System.out.println(Arrays.toString(relativeSortArray(num1, num2)));
     }
 
     private int ans;
@@ -80,6 +83,37 @@ public class Test_2019_12_20 {
             }
         }
         return ans;
+    }
+
+    /**
+     * 1122. 数组的相对排序
+     * 给你两个数组，arr1 和 arr2，
+     * arr2 中的元素各不相同
+     * arr2 中的每个元素都出现在 arr1 中
+     * 对 arr1 中的元素进行排序，使 arr1 中项的相对顺序和 arr2 中的相对顺序相同。
+     * 未在 arr2 中出现过的元素需要按照升序放在 arr1 的末尾。
+     *
+     * @param arr1 数组1
+     * @param arr2 数组2
+     * @return 排序后结果
+     */
+    private static int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int[] bucket = new int[1001];
+        for (int i : arr1) {
+            bucket[i]++;
+        }
+        int j = 0;
+        for (int num : arr2) {
+            while (bucket[num]-- > 0) {
+                arr1[j++] = num;
+            }
+        }
+        for (int i = 0; i < 1001; i++) {
+            while (bucket[i]-- > 0) {
+                arr1[j++] = i;
+            }
+        }
+        return arr1;
     }
 
     private class TreeNode {
