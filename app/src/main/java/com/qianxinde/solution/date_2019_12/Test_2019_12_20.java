@@ -1,6 +1,15 @@
 package com.qianxinde.solution.date_2019_12;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -9,10 +18,18 @@ import java.util.Stack;
  */
 public class Test_2019_12_20 {
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static void main(String[] args) {
         int[] num1 = {2, 21, 43, 38, 0, 42, 33, 7, 24, 13, 12, 27, 12, 24, 5, 23, 29, 48, 30, 31};
         int[] num2 = {2, 42, 38, 0, 43, 21};
         System.out.println(Arrays.toString(relativeSortArray(num1, num2)));
+
+        TreeNode treeNode = new TreeNode(3);
+        treeNode.left = new TreeNode(9);
+        treeNode.right = new TreeNode(20);
+        treeNode.right.right = new TreeNode(15);
+        treeNode.right.left = new TreeNode(7);
+        System.out.println(averageOfLevels(treeNode));
     }
 
     private int ans;
@@ -116,7 +133,7 @@ public class Test_2019_12_20 {
         return arr1;
     }
 
-    private class TreeNode {
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -124,5 +141,90 @@ public class Test_2019_12_20 {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+    private static List<Double> data = new ArrayList<>();
+    private static HashMap<Integer, Double> hmTotal = new HashMap<>();
+    private static HashMap<Integer, Integer> hmCount = new HashMap<>();
+
+    /**
+     * 637. 二叉树的层平均值
+     * 给定一个非空二叉树, 返回一个由每层节点平均值组成的数组.
+     * 方法1，递归调用
+     *
+     * @param root 二叉树
+     * @return 每一层平均值
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private static List<Double> averageOfLevels(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        data.add((double) root.val);
+        average(0, root.left, root.right);
+        for (Integer integer : hmTotal.keySet()) {
+            data.add(hmTotal.get(integer) / hmCount.get(integer));
+        }
+        return data;
+    }
+
+    /**
+     * 记录每层的总数和个数
+     *
+     * @param deep  层次
+     * @param left  左节点
+     * @param right 由节点
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private static void average(int deep, TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return;
+        }
+        deep++;
+        Double total = hmTotal.getOrDefault(deep, 0.0);
+        int count = hmCount.getOrDefault(deep, 0);
+        if (left != null) {
+            total += left.val;
+            hmTotal.put(deep, total);
+            hmCount.put(deep, ++count);
+            average(deep, left.left, left.right);
+        }
+        if (right != null) {
+            total += right.val;
+            hmTotal.put(deep, total);
+            hmCount.put(deep, ++count);
+            average(deep, right.left, right.right);
+        }
+    }
+
+    /**
+     * 637. 二叉树的层平均值
+     * 给定一个非空二叉树, 返回一个由每层节点平均值组成的数组.
+     * 方法2，迭代器
+     *
+     * @param root 二叉树
+     * @return 每一层平均值
+     */
+    private static List<Double> averageOfLevels1(TreeNode root) {
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            long total = 0, count = 0;
+            Queue<TreeNode> temp = new ArrayDeque<>();
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.poll();
+                total += node.val;
+                count++;
+                if (node.left != null) {
+                    temp.add(node.left);
+                }
+                if (node.right != null) {
+                    temp.add(node.right);
+                }
+            }
+            data.add(total * 1.0 / count);
+            queue = temp;
+        }
+        return data;
     }
 }
