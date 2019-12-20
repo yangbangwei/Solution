@@ -279,15 +279,42 @@ public class Test_2019_12_20 {
     private static int[] nextGreaterElement1(int[] nums1, int[] nums2) {
         Stack<Integer> stack = new Stack<>();
         HashMap<Integer, Integer> hasMap = new HashMap<>();
-        for(int num : nums2) {
-            while(!stack.isEmpty() && stack.peek()<num){
+        for (int num : nums2) {
+            while (!stack.isEmpty() && stack.peek() < num) {
                 hasMap.put(stack.pop(), num);
             }
             stack.push(num);
         }
-        for(int i = 0; i < nums1.length; i++) {
+        for (int i = 0; i < nums1.length; i++) {
             nums1[i] = hasMap.getOrDefault(nums1[i], -1);
         }
         return nums1;
+    }
+
+    /**
+     * 509. 斐波那契数
+     * 斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。
+     * 该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
+     * F(0) = 0,   F(1) = 1
+     * F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
+     * 给定 N，计算 F(N)。
+     *
+     * @param N 整数0<=n<=30
+     * @return F（N）
+     */
+    private static int fib(int N) {
+        if (N == 0) {
+            return 0;
+        }
+        if (N == 1) {
+            return 1;
+        }
+        int[] nums = new int[N + 1];
+        nums[0] = 0;
+        nums[1] = 1;
+        for (int i = 2; i <= N; i++) {
+            nums[i] = nums[i - 1] + nums[i - 1];
+        }
+        return nums[N];
     }
 }
