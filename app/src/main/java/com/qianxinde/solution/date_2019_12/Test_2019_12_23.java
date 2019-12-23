@@ -15,7 +15,14 @@ import java.util.List;
 public class Test_2019_12_23 {
 
     public static void main(String[] args) {
+        ListNode listNode1 = new ListNode(2);
+        listNode1.next = new ListNode(6);
+        listNode1.next.next = new ListNode(4);
 
+        ListNode listNode2 = new ListNode(1);
+        listNode2.next = new ListNode(5);
+
+        System.out.println(getIntersectionNode(listNode1, listNode2));
     }
 
     /**
@@ -47,5 +54,33 @@ public class Test_2019_12_23 {
             }
         }
         return data.toArray(new String[0]);
+    }
+
+    /**
+     * 160. 相交链表
+     * 编写一个程序，找到两个单链表相交的起始节点。
+     *
+     * @param headA 链表A
+     * @param headB 链表B
+     * @return 相交节点
+     */
+    private static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA;
+        ListNode b = headB;
+        while (a != b) {
+            a = a == null ? headB : a.next;
+            b = b == null ? headA : b.next;
+        }
+        return a;
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
     }
 }
