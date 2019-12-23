@@ -74,13 +74,57 @@ public class Test_2019_12_23 {
         return a;
     }
 
-    public static class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
 
         ListNode(int x) {
             val = x;
             next = null;
+        }
+    }
+
+    /**
+     * 108. 将有序数组转换为二叉搜索树
+     * 将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。
+     * 本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。
+     *
+     * @param nums 数组
+     * @return 二叉树
+     */
+    private static TreeNode sortedArrayToBST(int[] nums) {
+        if (nums == null && nums.length == 0) {
+            return null;
+        }
+        return dsf(nums, 0, nums.length - 1);
+    }
+
+    /**
+     * 深度优先算法
+     *
+     * @param nums  数组
+     * @param left  左边界
+     * @param right 右边界
+     * @return 二叉树
+     */
+    private static TreeNode dsf(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        int middle = left + (right - left) / 2;
+        TreeNode treeNode = new TreeNode(nums[middle]);
+        treeNode.left = dsf(nums, left, middle - 1);
+        treeNode.right = dsf(nums, middle + 1, right);
+        return treeNode;
+    }
+
+    private static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
         }
     }
 }
