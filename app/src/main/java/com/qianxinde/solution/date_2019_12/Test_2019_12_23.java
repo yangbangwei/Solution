@@ -23,6 +23,8 @@ public class Test_2019_12_23 {
         listNode2.next = new ListNode(5);
 
         System.out.println(getIntersectionNode(listNode1, listNode2));
+
+        System.out.println(reverseVowels("hello"));
     }
 
     /**
@@ -126,5 +128,46 @@ public class Test_2019_12_23 {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 345. 反转字符串中的元音字母
+     * 编写一个函数，以字符串作为输入，反转该字符串中的元音字母。
+     *
+     * @param s 字符串
+     * @return 反转该字符串
+     */
+    private static String reverseVowels(String s) {
+        char[] charS = s.toCharArray();
+        int i = 0;
+        int j = charS.length - 1;
+        while (i < j) {
+            while (i < j && !isVowels(charS[i])) {
+                i++;
+            }
+            while (i < j && !isVowels(charS[j])) {
+                j--;
+            }
+            char temp = charS[j];
+            charS[j] = charS[i];
+            charS[i] = temp;
+            i++;
+            j--;
+        }
+        return String.valueOf(charS);
+    }
+
+    /**
+     * 判断是否为元音
+     *
+     * @param a 字符串
+     * @return 是否为元音
+     */
+    private static boolean isVowels(char a) {
+        return a == 'a' || a == 'A'
+                || a == 'e' || a == 'E'
+                || a == 'i' || a == 'I'
+                || a == 'o' || a == 'O'
+                || a == 'u' || a == 'U';
     }
 }
