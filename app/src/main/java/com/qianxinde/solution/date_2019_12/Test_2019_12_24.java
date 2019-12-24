@@ -1,5 +1,7 @@
 package com.qianxinde.solution.date_2019_12;
 
+import java.util.HashSet;
+
 /**
  * @author :yangbw
  * @date :2019-12-24
@@ -90,5 +92,31 @@ public class Test_2019_12_24 {
             isReverse = !isReverse;
         }
         return String.valueOf(chars);
+    }
+
+    /**
+     * 349. 两个数组的交集
+     * 给定两个数组，编写一个函数来计算它们的交集。
+     *
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 数组交集
+     */
+    private static int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> hashSet1 = new HashSet<>();
+        for (int i : nums1) {
+            hashSet1.add(i);
+        }
+        HashSet<Integer> hashSet2 = new HashSet<>();
+        for (int i : nums2) {
+            hashSet2.add(i);
+        }
+        hashSet1.retainAll(hashSet2);
+        int[] ans = new int[hashSet1.size()];
+        int i = 0;
+        for (Integer integer : hashSet1) {
+            ans[i++] = integer;
+        }
+        return ans;
     }
 }
