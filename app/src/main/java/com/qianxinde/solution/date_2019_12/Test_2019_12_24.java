@@ -30,6 +30,8 @@ public class Test_2019_12_24 {
 
         System.out.println(Arrays.toString(intersect(new int[]{4, 9, 5},
                 new int[]{9, 4, 9, 8, 4})));
+
+        System.out.println(isPerfectSquare(808201));
     }
 
     private static int max = 1;
@@ -193,5 +195,32 @@ public class Test_2019_12_24 {
             num[i] = data.get(i);
         }
         return num;
+    }
+
+    /**
+     * 367. 有效的完全平方数
+     * 给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。
+     * 说明：不要使用任何内置的库函数，如  sqrt。
+     *
+     * @param num 正整数
+     * @return 是否为完全平方数
+     */
+    private static boolean isPerfectSquare(int num) {
+        if (num == 1) {
+            return true;
+        }
+        long l = 0;
+        long r = num / 2;
+        while (l <= r) {
+            long m = (r - l) / 2 + l;
+            if (m * m == num) {
+                return true;
+            } else if (m * m < num) {
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+        return false;
     }
 }
