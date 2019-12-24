@@ -14,6 +14,8 @@ public class Test_2019_12_24 {
         treeNode.right = new TreeNode(3);
 
         diameterOfBinaryTree(treeNode);
+
+        System.out.println(reverseStr("a", 2));
     }
 
     private static int max = 1;
@@ -58,5 +60,35 @@ public class Test_2019_12_24 {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 541. 反转字符串 II
+     * 给定一个字符串和一个整数 k，你需要对从字符串开头算起的每个 2k 个字符的前k个字符进行反转。
+     * 如果剩余少于 k 个字符，则将剩余的所有全部反转。
+     * 如果有小于 2k 但大于或等于 k 个字符，则反转前 k 个字符，并将剩余的字符保持原样。
+     *
+     * @param s 字符串
+     * @param k k个字符进行反转
+     * @return 反转后的结果
+     */
+    private static String reverseStr(String s, int k) {
+        boolean isReverse = true;
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i += k) {
+            if (isReverse) {
+                int l = i;
+                int r = Math.min(chars.length, i + k) - 1;
+                while (l < r) {
+                    char temp = chars[r];
+                    chars[r] = chars[l];
+                    chars[l] = temp;
+                    l++;
+                    r--;
+                }
+            }
+            isReverse = !isReverse;
+        }
+        return String.valueOf(chars);
     }
 }
