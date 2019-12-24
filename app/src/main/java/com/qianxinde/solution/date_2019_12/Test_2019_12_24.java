@@ -1,6 +1,14 @@
 package com.qianxinde.solution.date_2019_12;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author :yangbw
@@ -8,6 +16,7 @@ import java.util.HashSet;
  */
 public class Test_2019_12_24 {
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static void main(String[] args) {
         TreeNode treeNode = new TreeNode(1);
         treeNode.left = new TreeNode(2);
@@ -18,6 +27,9 @@ public class Test_2019_12_24 {
         diameterOfBinaryTree(treeNode);
 
         System.out.println(reverseStr("a", 2));
+
+        System.out.println(Arrays.toString(intersect(new int[]{4, 9, 5},
+                new int[]{9, 4, 9, 8, 4})));
     }
 
     private static int max = 1;
@@ -118,5 +130,68 @@ public class Test_2019_12_24 {
             ans[i++] = integer;
         }
         return ans;
+    }
+
+    /**
+     * 350. 两个数组的交集 II
+     * 给定两个数组，编写一个函数来计算它们的交集。
+     * 方法1，hashMap
+     *
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 交集
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private static int[] intersect(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> hashMap1 = new HashMap<>();
+        for (int i : nums1) {
+            int count = hashMap1.getOrDefault(i, 0);
+            hashMap1.put(i, ++count);
+        }
+        List<Integer> data = new ArrayList<>();
+        for (int i : nums2) {
+            int count = hashMap1.getOrDefault(i, 0);
+            if (i > 0) {
+                data.add(i);
+                hashMap1.put(i, --count);
+            }
+        }
+        int[] num = new int[data.size()];
+        for (int i = 0; i < data.size(); i++) {
+            num[i] = data.get(i);
+        }
+        return num;
+    }
+
+    /**
+     * 350. 两个数组的交集 II
+     * 给定两个数组，编写一个函数来计算它们的交集。
+     * 方法2，排序，一一对比
+     *
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 交集
+     */
+    private static int[] intersect1(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        List<Integer> data = new ArrayList<>();
+        for (int i = 0, j = 0; i < nums1.length && j < nums2.length; ) {
+            if (nums1[i] < nums2[j]) {
+                i++;
+            } else if (nums1[i] > nums2[j]) {
+                j++;
+            } else {
+                data.add(nums1[i]);
+                i++;
+                j++;
+            }
+
+        }
+        int[] num = new int[data.size()];
+        for (int i = 0; i < data.size(); i++) {
+            num[i] = data.get(i);
+        }
+        return num;
     }
 }
