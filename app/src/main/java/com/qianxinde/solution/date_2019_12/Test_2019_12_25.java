@@ -376,6 +376,23 @@ public class Test_2019_12_25 {
         }
         return ans;
     }
+
+    /**
+     * 1287. 有序数组中出现次数超过25%的元素
+     * 有序数组中出现次数超过25%的元素
+     *
+     * @param arr 数组
+     * @return 对应的值
+     */
+    public int findSpecialInteger(int[] arr) {
+        int temp = arr.length / 4;
+        for (int i = 0; i < arr.length - temp; i++) {
+            if (arr[i] == arr[i + temp]) {
+                return arr[i];
+            }
+        }
+        return 0;
+    }
 }
 
 
