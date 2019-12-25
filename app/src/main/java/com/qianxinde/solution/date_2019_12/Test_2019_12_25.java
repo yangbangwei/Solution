@@ -29,7 +29,7 @@ public class Test_2019_12_25 {
         if (root == null) {
             return false;
         }
-        dsf(root, root.val);
+        dfs(root, root.val);
         return hashSet.contains(sum);
     }
 
@@ -39,16 +39,16 @@ public class Test_2019_12_25 {
      * @param root 二叉树
      * @param num  累加值
      */
-    private static void dsf(TreeNode root, int num) {
+    private static void dfs(TreeNode root, int num) {
         if (root.left == null && root.right == null) {
             hashSet.add(num);
             return;
         }
         if (root.left != null) {
-            dsf(root.left, root.left.val + num);
+            dfs(root.left, root.left.val + num);
         }
         if (root.right != null) {
-            dsf(root.right, root.right.val + num);
+            dfs(root.right, root.right.val + num);
         }
     }
 
@@ -120,4 +120,75 @@ public class Test_2019_12_25 {
             val = x;
         }
     }
+
+    /**
+     * 110. 平衡二叉树
+     * 给定一个二叉树，判断它是否是高度平衡的二叉树。
+     * 本题中，一棵高度平衡二叉树定义为：
+     * 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
+     * 方法1
+     *
+     * @param root 二叉树
+     * @return 是否为平衡二叉树
+     */
+    private static boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        int temp = search(root.left) - search(root.right);
+        if (Math.abs(temp) > 1) {
+            return false;
+        }
+        return isBalanced(root.right) && isBalanced(root.left);
+    }
+
+    /**
+     * 搜索每个二叉树的深度
+     *
+     * @param root 二叉树
+     * @return 深度
+     */
+    private static int search(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.max(search(root.left), search(root.right)) + 1;
+    }
+
+    /**
+     * 110. 平衡二叉树
+     * 给定一个二叉树，判断它是否是高度平衡的二叉树。
+     * 本题中，一棵高度平衡二叉树定义为：
+     * 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
+     * 方法2
+     *
+     * @param root 二叉树
+     * @return 是否为平衡二叉树
+     */
+    private static boolean isBalanced1(TreeNode root) {
+        return foo(root) != -1;
+    }
+
+    /**
+     * 遍历二叉树
+     *
+     * @param treeNode 二叉树
+     * @return 是否超过2
+     */
+    private static int foo(TreeNode treeNode) {
+        if (treeNode == null) {
+            return 0;
+        }
+        int l = foo(treeNode.left);
+        if (l == -1) {
+            return -1;
+        }
+        int r = foo(treeNode.right);
+        if (r == -1) {
+            return -1;
+        }
+        return Math.abs(l - r) < 2 ? Math.max(l, r) + 1 : -1;
+    }
 }
+
+
