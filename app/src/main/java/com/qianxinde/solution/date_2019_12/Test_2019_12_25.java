@@ -325,6 +325,26 @@ public class Test_2019_12_25 {
         return j;
     }
 
+    /**
+     * 1295. 统计位数为偶数的数字
+     *
+     * @param nums 整数数组
+     * @return 位数偶数个数
+     */
+    private static int findNumbers(int[] nums) {
+        int ans = 0;
+        for (int num : nums) {
+            int i = 0;
+            while (num > 0) {
+                num = num / 10;
+                i++;
+            }
+            if (i % 2 == 0) {
+                ans++;
+            }
+        }
+        return ans;
+    }
 }
 
 
