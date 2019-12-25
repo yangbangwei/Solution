@@ -3,6 +3,7 @@ package com.qianxinde.solution.date_2019_12;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @author :yangbw
@@ -12,6 +13,7 @@ public class Test_2019_12_25 {
 
     public static void main(String[] args) {
         System.out.println(buddyStrings("aaaaaaabc", "aaaaaaacb"));
+        System.out.println(backspaceCompare1("ab#c", "ad#c"));
     }
 
     private static HashSet<Integer> hashSet = new HashSet<>();
@@ -230,6 +232,99 @@ public class Test_2019_12_25 {
         }
         return false;
     }
+
+    /**
+     * 844. 比较含退格的字符串
+     * 给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，
+     * 判断二者是否相等，并返回结果。 # 代表退格字符。
+     *
+     * @param S 字符串S
+     * @param T 字符串T
+     * @return 是否相等
+     */
+    private static boolean backspaceCompare(String S, String T) {
+        Stack<Character> stackA = new Stack<>();
+        Stack<Character> stackB = new Stack<>();
+        for (int i = 0; i < S.length(); i++) {
+            char temp = S.charAt(i);
+            if (temp == '#') {
+                if (!stackA.isEmpty()) {
+                    stackA.pop();
+                }
+            } else {
+                stackA.add(temp);
+            }
+        }
+        for (int i = 0; i < T.length(); i++) {
+            char temp = T.charAt(i);
+            if (temp == '#') {
+                if (!stackB.isEmpty()) {
+                    stackB.pop();
+                }
+            } else {
+                stackB.add(temp);
+            }
+        }
+        if (stackA.size() != stackB.size()) {
+            return false;
+        }
+        while (!stackA.isEmpty() && !stackB.isEmpty()) {
+            char a = stackA.pop();
+            char b = stackB.pop();
+            if (a != b) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 844. 比较含退格的字符串
+     * 给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，
+     * 判断二者是否相等，并返回结果。 # 代表退格字符。
+     *
+     * @param S 字符串S
+     * @param T 字符串T
+     * @return 是否相等
+     */
+    private static boolean backspaceCompare1(String S, String T) {
+        char[] charA = S.toCharArray();
+        char[] charB = T.toCharArray();
+        int i1 = cleanStr(charA);
+        int i2 = cleanStr(charB);
+        if (i1 != i2) {
+            return false;
+        }
+        for (int i = 0; i < i1; i++) {
+            if (charA[i] != charB[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 清空对应#数据
+     *
+     * @param chars 数组
+     * @return 返回格式化长度
+     */
+    private static int cleanStr(char[] chars) {
+        int j = 0;
+        for (int i = 0; i < chars.length; i++) {
+            char temp = chars[i];
+            if (temp != '#') {
+                chars[j] = temp;
+                j++;
+            } else {
+                if (j != 0) {
+                    j--;
+                }
+            }
+        }
+        return j;
+    }
+
 }
 
 
