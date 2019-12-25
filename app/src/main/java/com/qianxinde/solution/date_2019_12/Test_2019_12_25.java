@@ -345,6 +345,37 @@ public class Test_2019_12_25 {
         }
         return ans;
     }
+
+    private static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    /**
+     * 1290. 二进制链表转整数
+     *
+     * @param head 链表
+     * @return 整数
+     */
+    private static int getDecimalValue(ListNode head) {
+        int ans = 0;
+        StringBuilder sb = new StringBuilder();
+        while (head != null) {
+            sb.append(head.val);
+            head = head.next;
+        }
+        String temp = sb.reverse().toString();
+        for (int i = 0; i < temp.length(); i++) {
+            if (temp.charAt(i) == '1') {
+                ans += Math.pow(2, i);
+            }
+        }
+        return ans;
+    }
 }
 
 
