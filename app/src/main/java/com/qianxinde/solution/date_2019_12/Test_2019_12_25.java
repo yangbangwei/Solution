@@ -29,7 +29,7 @@ public class Test_2019_12_25 {
         if (root == null) {
             return false;
         }
-        dsp(root, root.val);
+        dsf(root, root.val);
         return hashSet.contains(sum);
     }
 
@@ -39,16 +39,16 @@ public class Test_2019_12_25 {
      * @param root 二叉树
      * @param num  累加值
      */
-    private static void dsp(TreeNode root, int num) {
+    private static void dsf(TreeNode root, int num) {
         if (root.left == null && root.right == null) {
             hashSet.add(num);
             return;
         }
         if (root.left != null) {
-            dsp(root.left, root.left.val + num);
+            dsf(root.left, root.left.val + num);
         }
         if (root.right != null) {
-            dsp(root.right, root.right.val + num);
+            dsf(root.right, root.right.val + num);
         }
     }
 
@@ -72,6 +72,43 @@ public class Test_2019_12_25 {
             return sum == 0;
         }
         return hasPathSum1(root.left, sum) || hasPathSum1(root.right, sum);
+    }
+
+    private static int min = Integer.MAX_VALUE;
+
+    /**
+     * 111. 二叉树的最小深度
+     * 给定一个二叉树，找出其最小深度。
+     * 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+     * 说明: 叶子节点是指没有子节点的节点。
+     *
+     * @param root 二叉树
+     * @return 最小深度
+     */
+    private static int minDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        searchDepth(root, min);
+        return min;
+    }
+
+    /**
+     * 深度优先遍历
+     *
+     * @param root  二叉树
+     * @param depth 当前深度
+     */
+    private static void searchDepth(TreeNode root, int depth) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            min = Math.min(min, depth);
+            return;
+        }
+        searchDepth(root.left, depth + 1);
+        searchDepth(root.right, depth + 1);
     }
 
     private static class TreeNode {
