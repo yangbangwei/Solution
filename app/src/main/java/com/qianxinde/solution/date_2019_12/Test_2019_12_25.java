@@ -1,6 +1,8 @@
 package com.qianxinde.solution.date_2019_12;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author :yangbw
@@ -9,7 +11,7 @@ import java.util.HashSet;
 public class Test_2019_12_25 {
 
     public static void main(String[] args) {
-
+        System.out.println(buddyStrings("aaaaaaabc", "aaaaaaacb"));
     }
 
     private static HashSet<Integer> hashSet = new HashSet<>();
@@ -188,6 +190,45 @@ public class Test_2019_12_25 {
             return -1;
         }
         return Math.abs(l - r) < 2 ? Math.max(l, r) + 1 : -1;
+    }
+
+    /**
+     * 859. 亲密字符串
+     * 给定两个由小写字母构成的字符串 A 和 B ，只要我们可以通过交换 A 中的两个字母得到
+     * 与 B 相等的结果，就返回 true ；否则返回 false 。
+     *
+     * @param A 字符串A
+     * @param B 字符串B
+     * @return 返回交换后是否相同
+     */
+    private static boolean buddyStrings(String A, String B) {
+        if (A.length() != B.length()) {
+            return false;
+        }
+        char[] wordsA = A.toCharArray();
+        char[] wordsB = B.toCharArray();
+        List<Integer> data = new ArrayList<>();
+        for (int i = 0; i < wordsA.length; i++) {
+            if (wordsA[i] != wordsB[i]) {
+                data.add(i);
+            }
+        }
+        if (data.size() == 2) {
+            char temp = wordsA[data.get(0)];
+            wordsA[data.get(0)] = wordsA[data.get(1)];
+            wordsA[data.get(1)] = temp;
+            return String.valueOf(wordsA).equals(String.valueOf(wordsB));
+        } else if (data.size() == 0) {
+            char[] count = new char[26];
+            for (char c : wordsA) {
+                count[c - 'a']++;
+                if (count[c - 'a'] > 1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
     }
 }
 
