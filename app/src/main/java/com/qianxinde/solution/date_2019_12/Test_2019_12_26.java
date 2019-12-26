@@ -56,6 +56,48 @@ public class Test_2019_12_26 {
         }
         return ans;
     }
+
+    /**
+     * 1275. 找出井字棋的获胜者
+     * A 和 B 在一个 3 x 3 的网格上玩井字棋。
+     *
+     * @param moves 玩家移动步数
+     * @return 结果
+     */
+    private static String tictactoe(int[][] moves) {
+        char[][] ch = new char[3][3];
+        for (int i = 0; i < moves.length; i++) {
+            if (i % 2 == 0) {
+                ch[moves[i][0]][moves[i][1]] = 'X';
+                if (ch[0][0] == 'X' && ch[1][1] == 'X' && ch[2][2] == 'X' ||
+                        ch[2][0] == 'X' && ch[1][1] == 'X' && ch[0][2] == 'X' ||
+                        ch[0][0] == 'X' && ch[1][0] == 'X' && ch[2][0] == 'X' ||
+                        ch[0][1] == 'X' && ch[1][1] == 'X' && ch[2][1] == 'X' ||
+                        ch[0][2] == 'X' && ch[1][2] == 'X' && ch[2][2] == 'X' ||
+                        ch[0][0] == 'X' && ch[0][1] == 'X' && ch[0][2] == 'X' ||
+                        ch[1][0] == 'X' && ch[1][1] == 'X' && ch[1][2] == 'X' ||
+                        ch[2][0] == 'X' && ch[2][1] == 'X' && ch[2][2] == 'X') {
+                    return "A";
+                }
+            } else {
+                ch[moves[i][0]][moves[i][1]] = 'O';
+                if (ch[0][0] == 'O' && ch[1][1] == 'O' && ch[2][2] == 'O' ||
+                        ch[2][0] == 'O' && ch[1][1] == 'O' && ch[0][2] == 'O' ||
+                        ch[0][0] == 'O' && ch[1][0] == 'O' && ch[2][0] == 'O' ||
+                        ch[0][1] == 'O' && ch[1][1] == 'O' && ch[2][1] == 'O' ||
+                        ch[0][2] == 'O' && ch[1][2] == 'O' && ch[2][2] == 'O' ||
+                        ch[0][0] == 'O' && ch[0][1] == 'O' && ch[0][2] == 'O' ||
+                        ch[1][0] == 'O' && ch[1][1] == 'O' && ch[1][2] == 'O' ||
+                        ch[2][0] == 'O' && ch[2][1] == 'O' && ch[2][2] == 'O') {
+                    return "B";
+                }
+            }
+        }
+        if (moves.length == 9) {
+            return "Draw";
+        }
+        return "Pending";
+    }
 }
 
 
