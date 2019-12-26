@@ -7,7 +7,7 @@ package com.qianxinde.solution.date_2019_12;
 public class Test_2019_12_26 {
 
     public static void main(String[] args) {
-
+        System.out.println(dayOfYear("2016-02-29"));
     }
 
     /**
@@ -97,6 +97,32 @@ public class Test_2019_12_26 {
             return "Draw";
         }
         return "Pending";
+    }
+
+    /**
+     * 1154. 一年中的第几天
+     * 给你一个按 YYYY-MM-DD 格式表示日期的字符串 date，请你计算并返回该日期是当年的第几天。
+     * 通常情况下，我们认为 1 月 1 日是每年的第 1 天，1 月 2 日是每年的第 2 天，依此类推。每个月的天数与现行公元纪年法（格里高利历）一致。
+     *
+     * @param date 日期
+     * @return 天数
+     */
+    private static int dayOfYear(String date) {
+        String[] data = date.split("-");
+        int[] monday = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
+
+        int year = Integer.valueOf(data[0]);
+        int month = Integer.valueOf(data[1]) - 1;
+        int day = Integer.valueOf(data[2]);
+
+        if (month < 2) {
+            return monday[month - 1] + day;
+        } else {
+            if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+                return monday[month - 1] + day + 1;
+            }
+        }
+        return monday[month - 1] + day;
     }
 }
 
