@@ -8,6 +8,8 @@ public class Test_2019_12_27 {
 
     public static void main(String[] args) {
         System.out.println(isLongPressedName("saeed", "ssaaeedde"));
+
+        System.out.println(removeOuterParentheses("(()())(())"));
     }
 
     /**
@@ -37,6 +39,32 @@ public class Test_2019_12_27 {
             }
         }
         return i == names.length;
+    }
+
+    /**
+     * 1021. 删除最外层的括号
+     * 对 S 进行原语化分解，删除分解中每个原语字符串的最外层括号，返回 S 。
+     *
+     * @param S 字符串
+     * @return 化解后的结果
+     */
+    private static String removeOuterParentheses(String S) {
+        int stack = 0;
+        StringBuilder sb = new StringBuilder();
+        for (char c : S.toCharArray()) {
+            if (c == '(') {
+                stack++;
+                if (stack > 1) {
+                    sb.append(c);
+                }
+            } else {
+                stack--;
+                if (stack > 0) {
+                    sb.append(c);
+                }
+            }
+        }
+        return sb.toString();
     }
 }
 
