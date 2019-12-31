@@ -47,7 +47,24 @@ public class Test_2019_12_31 {
         return (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
     }
 
-
+    /**
+     * 1304. 和为零的N个唯一整数
+     * 给你一个整数 n，请你返回 任意 一个由 n 个 各不相同 的整数组成的数组，并且这 n 个数相加和为 0 。
+     *
+     * @param n 整数
+     * @return 整数数组
+     */
+    private static int[] sumZero(int n) {
+        int[] ans = new int[n];
+        if (n % 2 != 0) {
+            ans[n / 2] = 0;
+        }
+        for (int i = 0; i < n / 2; i++) {
+            ans[i] = i + 1;
+            ans[n - i - 1] = -(i + 1);
+        }
+        return ans;
+    }
 }
 
 
