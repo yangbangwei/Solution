@@ -92,4 +92,31 @@ public class Test_2020_01_02 {
         }
         return left < right ? left : right;
     }
+
+    /**
+     * 1232. 缀点成线
+     * 在一个 XY 坐标系中有一些点，我们用数组 coordinates 来分别记录它们的坐标，
+     * 其中 coordinates[i] = [x, y] 表示横坐标为 x、纵坐标为 y 的点。
+     * 请你来判断，这些点是否在该坐标系中属于同一条直线上，是则返回 true，否则请返回 false。
+     *
+     * @param coordinates 坐标点
+     * @return 是否在一条直线上
+     */
+    private boolean checkStraightLine(int[][] coordinates) {
+        if (coordinates.length == 2) {
+            return true;
+        }
+        int x1 = coordinates[0][0], y1 = coordinates[0][1];
+        int x2 = coordinates[1][0], y2 = coordinates[1][1];
+        double k = (double) (x2 - x1) / (y2 - y1);
+        for (int i = 2; i < coordinates.length; i++) {
+            int x3 = coordinates[i][0];
+            int y3 = coordinates[i][1];
+            double temp = (double) (x3 - x1) / (y3 - y1);
+            if (temp != k) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
