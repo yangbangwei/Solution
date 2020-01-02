@@ -16,6 +16,8 @@ public class Test_2020_01_02 {
 
         int[][] indices = {{0, 1}, {1, 1}};
         System.out.println(oddCells(2, 3, indices));
+
+        System.out.println(Arrays.toString(distributeCandies(7, 4)));
     }
 
     /**
@@ -175,22 +177,57 @@ public class Test_2020_01_02 {
      */
     private List<List<Integer>> findSolution(CustomFunction customfunction, int z) {
         List<List<Integer>> res = new ArrayList<>();
-        int left = 1;
-        int right = 1000;
-        while (left <= 1000 && right >= 1) {
-            int temp = customfunction.f(left, right);
+        int x = 1;
+        int y = 1000;
+        while (x <= 1000 && y >= 1) {
+            int temp = customfunction.f(x, y);
             if (temp == z) {
                 List<Integer> list = new ArrayList<>();
-                list.add(left);
-                list.add(right);
+                list.add(x);
+                list.add(y);
                 res.add(list);
-                left++;
+                x++;
             } else if (temp > z) {
-                right--;
+                y--;
             } else {
-                left++;
+                x++;
             }
         }
         return res;
+    }
+
+    /**
+     * 1103. 分糖果 II
+     * 排坐，分糖果。
+     * 我们买了一些糖果 candies，打算把它们分给排好队的 n = num_people 个小朋友。
+     * 给第一个小朋友 1 颗糖果，第二个小朋友 2 颗，依此类推，直到给最后一个小朋友 n 颗糖果。
+     * 然后，我们再回到队伍的起点，给第一个小朋友 n + 1 颗糖果，第二个小朋友 n + 2 颗，依此类推，
+     * 直到给最后一个小朋友 2 * n 颗糖果。
+     * 重复上述过程（每次都比上一次多给出一颗糖果，当到达队伍终点后再次从队伍起点开始），
+     * 直到我们分完所有的糖果。注意，就算我们手中的剩下糖果数不够（不比前一次发出的糖果多），
+     * 这些糖果也会全部发给当前的小朋友。
+     * 返回一个长度为 num_people、元素之和为 candies 的数组，
+     * 以表示糖果的最终分发情况（即 ans[i] 表示第 i 个小朋友分到的糖果数）。
+     *
+     * @param candies    糖果数量
+     * @param num_people 人数
+     * @return 每人分到糖果数量
+     */
+    private static int[] distributeCandies(int candies, int num_people) {
+        int[] ans = new int[num_people];
+        int num = 1;
+        int i = 0;
+        while (candies > 0) {
+            candies = candies - num;
+            if (candies >= 0) {
+                ans[i] += num;
+                i++;
+                i = i % num_people;
+                num++;
+            } else {
+                ans[i] += num + candies;
+            }
+        }
+        return ans;
     }
 }
