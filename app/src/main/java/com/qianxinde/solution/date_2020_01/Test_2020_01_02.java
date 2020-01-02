@@ -1,6 +1,8 @@
 package com.qianxinde.solution.date_2020_01;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author :yangbw
@@ -152,5 +154,43 @@ public class Test_2020_01_02 {
             }
         }
         return ans;
+    }
+
+    private class CustomFunction {
+        // Returns f(x, y) for any given positive integers x and y.
+        // Note that f(x, y) is increasing with respect to both x and y.
+        // i.e. f(x, y) < f(x + 1, y), f(x, y) < f(x, y + 1)
+        private int f(int x, int y) {
+            return 0;
+        }
+    }
+
+    /**
+     * 1237. 找出给定方程的正整数解
+     * 给出一个函数  f(x, y) 和一个目标结果 z，请你计算方程 f(x,y) == z 所有可能的正整数 数对 x 和 y。
+     *
+     * @param customfunction 方程
+     * @param z              目标值
+     * @return 符合条件的x，y数组
+     */
+    private List<List<Integer>> findSolution(CustomFunction customfunction, int z) {
+        List<List<Integer>> res = new ArrayList<>();
+        int left = 1;
+        int right = 1000;
+        while (left <= 1000 && right >= 1) {
+            int temp = customfunction.f(left, right);
+            if (temp == z) {
+                List<Integer> list = new ArrayList<>();
+                list.add(left);
+                list.add(right);
+                res.add(list);
+                left++;
+            } else if (temp > z) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+        return res;
     }
 }
