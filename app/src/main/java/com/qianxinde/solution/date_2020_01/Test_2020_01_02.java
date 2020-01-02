@@ -23,6 +23,8 @@ public class Test_2020_01_02 {
                 , 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1}));
 
         System.out.println(numPairsDivisibleBy60(new int[]{30, 20, 150, 100, 40}));
+
+        System.out.println(Arrays.toString(diStringMatch("IDID")));
     }
 
     /**
@@ -299,5 +301,33 @@ public class Test_2020_01_02 {
             }
         }
         return count;
+    }
+
+    /**
+     * 942. 增减字符串匹配
+     * 给定只含 "I"（增大）或 "D"（减小）的字符串 S ，令 N = S.length。
+     * 返回 [0, 1, ..., N] 的任意排列 A 使得对于所有 i = 0, ..., N-1，都有：
+     * 如果 S[i] == "I"，那么 A[i] < A[i+1]
+     * 如果 S[i] == "D"，那么 A[i] > A[i+1]
+     *
+     * @param S 字符串
+     * @return 对应的A数组
+     */
+    private static int[] diStringMatch(String S) {
+        int max = S.length();
+        int[] A = new int[max + 1];
+        int min = 0;
+        int i = 0;
+        for (; i < S.length(); i++) {
+            if (S.charAt(i) == 'D') {
+                A[i] = max;
+                max--;
+            } else {
+                A[i] = min;
+                min++;
+            }
+        }
+        A[i] = max;
+        return A;
     }
 }
