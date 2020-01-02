@@ -11,6 +11,9 @@ public class Test_2020_01_02 {
     public static void main(String[] args) {
         int[] distance = {7, 10, 1, 12, 11, 14, 5, 0};
         System.out.println(distanceBetweenBusStops(distance, 7, 2));
+
+        int[][] indices = {{0, 1}, {1, 1}};
+        System.out.println(oddCells(2, 3, indices));
     }
 
     /**
@@ -118,5 +121,36 @@ public class Test_2020_01_02 {
             }
         }
         return true;
+    }
+
+    /**
+     * 1252. 奇数值单元格的数目
+     * 给你一个 n 行 m 列的矩阵，最开始的时候，每个单元格中的值都是 0。
+     * 另有一个索引数组 indices，indices[i] = [ri, ci] 中的 ri 和 ci 分别表示指定的行和列（从 0 开始编号）。
+     * 你需要将每对 [ri, ci] 指定的行和列上的所有单元格的值加 1。
+     * 请你在执行完所有 indices 指定的增量操作后，返回矩阵中 「奇数值单元格」 的数目。
+     *
+     * @param n       行
+     * @param m       列
+     * @param indices 索引数组
+     * @return 奇数个数
+     */
+    private static int oddCells(int n, int m, int[][] indices) {
+        int[] row = new int[n];
+        int[] col = new int[m];
+        for (int[] index : indices) {
+            row[index[0]]++;
+            col[index[1]]++;
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int num = row[i] + col[j];
+                if (num % 2 == 1) {
+                    ans++;
+                }
+            }
+        }
+        return ans;
     }
 }
