@@ -330,4 +330,31 @@ public class Test_2020_01_02 {
         A[i] = max;
         return A;
     }
+
+    /**
+     * 977. 有序数组的平方
+     * 给定一个按非递减顺序排序的整数数组 A，返回每个数字的平方组成的新数组，要求也按非递减顺序排序。
+     *
+     * @param A 整数数组
+     * @return 平方后排序数组
+     */
+    private int[] sortedSquares(int[] A) {
+        int left = 0;
+        int right = A.length - 1;
+        int index = right;
+        int[] ans = new int[A.length];
+        while (left <= right) {
+            int a = A[left] * A[left];
+            int b = A[right] * A[right];
+            if (a > b) {
+                ans[index--] = a;
+                left++;
+            } else {
+                ans[index--] = b;
+                right--;
+            }
+        }
+        return ans;
+    }
 }
+
