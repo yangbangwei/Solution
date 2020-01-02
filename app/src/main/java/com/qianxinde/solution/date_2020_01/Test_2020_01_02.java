@@ -21,6 +21,8 @@ public class Test_2020_01_02 {
 
         System.out.println(prefixesDivBy5(new int[]{1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
                 , 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1}));
+
+        System.out.println(numPairsDivisibleBy60(new int[]{30, 20, 150, 100, 40}));
     }
 
     /**
@@ -272,5 +274,30 @@ public class Test_2020_01_02 {
             ans.add(mod % 5 == 0);
         }
         return ans;
+    }
+
+    /**
+     * 1010. 总持续时间可被 60 整除的歌曲
+     * 在歌曲列表中，第 i 首歌曲的持续时间为 time[i] 秒。
+     * 返回其总持续时间（以秒为单位）可被 60 整除的歌曲对的数量。形式上，
+     * 我们希望索引的数字  i < j 且有 (time[i] + time[j]) % 60 == 0。
+     *
+     * @param time 播放时间
+     * @return 被60整除的曲曲
+     */
+    private static int numPairsDivisibleBy60(int[] time) {
+        int[] nums = new int[60];
+        for (int i : time) {
+            nums[i % 60]++;
+        }
+        int count = nums[0] * (nums[0] - 1) / 2 + nums[30] * (nums[30] - 1) / 2;
+        for (int i = 1; i < 30; i++) {
+            int value = nums[i];
+            if (value != 0) {
+                int num = nums[60 - i];
+                count += (num * value);
+            }
+        }
+        return count;
     }
 }
