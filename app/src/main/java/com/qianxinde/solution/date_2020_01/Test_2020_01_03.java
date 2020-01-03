@@ -1,7 +1,9 @@
 package com.qianxinde.solution.date_2020_01;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -200,6 +202,53 @@ public class Test_2020_01_03 {
             sum += nums[i];
         }
         return sum;
+    }
+
+    private class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
+    /**
+     * 257. 二叉树的所有路径
+     * 给定一个二叉树，返回所有从根节点到叶子节点的路径。
+     *
+     * @param root 二叉树
+     * @return 路径
+     */
+    private List<String> binaryTreePaths(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<String> data = new ArrayList<>();
+        dfs(data, "", root);
+        return data;
+    }
+
+    /**
+     * 深度优先
+     *
+     * @param data 保存路径
+     * @param s    目前路径
+     * @param root 树节点
+     */
+    private void dfs(List<String> data, String s, TreeNode root) {
+        if (root.left == null && root.right == null) {
+            String temp = s + "->" + root.val;
+            data.add(temp.substring(2));
+            return;
+        }
+        if (root.left != null) {
+            dfs(data, s + "->" + root.val, root.left);
+        }
+        if (root.right != null) {
+            dfs(data, s + "->" + root.val, root.right);
+        }
     }
 }
 
