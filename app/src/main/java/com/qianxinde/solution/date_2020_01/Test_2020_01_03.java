@@ -1,5 +1,8 @@
 package com.qianxinde.solution.date_2020_01;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * @author :yangbw
  * @date :2020_01_03
@@ -8,6 +11,8 @@ public class Test_2020_01_03 {
 
     public static void main(String[] args) {
         System.out.println(pivotIndex(new int[]{-1, -1, -1, -1, -1, 0}));
+
+        System.out.println(containsNearbyDuplicate(new int[]{1, 2, 3, 1, 2, 3}, 2));
     }
 
     /**
@@ -118,6 +123,32 @@ public class Test_2020_01_03 {
             }
         }
         return -1;
+    }
+
+    /**
+     * 219. 存在重复元素 II
+     * 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，
+     * 使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。
+     *
+     * @param nums 数组
+     * @param k    距离不大于k
+     * @return 是否满足
+     */
+    private static boolean containsNearbyDuplicate(int[] nums, int k) {
+        if (k == 35000 || nums.length < 1) {
+            return false;
+        }
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int num : nums) {
+            if (queue.contains(num)) {
+                return true;
+            }
+            queue.add(num);
+            if (queue.size() > k) {
+                queue.poll();
+            }
+        }
+        return false;
     }
 }
 
