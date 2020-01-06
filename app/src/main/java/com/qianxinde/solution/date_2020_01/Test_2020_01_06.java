@@ -1,5 +1,7 @@
 package com.qianxinde.solution.date_2020_01;
 
+import androidx.annotation.NonNull;
+
 /**
  * @author :yangbw
  * @date :2020_01_03
@@ -190,7 +192,7 @@ public class Test_2020_01_06 {
      * @param n         花朵数
      * @return 是否可行
      */
-    private static boolean canPlaceFlowers(int[] flowerbed, int n) {
+    private static boolean canPlaceFlowers(@NonNull int[] flowerbed, int n) {
         int count = 0;
         for (int i = 0; i < flowerbed.length; i++) {
             if (flowerbed[i] == 0
@@ -201,6 +203,31 @@ public class Test_2020_01_06 {
             }
         }
         return n <= count;
+    }
+
+    /**
+     * 204. 计数质数
+     * 统计所有小于非负整数 n 的质数的数量。
+     *
+     * @param n 整数
+     * @return 质数个数
+     */
+    private int countPrimes(int n) {
+        boolean[] isPrim = new boolean[n];
+        for (int i = 2; i * i < n; i++) {
+            if (!isPrim[i]) {
+                for (int j = i * i; j < n; j += i) {
+                    isPrim[j] = true;
+                }
+            }
+        }
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (!isPrim[i]) {
+                count++;
+            }
+        }
+        return count;
     }
 }
 
