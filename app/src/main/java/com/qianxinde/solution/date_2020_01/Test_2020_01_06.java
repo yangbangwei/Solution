@@ -12,6 +12,8 @@ public class Test_2020_01_06 {
         System.out.println(rob(new int[]{2, 7, 9, 3, 1}));
 
         System.out.println(isSubsequence("abc", "ahbgdc"));
+
+        System.out.println(isHappy(19));
     }
 
     /**
@@ -94,6 +96,7 @@ public class Test_2020_01_06 {
     }
 
     /**
+     * 392. 判断子序列
      * 给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
      * 你可以认为 s 和 t 中仅包含英文小写字母。字符串 t 可能会很长（长度 ~= 500,000），而 s 是个短字符串（长度 <=100）。
      * 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。
@@ -113,5 +116,41 @@ public class Test_2020_01_06 {
         }
         return true;
     }
+
+    /**
+     * 202. 快乐数
+     * 编写一个算法来判断一个数是不是“快乐数”。
+     * 一个“快乐数”定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，
+     * 然后重复这个过程直到这个数变为 1，也可能是无限循环但始终变不到 1。如果可以变为 1，那么这个数就是快乐数。
+     *
+     * @param n 整数
+     * @return 判断是否为快乐数
+     */
+    private static boolean isHappy(int n) {
+        int slow = n, fast = n;
+        do {
+            slow = bitSquareSum(slow);
+            fast = bitSquareSum(fast);
+            fast = bitSquareSum(fast);
+        } while (slow != fast);
+        return slow == 1;
+    }
+
+    /**
+     * 各位平方相加
+     *
+     * @param n 整数
+     * @return 相加结果
+     */
+    private static int bitSquareSum(int n) {
+        int sum = 0;
+        while (n > 0) {
+            int bit = n % 10;
+            sum += bit * bit;
+            n = n / 10;
+        }
+        return sum;
+    }
+
 }
 
