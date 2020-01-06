@@ -49,5 +49,20 @@ public class Test_2020_01_06 {
         }
         return max;
     }
+
+    /**
+     * 190. 颠倒二进制位
+     * 颠倒给定的 32 位无符号整数的二进制位。
+     *
+     * @param n 32位无符号整数
+     * @return 颠倒后的数
+     */
+    private static int reverseBits(int n) {
+        int ans = 0;
+        for (int i = 31; i >= 0; i--) {
+            ans = ans | ((n >> (31 - i) & 1)) << i;
+        }
+        return ans;
+    }
 }
 
