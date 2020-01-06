@@ -25,6 +25,8 @@ public class Test_2020_01_06 {
         System.out.println(canPlaceFlowers(new int[]{0, 0, 1, 0, 0}, 1));
 
         System.out.println(findDisappearedNumbers(new int[]{4, 3, 2, 7, 8, 2, 3, 1}));
+
+        System.out.println(findMaxAverage(new int[]{1, 12, -5, -6, 50, 3}, 4));
     }
 
     /**
@@ -255,6 +257,27 @@ public class Test_2020_01_06 {
             }
         }
         return data;
+    }
+
+    /**
+     * 643. 子数组最大平均数 I
+     * 给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。
+     *
+     * @param nums 数组
+     * @param k    k个
+     * @return 最大平均值
+     */
+    private static double findMaxAverage(int[] nums, int k) {
+        double total = 0;
+        for (int i = 0; i < k; i++) {
+            total += nums[i];
+        }
+        double max = total;
+        for (int i = 1; i < nums.length - k; i++) {
+            total = total - nums[i - 1] + nums[i + k - 1];
+            max = Math.max(total, max);
+        }
+        return max / k;
     }
 }
 
