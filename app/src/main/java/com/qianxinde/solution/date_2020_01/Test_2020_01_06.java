@@ -2,6 +2,9 @@ package com.qianxinde.solution.date_2020_01;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author :yangbw
  * @date :2020_01_03
@@ -20,6 +23,8 @@ public class Test_2020_01_06 {
         System.out.println(toHex(26));
 
         System.out.println(canPlaceFlowers(new int[]{0, 0, 1, 0, 0}, 1));
+
+        System.out.println(findDisappearedNumbers(new int[]{4, 3, 2, 7, 8, 2, 3, 1}));
     }
 
     /**
@@ -228,6 +233,28 @@ public class Test_2020_01_06 {
             }
         }
         return count;
+    }
+
+    /**
+     * 448. 找到所有数组中消失的数字
+     * 给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。
+     * 找到所有在 [1, n] 范围之间没有出现在数组中的数字。
+     *
+     * @param nums 数组
+     * @return 数组中没有出现的数字
+     */
+    private static List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> data = new ArrayList<>();
+        boolean[] target = new boolean[nums.length];
+        for (int num : nums) {
+            target[num - 1] = true;
+        }
+        for (int i = 0; i < target.length; i++) {
+            if (!target[i]) {
+                data.add(i + 1);
+            }
+        }
+        return data;
     }
 }
 
