@@ -56,6 +56,7 @@ public class Test_2020_01_07 {
      * @param list2 数组2
      * @return 相同的相加最小的索引和
      */
+    @SuppressWarnings("ConstantConditions")
     private static String[] findRestaurant(String[] list1, String[] list2) {
         HashMap<String, Integer> hashMap = new HashMap<>();
         for (int i = 0; i < list1.length; i++) {
@@ -77,5 +78,28 @@ public class Test_2020_01_07 {
         }
         return data.toArray(new String[]{});
     }
-}
 
+    /**
+     * 665. 非递减数列
+     * 给定一个长度为 n 的整数数组，你的任务是判断在最多改变 1 个元素的情况下，该数组能否变成一个非递减数列。
+     * 我们是这样定义一个非递减数列的： 对于数组中所有的 i (1 <= i < n)，满足 array[i] <= array[i + 1]。
+     *
+     * @param nums 数组
+     * @return 是否为非递减数列
+     */
+    private boolean checkPossibility(int[] nums) {
+        int num = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] > nums[i + 1]) {
+                num++;
+                if (num > 1) {
+                    return false;
+                }
+                if (i >= 1 && nums[i - 1] > nums[i + 1]) {
+                    nums[i + 1] = nums[i];
+                }
+            }
+        }
+        return true;
+    }
+}
