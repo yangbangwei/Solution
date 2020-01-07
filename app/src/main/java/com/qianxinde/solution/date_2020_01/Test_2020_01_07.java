@@ -18,6 +18,8 @@ public class Test_2020_01_07 {
 
         System.out.println(Arrays.toString(findRestaurant(new String[]{"Shogun", "Tapioca Express",
                 "Burger King", "KFC"}, new String[]{"KFC", "Shogun", "Burger King"})));
+
+        System.out.println(dominantIndex(new int[]{0, 0, 0, 1}));
     }
 
     /**
@@ -101,5 +103,29 @@ public class Test_2020_01_07 {
             }
         }
         return true;
+    }
+
+    /**
+     * 747. 至少是其他数字两倍的最大数
+     * 在一个给定的数组nums中，总是存在一个最大元素 。
+     * 查找数组中的最大元素是否至少是数组中每个其他数字的两倍。
+     * 如果是，则返回最大元素的索引，否则返回-1。
+     *
+     * @param nums 数组
+     * @return 最大元素索引
+     */
+    private static int dominantIndex(int[] nums) {
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > nums[max]) {
+                max = i;
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (i != max && nums[i] * 2 > nums[max]) {
+                return -1;
+            }
+        }
+        return max;
     }
 }
