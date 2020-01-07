@@ -2,11 +2,13 @@ package com.qianxinde.solution.date_2020_01;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * @author :yangbw
@@ -159,5 +161,30 @@ public class Test_2020_01_07 {
             hashSet.add(s.concat("@").concat(words[1]));
         }
         return hashSet.size();
+    }
+
+    /**
+     * 933. 最近的请求次数
+     * 写一个 RecentCounter 类来计算最近的请求。
+     * 它只有一个方法：ping(int t)，其中 t 代表以毫秒为单位的某个时间。
+     * 返回从 3000 毫秒前到现在的 ping 数。
+     * 任何处于 [t - 3000, t] 时间范围之内的 ping 都将会被计算在内，包括当前（指 t 时刻）的 ping。
+     * 保证每次对 ping 的调用都使用比之前更大的 t 值。
+     */
+    class RecentCounter {
+
+        private Queue<Integer> mQueue;
+
+        public RecentCounter() {
+            mQueue = new ArrayDeque<>();
+        }
+
+        public int ping(int t) {
+            mQueue.offer(t);
+            while (!mQueue.isEmpty() && t - mQueue.peek() > 3000) {
+                mQueue.poll();
+            }
+            return mQueue.size();
+        }
     }
 }
