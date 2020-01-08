@@ -3,8 +3,10 @@ package com.qianxinde.solution.date_2020_01;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author :yangbw
@@ -19,6 +21,8 @@ public class Test_2020_01_08 {
 
         System.out.println(subdomainVisits(new String[]{"900 google.mail.com", "50 yahoo.com",
                 "1 intel.mail.com", "5 wiki.org"}));
+
+        System.out.println(longestWord(new String[]{"yo", "ew", "fc", "zrc", "yodn", "fcm", "qm", "qmo", "fcmz", "z", "ewq", "yod", "ewqz", "y"}));
     }
 
     /**
@@ -97,6 +101,7 @@ public class Test_2020_01_08 {
             for (int i = address.length - 1; i >= 0; i--) {
                 sb.insert(0, ".").insert(1, address[i]);
                 String key = sb.toString().substring(1);
+                @SuppressWarnings("ConstantConditions")
                 int value = hashMap.getOrDefault(key, 0) + num;
                 hashMap.put(key, value);
             }
@@ -105,5 +110,27 @@ public class Test_2020_01_08 {
             data.add(entry.getValue() + " " + entry.getKey());
         }
         return data;
+    }
+
+    /**
+     * 720. 词典中最长的单词
+     * 给出一个字符串数组words组成的一本英语词典。从中找出最长的一个单词，
+     * 该单词是由words词典中其他单词逐步添加一个字母组成。若其中有多个可行的答案，则返回答案中字典序最小的单词。
+     * 若无答案，则返回空字符串。
+     *
+     * @param words 字符串数组
+     * @return 返回最小单词
+     */
+    private static String longestWord(String[] words) {
+        Arrays.sort(words);
+        Set<String> set = new HashSet<>();
+        String res = "";
+        for (String s : words) {
+            if (s.length() == 1 || set.contains(s.substring(0, s.length() - 1))) {
+                res = s.length() > res.length() ? s : res;
+                set.add(s);
+            }
+        }
+        return res;
     }
 }
