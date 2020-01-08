@@ -133,4 +133,38 @@ public class Test_2020_01_08 {
         }
         return res;
     }
+
+    /**
+     * 812. 最大三角形面积
+     * 给定包含多个点的集合，从其中取三个点组成三角形，返回能组成的最大三角形的面积。
+     *
+     * @param points 坐标点
+     * @return 最大面积
+     */
+    private double largestTriangleArea(int[][] points) {
+        int length = points.length;
+        double max = 0.0;
+        for (int i = 0; i < points.length; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+                for (int k = j + 1; k < points.length; k++) {
+                    max = Math.max(max, area(points[i], points[j], points[k]));
+                }
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 鞋带公式
+     *
+     * @param p 坐标1
+     * @param q 坐标2
+     * @param r 坐标3
+     * @return 面积
+     */
+    private double area(int[] p, int[] q, int[] r) {
+        return 0.5 * Math.abs(p[0] * q[1] + q[0] * r[1] + r[0] * p[1] - p[1] * q[0] - q[1] * r[0] - r[1] * p[0]);
+
+    }
+
 }
