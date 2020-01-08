@@ -22,7 +22,10 @@ public class Test_2020_01_08 {
         System.out.println(subdomainVisits(new String[]{"900 google.mail.com", "50 yahoo.com",
                 "1 intel.mail.com", "5 wiki.org"}));
 
-        System.out.println(longestWord(new String[]{"yo", "ew", "fc", "zrc", "yodn", "fcm", "qm", "qmo", "fcmz", "z", "ewq", "yod", "ewqz", "y"}));
+        System.out.println(longestWord(new String[]{"yo", "ew", "fc", "zrc", "yodn", "fcm",
+                "qm", "qmo", "fcmz", "z", "ewq", "yod", "ewqz", "y"}));
+
+        System.out.println(largestPerimeter(new int[]{2, 1, 2}));
     }
 
     /**
@@ -163,8 +166,27 @@ public class Test_2020_01_08 {
      * @return 面积
      */
     private double area(int[] p, int[] q, int[] r) {
-        return 0.5 * Math.abs(p[0] * q[1] + q[0] * r[1] + r[0] * p[1] - p[1] * q[0] - q[1] * r[0] - r[1] * p[0]);
-
+        return 0.5 * Math.abs(p[0] * q[1] + q[0] * r[1] + r[0] * p[1]
+                - p[1] * q[0] - q[1] * r[0] - r[1] * p[0]);
     }
+
+    /**
+     * 976. 三角形的最大周长
+     * 给定由一些正数（代表长度）组成的数组 A，返回由其中三个长度组成的、面积不为零的三角形的最大周长。
+     * 如果不能形成任何面积不为零的三角形，返回 0。
+     *
+     * @param A 正数数组
+     * @return 最大边长
+     */
+    private static int largestPerimeter(int[] A) {
+        Arrays.sort(A);
+        for (int i = A.length - 3; i >= 0; --i) {
+            if (A[i] + A[i + 1] > A[i + 2]) {
+                return A[i] + A[i + 1] + A[i + 2];
+            }
+        }
+        return 0;
+    }
+
 
 }
