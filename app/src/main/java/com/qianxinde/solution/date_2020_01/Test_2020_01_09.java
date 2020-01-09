@@ -14,6 +14,8 @@ public class Test_2020_01_09 {
         System.out.println(countPrimeSetBits(10, 15));
 
         System.out.println(bitwiseComplement(7));
+
+        System.out.println(largestTimeFromDigits(new int[]{1, 2, 3, 4}));
     }
 
     /**
@@ -116,5 +118,35 @@ public class Test_2020_01_09 {
             N /= 2;
         }
         return ans;
+    }
+
+    /**
+     * 949. 给定数字能组成的最大时间
+     * 给定一个由 4 位数字组成的数组，返回可以设置的符合 24 小时制的最大时间。
+     * 最小的 24 小时制时间是 00:00，而最大的是 23:59。从 00:00 （午夜）开始算起，过得越久，时间越大。
+     * 以长度为 5 的字符串返回答案。如果不能确定有效时间，则返回空字符串。
+     *
+     * @param A 数组
+     * @return 最大有效时间
+     */
+    private static String largestTimeFromDigits(int[] A) {
+        int ans = -1;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (j != i) {
+                    for (int k = 0; k < 4; k++) {
+                        if (j != k && k != i) {
+                            int l = 6 - i - j - k;
+                            int min = 10 * A[i] + A[j];
+                            int hour = 10 * A[k] + A[l];
+                            if (hour < 24 && min < 60) {
+                                ans = Math.max(ans, hour * 60 + min);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ans != -1 ? (ans / 60) + ":" + (ans % 60) : "";
     }
 }
