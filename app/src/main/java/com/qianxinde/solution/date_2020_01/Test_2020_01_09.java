@@ -16,6 +16,8 @@ public class Test_2020_01_09 {
         System.out.println(bitwiseComplement(7));
 
         System.out.println(largestTimeFromDigits(new int[]{1, 2, 3, 4}));
+
+        System.out.println(binaryGap(5));
     }
 
     /**
@@ -148,5 +150,32 @@ public class Test_2020_01_09 {
             }
         }
         return ans != -1 ? (ans / 60) + ":" + (ans % 60) : "";
+    }
+
+    /**
+     * 868. 二进制间距
+     * 给定一个正整数 N，找到并返回 N 的二进制表示中两个连续的 1 之间的最长距离。
+     * 如果没有两个连续的 1，返回 0 。
+     *
+     * @param N 正整数
+     * @return 1之间的最长距离
+     */
+    private static int binaryGap(int N) {
+        int ans = 0;
+        int length = 0;
+        boolean isBegin = false;
+        while (N > 0) {
+            int temp = N % 2;
+            if (isBegin) {
+                length++;
+            }
+            if (temp == 1) {
+                isBegin = true;
+                ans = Math.max(ans, length);
+                length = 0;
+            }
+            N /= 2;
+        }
+        return ans;
     }
 }
