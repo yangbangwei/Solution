@@ -3,6 +3,7 @@ package com.qianxinde.solution.date_2020_01;
 import android.annotation.SuppressLint;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -290,5 +291,21 @@ public class Test_2020_01_09 {
             i += bits[i] + 1;
         }
         return i == bits.length - 1;
+    }
+
+    /**
+     * 453. 最小移动次数使数组元素相等
+     * 给定一个长度为 n 的非空整数数组，找到让数组所有元素相等的最小移动次数。每次移动可以使 n - 1 个元素增加 1。
+     *
+     * @param nums 整数数组
+     * @return 最小移动步数
+     */
+    public int minMoves(int[] nums) {
+        Arrays.sort(nums);
+        int ans = 0;
+        for (int i = nums.length - 1; i > 0; i--) {
+            ans += nums[i] - nums[0];
+        }
+        return ans;
     }
 }
