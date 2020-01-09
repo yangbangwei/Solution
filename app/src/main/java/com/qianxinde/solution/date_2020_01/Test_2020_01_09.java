@@ -69,4 +69,23 @@ public class Test_2020_01_09 {
         }
         return ans;
     }
+
+    /**
+     * 766. 托普利茨矩阵
+     * 如果一个矩阵的每一方向由左上到右下的对角线上具有相同元素，那么这个矩阵是托普利茨矩阵。
+     * 给定一个 M x N 的矩阵，当且仅当它是托普利茨矩阵时返回 True。
+     *
+     * @param matrix 矩阵
+     * @return 是否为托普利茨矩阵
+     */
+    private boolean isToeplitzMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i > 0 && j > 0 && matrix[i - 1][j - 1] != matrix[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
