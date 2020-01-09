@@ -18,6 +18,8 @@ public class Test_2020_01_09 {
         System.out.println(largestTimeFromDigits(new int[]{1, 2, 3, 4}));
 
         System.out.println(binaryGap(5));
+
+        System.out.println(maxDistToClosest(new int[]{0, 1}));
     }
 
     /**
@@ -175,6 +177,35 @@ public class Test_2020_01_09 {
                 length = 0;
             }
             N /= 2;
+        }
+        return ans;
+    }
+
+    /**
+     * 849. 到最近的人的最大距离
+     * 在一排座位（ seats）中，1 代表有人坐在座位上，0 代表座位上是空的。
+     * 至少有一个空座位，且至少有一人坐在座位上。
+     * 亚历克斯希望坐在一个能够使他与离他最近的人之间的距离达到最大化的座位上。
+     * 返回他到离他最近的人的最大距离。
+     *
+     * @param seats 座位
+     * @return 最大距离
+     */
+    private static int maxDistToClosest(int[] seats) {
+        int start = 0;
+        int end = 0;
+        int ans = 0;
+        for (int i = 0; i < seats.length; i++) {
+            if (seats[i] == 1 || i == seats.length - 1) {
+                if (seats[start] == seats[end]) {
+                    ans = Math.max(ans, (end - start) / 2);
+                } else {
+                    ans = Math.max(ans, end - start);
+                }
+                start = i;
+                end = start;
+            }
+            end++;
         }
         return ans;
     }
