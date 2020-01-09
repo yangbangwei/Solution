@@ -1,6 +1,9 @@
 package com.qianxinde.solution.date_2020_01;
 
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -241,5 +244,33 @@ public class Test_2020_01_09 {
             }
         }
         return data;
+    }
+
+    /**
+     * 447. 回旋镖的数量
+     * 给定平面上 n 对不同的点，“回旋镖” 是由点表示的元组 (i, j, k) ，
+     * 其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）。
+     * 找到所有回旋镖的数量。你可以假设 n 最大为 500，所有点的坐标在闭区间 [-10000, 10000] 中。
+     *
+     * @param points 坐标点
+     * @return 回旋镖数
+     */
+    private int numberOfBoomerangs(int[][] points) {
+        @SuppressLint("UseSparseArrays")
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        int ans = 0;
+        for (int[] i : points) {
+            hashMap.clear();
+            for (int[] j : points) {
+                if (i == j) {
+                    continue;
+                }
+                int distance = (i[0] - j[0]) * (i[0] - j[0]) + (i[1] - j[1]) * (i[1] - j[1]);
+                int num = hashMap.getOrDefault(distance, 0);
+                ans += num * 2;
+                hashMap.put(distance, num + 1);
+            }
+        }
+        return ans;
     }
 }
