@@ -1,6 +1,8 @@
 package com.qianxinde.solution.date_2020_01;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author :yangbw
@@ -20,6 +22,8 @@ public class Test_2020_01_09 {
         System.out.println(binaryGap(5));
 
         System.out.println(maxDistToClosest(new int[]{0, 1}));
+
+        System.out.println(largeGroupPositions("abcdddeeeeaabbbcd"));
     }
 
     /**
@@ -208,5 +212,34 @@ public class Test_2020_01_09 {
             end++;
         }
         return ans;
+    }
+
+    /**
+     * 830. 较大分组的位置
+     * 在一个由小写字母构成的字符串 S 中，包含由一些连续的相同字符所构成的分组。
+     * 例如，在字符串 S = "abbxxxxzyy" 中，就含有 "a", "bb", "xxxx", "z" 和 "yy" 这样的一些分组。
+     * 我们称所有包含大于或等于三个连续字符的分组为较大分组。找到每一个较大分组的起始和终止位置。
+     * 最终结果按照字典顺序输出。
+     *
+     * @param S 字符串
+     * @return 返回较大分组
+     */
+    private static List<List<Integer>> largeGroupPositions(String S) {
+        char[] sChar = S.toCharArray();
+        List<List<Integer>> data = new ArrayList<>();
+        int num = 0;
+        for (int i = 0; i < sChar.length; i++) {
+            num++;
+            if (i == sChar.length - 1 || sChar[i] != sChar[i + 1]) {
+                if (num >= 3) {
+                    List<Integer> integers = new ArrayList<>();
+                    integers.add(i - num + 1);
+                    integers.add(i);
+                    data.add(integers);
+                }
+                num = 0;
+            }
+        }
+        return data;
     }
 }
