@@ -76,4 +76,45 @@ public class Test_2020_01_10 {
         }
         return Math.min(cnt1, cnt2);
     }
+
+    /**
+     * 1175. 质数排列
+     * 请你帮忙给从 1 到 n 的数设计排列方案，使得所有的「质数」都应该被放在「质数索引」
+     * （索引从 1 开始）上；你需要返回可能的方案总数。
+     * 让我们一起来回顾一下「质数」：质数一定是大于 1 的，并且不能用两个小于它的正整数的乘积来表示。
+     * 由于答案可能会很大，所以请你返回答案 模 mod 10^9 + 7 之后的结果即可。
+     *
+     * @param n 整数
+     * @return 排序结果
+     */
+    private int numPrimeArrangements(int n) {
+        if (n < 3) {
+            return 1;
+        }
+        boolean[] nums = new boolean[n + 1];
+        int count = 0;
+        for (int i = 2; i * i < nums.length; i++) {
+            if (!nums[i]) {
+                for (int j = i * i; j < nums.length; j += i) {
+                    if (nums[i]) {
+                        continue;
+                    }
+                    nums[i] = true;
+                    count++;
+                }
+            }
+        }
+        count++;
+        if (n < 8) {
+            count = n - count;
+        }
+        long res = 1;
+        for (int i = 0; i <= count; i++) {
+            res = res * i % 1000000007;
+            if (i == n - count) {
+                res = (res * res) % 1000000007;
+            }
+        }
+        return (int) res;
+    }
 }
