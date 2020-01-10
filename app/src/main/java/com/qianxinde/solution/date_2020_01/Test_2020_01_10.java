@@ -17,6 +17,9 @@ public class Test_2020_01_10 {
         System.out.println(addToArrayForm(new int[]{1, 2, 0, 0}, 34));
 
         System.out.println(minCostClimbingStairs(new int[]{1, 100, 1, 1, 1, 100, 1, 1, 100, 1}));
+
+        System.out.println(shortestCompletingWord("1s3 pst",
+                new String[]{"step", "steps", "stripe", "stepple"}));
     }
 
     /**
@@ -185,5 +188,48 @@ public class Test_2020_01_10 {
             pre = temp;
         }
         return Math.min(cur, pre);
+    }
+
+    /**
+     * 748. 最短完整词
+     * 如果单词列表（words）中的一个单词包含牌照（licensePlate）中所有的字母，那么我们称之为完整词。
+     * 在所有完整词中，最短的单词我们称之为最短完整词。
+     * 单词在匹配牌照中的字母时不区分大小写，比如牌照中的 "P" 依然可以匹配单词中的 "p" 字母。
+     * 我们保证一定存在一个最短完整词。当有多个单词都符合最短完整词的匹配条件时取单词列表中最靠前的一个。
+     * 牌照中可能包含多个相同的字符，比如说：对于牌照 "PP"，单词 "pair" 无法匹配，但是 "supper" 可以匹配。
+     *
+     * @param licensePlate 牌照表
+     * @param words        单词列表
+     * @return 最短的包含牌照表的词
+     */
+    private static String shortestCompletingWord(String licensePlate, String[] words) {
+        int[] nums = new int[26];
+        for (char c : licensePlate.toLowerCase().toCharArray()) {
+            if (Character.isLetter(c)) {
+                nums[c - 'a']++;
+            }
+        }
+        Arrays.sort(words, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length() - o2.length();
+            }
+        });
+        for (String word : words) {
+            int[] temp = new int[26];
+            boolean isSuc = true;
+            for (char c : word.toCharArray()) {
+                temp[c - 'a']++;
+            }
+            for (int j = 0; j < 26; j++) {
+                if (temp[j] < nums[j]) {
+                    isSuc = false;
+                }
+            }
+            if (isSuc) {
+                return word;
+            }
+        }
+        return "";
     }
 }
