@@ -144,4 +144,24 @@ public class Test_2020_01_10 {
         }
         return data;
     }
+
+    /**
+     * 674. 最长连续递增序列
+     * 给定一个未经排序的整数数组，找到最长且连续的的递增序列。
+     *
+     * @param nums 数组
+     * @return 连续递增的长度
+     */
+    private int findLengthOfLCIS(int[] nums) {
+        int max = 0;
+        int temp = 0;
+        for (int i = 0; i < nums.length; i++) {
+            temp++;
+            if (i == nums.length - 1 || nums[i] > nums[i + 1]) {
+                max = Math.max(max, temp);
+                temp = 0;
+            }
+        }
+        return max;
+    }
 }
