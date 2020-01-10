@@ -20,6 +20,8 @@ public class Test_2020_01_10 {
 
         System.out.println(shortestCompletingWord("1s3 pst",
                 new String[]{"step", "steps", "stripe", "stepple"}));
+
+        System.out.println(numMagicSquaresInside(new int[][]{{1, 1, 1}, {4, 5, 6}, {9, 9, 9}}));
     }
 
     /**
@@ -248,5 +250,42 @@ public class Test_2020_01_10 {
                 rec1[3] <= rec2[1] ||
                 rec1[0] >= rec2[2] ||
                 rec1[1] >= rec2[3]);
+    }
+
+    /**
+     * 840. 矩阵中的幻方
+     * 3 x 3 的幻方是一个填充有从 1 到 9 的不同数字的 3 x 3 矩阵，其中每行，每列以及两条对角线上的各数之和都相等。
+     * 给定一个由整数组成的 grid，其中有多少个 3 × 3 的 “幻方” 子矩阵？（每个子矩阵都是连续的）。
+     *
+     * @param grid 矩阵
+     * @return 多少个幻方
+     */
+    private static int numMagicSquaresInside(int[][] grid) {
+        if (grid.length <= 2 || grid[0].length <= 2) {
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i <= grid.length - 3; i++) {
+            for (int j = 0; j <= grid[0].length - 3; j++) {
+                if (grid[i + 1][j + 1] == 5) {
+                    if (grid[i][j] != 5) {
+                        int sum1 = grid[i][j] % 10 + grid[i + 2][j + 2] % 10 + 5;
+                        int sum2 = grid[i][j + 1] % 10 + grid[i + 2][j + 1] % 10 + 5;
+                        int sum3 = grid[i][j + 2] % 10 + grid[i + 2][j] % 10 + 5;
+                        int sum4 = grid[i + 1][j] % 10 + grid[i + 1][j + 2] % 10 + 5;
+                        int sum5 = grid[i][j] % 10 + grid[i][j + 1] % 10 + grid[i][j + 2] % 10;
+                        int sum6 = grid[i + 2][j] % 10 + grid[i + 2][j + 1] % 10 + grid[i + 2][j + 2] % 10;
+                        int sum7 = grid[i][j] % 10 + grid[i + 1][j] % 10 + grid[i + 2][j] % 10;
+                        int sum8 = grid[i][j + 2] % 10 + grid[i + 1][j + 2] % 10 + grid[i + 2][j + 2] % 10;
+                        if (15 == sum1 && sum1 == sum2 && sum2 == sum3 && sum3 == sum4 && sum4 == sum5 &&
+                                sum5 == sum6 && sum6 == sum7 && sum7 == sum8) {
+                            count++;
+                        }
+                    }
+
+                }
+            }
+        }
+        return count;
     }
 }
