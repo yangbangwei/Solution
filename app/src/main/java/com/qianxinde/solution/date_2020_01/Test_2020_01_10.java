@@ -15,6 +15,8 @@ public class Test_2020_01_10 {
         System.out.println(minCostToMoveChips(new int[]{1, 2, 3}));
 
         System.out.println(addToArrayForm(new int[]{1, 2, 0, 0}, 34));
+
+        System.out.println(minCostClimbingStairs(new int[]{1, 100, 1, 1, 1, 100, 1, 1, 100, 1}));
     }
 
     /**
@@ -163,5 +165,25 @@ public class Test_2020_01_10 {
             }
         }
         return max;
+    }
+
+    /**
+     * 746. 使用最小花费爬楼梯
+     * 数组的每个索引做为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。
+     * 每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。
+     * 您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。
+     *
+     * @param cost 体力花费值
+     * @return 最低花费
+     */
+    private static int minCostClimbingStairs(int[] cost) {
+        int pre = 0;
+        int cur = 0;
+        for (int i : cost) {
+            int temp = cur;
+            cur = Math.min(pre, cur) + i;
+            pre = temp;
+        }
+        return Math.min(cur, pre);
     }
 }
