@@ -10,7 +10,7 @@ import java.util.Comparator;
 public class Test_2020_01_10 {
 
     public static void main(String[] args) {
-
+        System.out.println(minCostToMoveChips(new int[]{1, 2, 3}));
     }
 
     /**
@@ -47,5 +47,33 @@ public class Test_2020_01_10 {
     private boolean isBoomerang(int[][] points) {
         return (points[2][1] - points[0][1]) * (points[1][0] - points[0][0]) !=
                 (points[1][1] - points[0][1]) * (points[2][0] - points[0][0]);
+    }
+
+    /**
+     * 1217. 玩筹码
+     * 数轴上放置了一些筹码，每个筹码的位置存在数组 chips 当中。
+     * 你可以对 任何筹码 执行下面两种操作之一（不限操作次数，0 次也可以）：
+     * 将第 i 个筹码向左或者右移动 2 个单位，代价为 0。
+     * 将第 i 个筹码向左或者右移动 1 个单位，代价为 1。
+     * 最开始的时候，同一位置上也可能放着两个或者更多的筹码。
+     * 返回将所有筹码移动到同一位置（任意位置）上所需要的最小代价。
+     *
+     * @param chips 筹码数组
+     * @return 最小代价
+     */
+    private static int minCostToMoveChips(int[] chips) {
+        if (chips.length <= 1) {
+            return 0;
+        }
+        int cnt1 = 0;
+        int cnt2 = 0;
+        for (int chip : chips) {
+            if (chip % 2 == 0) {
+                cnt2++;
+            } else {
+                cnt1++;
+            }
+        }
+        return Math.min(cnt1, cnt2);
     }
 }
