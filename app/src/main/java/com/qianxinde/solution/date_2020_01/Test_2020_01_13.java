@@ -312,4 +312,46 @@ public class Test_2020_01_13 {
         }
         return m * n;
     }
+
+    /**
+     * 783. 二叉搜索树结点最小距离
+     * 给定一个二叉搜索树的根结点 root, 返回树中任意两节点的差的最小值。
+     *
+     * @param root 二叉树
+     * @return 最小两个点
+     */
+    private int minDiffInBST(TreeNode root) {
+        List<Integer> path = new ArrayList<>();
+        minDiffInBSTHelper(root, path);
+        int diff = 99;
+        for (int i = 1; i < path.size(); ++i) {
+            diff = Math.min(diff, path.get(i) - path.get(i - 1));
+        }
+        return diff;
+    }
+
+    /**
+     * 中序遍历
+     *
+     * @param root 二叉树
+     * @param path 数组
+     */
+    private void minDiffInBSTHelper(TreeNode root, List<Integer> path) {
+        if (root == null) {
+            return;
+        }
+        minDiffInBSTHelper(root.left, path);
+        path.add(root.val);
+        minDiffInBSTHelper(root.right, path);
+    }
+
+    private class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
 }
