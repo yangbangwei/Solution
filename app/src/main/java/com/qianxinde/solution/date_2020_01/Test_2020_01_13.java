@@ -90,4 +90,74 @@ public class Test_2020_01_13 {
         }
         return sb.toString();
     }
+
+    /**
+     * 234. 回文链表
+     * 请判断一个链表是否为回文链表。
+     * 方法1，遍历后判断
+     *
+     * @param head 链表
+     * @return 是否为回文链表
+     */
+    private boolean isPalindrome(ListNode head) {
+        if (head == null) {
+            return true;
+        }
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+        int length = list.size();
+        for (int i = 0; i <= length / 2; i++) {
+            if (!list.get(i).equals(list.get(length - i - 1))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 234. 回文链表
+     * 请判断一个链表是否为回文链表。
+     * 方法2，快慢指针
+     *
+     * @param head 链表
+     * @return 是否为回文链表
+     */
+    private boolean isPalindrome1(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        ListNode fast = head, slow = head;
+        ListNode pre = head, prepre = null;
+        while (fast != null && fast.next != null) {
+            pre = slow;
+            slow = slow.next;
+
+            fast = fast.next.next;
+            pre.next = prepre;
+            prepre = pre;
+        }
+        if (fast != null) {
+            slow = slow.next;
+        }
+        while (pre != null && slow != null) {
+            if (pre.val != slow.val) {
+                return false;
+            }
+            pre = pre.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+
+    private class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
 }
