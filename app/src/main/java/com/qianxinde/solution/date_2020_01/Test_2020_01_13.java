@@ -218,4 +218,49 @@ public class Test_2020_01_13 {
         }
         return Math.min(hashSet.size() / 2, candies.length / 2);
     }
+
+    /**
+     * 559. N叉树的最大深度
+     * 给定一个 N 叉树，找到其最大深度。
+     * 最大深度是指从根节点到最远叶子节点的最长路径上的节点总数。
+     *
+     * @param root N叉树
+     * @return 最长路径
+     */
+    private int maxDepth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        dfs(root, 1);
+        return max;
+    }
+
+    private int max = 0;
+
+    private void dfs(Node node, int depth) {
+        if (node.children.isEmpty()) {
+            max = Math.max(max, depth);
+        } else {
+            for (Node child : node.children) {
+                dfs(child, depth + 1);
+            }
+        }
+    }
+
+    class Node {
+        private int val;
+        private List<Node> children;
+
+        public Node() {
+        }
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, List<Node> _children) {
+            val = _val;
+            children = _children;
+        }
+    }
 }
