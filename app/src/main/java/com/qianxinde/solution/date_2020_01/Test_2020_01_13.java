@@ -1,7 +1,10 @@
 package com.qianxinde.solution.date_2020_01;
 
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -17,6 +20,8 @@ public class Test_2020_01_13 {
         System.out.println(freqAlphabets("10#11#12"));
 
         System.out.println(validPalindrome("acbab"));
+
+        System.out.println(findLHS(new int[]{1, 3, 2, 2, 5, 2, 3, 7}));
     }
 
     /**
@@ -262,5 +267,29 @@ public class Test_2020_01_13 {
             val = _val;
             children = _children;
         }
+    }
+
+    /**
+     * 594. 最长和谐子序列
+     * 和谐数组是指一个数组里元素的最大值和最小值之间的差别正好是1。
+     * 现在，给定一个整数数组，你需要在所有可能的子序列中找到最长的和谐子序列的长度。
+     *
+     * @param nums 数组
+     * @return 子序中找到最长的长度
+     */
+    @SuppressWarnings("ConstantConditions")
+    private static int findLHS(int[] nums) {
+        @SuppressLint("UseSparseArrays") HashMap<Integer, Integer> hashMap = new HashMap<>();
+        int max = 0;
+        for (int num : nums) {
+            int i = hashMap.getOrDefault(num, 0);
+            hashMap.put(num, ++i);
+        }
+        for (int key : hashMap.keySet()) {
+            if (hashMap.containsKey(key + 1)) {
+                max = Math.max(max, hashMap.get(key) + hashMap.get(key + 1));
+            }
+        }
+        return max;
     }
 }
