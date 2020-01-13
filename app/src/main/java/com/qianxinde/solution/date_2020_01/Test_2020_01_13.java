@@ -14,6 +14,8 @@ public class Test_2020_01_13 {
         System.out.println(Arrays.toString(decompressRLElist(new int[]{1, 2, 3, 4})));
 
         System.out.println(freqAlphabets("10#11#12"));
+
+        System.out.println(validPalindrome("acbab"));
     }
 
     /**
@@ -159,5 +161,44 @@ public class Test_2020_01_13 {
         ListNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * 680. 验证回文字符串 Ⅱ
+     * 给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
+     *
+     * @param s 字符串
+     * @return 是否为回文字符串
+     */
+    private static boolean validPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return isEqual(s, i + 1, j) || isEqual(s, i, j - 1);
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    /**
+     * 判断是否相同
+     *
+     * @param s 字符串
+     * @param i 左边指针
+     * @param j 右指针
+     * @return 是否为回文
+     */
+    private static boolean isEqual(String s, int i, int j) {
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
     }
 }
