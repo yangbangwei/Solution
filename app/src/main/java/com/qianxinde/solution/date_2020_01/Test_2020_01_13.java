@@ -1,5 +1,9 @@
 package com.qianxinde.solution.date_2020_01;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author :yangbw
  * @date :2020_01_10
@@ -7,7 +11,7 @@ package com.qianxinde.solution.date_2020_01;
 public class Test_2020_01_13 {
 
     public static void main(String[] args) {
-
+        System.out.println(Arrays.toString(decompressRLElist(new int[]{1, 2, 3, 4})));
     }
 
     /**
@@ -31,5 +35,28 @@ public class Test_2020_01_13 {
             }
         }
         return null;
+    }
+
+    /**
+     * 5143. 解压缩编码列表
+     * 给你一个以行程长度编码压缩的整数列表 nums 。
+     * 考虑每相邻两个元素 [a, b] = [nums[2*i], nums[2*i+1]] （其中 i >= 0 ），每一对都表示解压后有 a 个值为 b 的元素。
+     * 请你返回解压后的列表。
+     *
+     * @param nums 整数列表
+     * @return 解压后结果
+     */
+    private static int[] decompressRLElist(int[] nums) {
+        List<Integer> integers = new ArrayList<>();
+        for (int i = 0; i < nums.length; i += 2) {
+            for (int j = 0; j < nums[i]; j++) {
+                integers.add(nums[i + 1]);
+            }
+        }
+        int[] ans = new int[integers.size()];
+        for (int i = 0; i < integers.size(); i++) {
+            ans[i] = integers.get(i);
+        }
+        return ans;
     }
 }
