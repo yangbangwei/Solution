@@ -12,6 +12,8 @@ public class Test_2020_01_13 {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(decompressRLElist(new int[]{1, 2, 3, 4})));
+
+        System.out.println(freqAlphabets("10#11#12"));
     }
 
     /**
@@ -58,5 +60,34 @@ public class Test_2020_01_13 {
             ans[i] = integers.get(i);
         }
         return ans;
+    }
+
+    /**
+     * 1309. 解码字母到整数映射
+     * 给你一个字符串 s，它由数字（'0' - '9'）和 '#' 组成。我们希望按下述规则将 s 映射为一些小写英文字符：
+     * 字符（'a' - 'i'）分别用（'1' - '9'）表示。
+     * 字符（'j' - 'z'）分别用（'10#' - '26#'）表示。 
+     * 返回映射之后形成的新字符串。
+     * 题目数据保证映射始终唯一。
+     *
+     * @param s 整数字符串
+     * @return 映射后的字符串
+     */
+    private static String freqAlphabets(String s) {
+        StringBuilder sb = new StringBuilder();
+        char[] words = s.toCharArray();
+        char[] letter = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        for (int i = words.length - 1; i >= 0; i--) {
+            int num;
+            if (words[i] == '#') {
+                num = (words[i - 2] - '0') * 10 + (words[i - 1] - '1');
+                i -= 2;
+            } else {
+                num = words[i] - '1';
+            }
+            sb.insert(0, letter[num]);
+        }
+        return sb.toString();
     }
 }
