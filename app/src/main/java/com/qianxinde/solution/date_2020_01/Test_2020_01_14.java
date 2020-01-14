@@ -1,6 +1,10 @@
 package com.qianxinde.solution.date_2020_01;
 
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,7 +14,7 @@ import java.util.List;
 public class Test_2020_01_14 {
 
     public static void main(String[] args) {
-
+        System.out.println(findShortestSubArray(new int[]{1, 2, 2, 3, 1, 4, 2}));
     }
 
     /**
@@ -115,6 +119,38 @@ public class Test_2020_01_14 {
             min = Math.min(i, min);
         }
         return Math.max(0, max - min - 2 * K);
+    }
+
+    /**
+     * 697. 数组的度
+     * 给定一个非空且只包含非负数的整数数组 nums, 数组的度的定义是指数组里任一元素出现频数的最大值。
+     * 你的任务是找到与 nums 拥有相同大小的度的最短连续子数组，返回其长度。
+     *
+     * @param nums 数组
+     * @return 最小的度
+     */
+    private static int findShortestSubArray(int[] nums) {
+        HashMap<Integer, Integer> numMap = new HashMap<>();
+        HashMap<Integer, Integer> leftMap = new HashMap<>();
+       HashMap<Integer, Integer> rightMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            numMap.put(num, numMap.getOrDefault(num, 0) + 1);
+            if (!leftMap.containsKey(num)) {
+                leftMap.put(num, i);
+            }
+            rightMap.put(num, i);
+        }
+        int count = Collections.max(numMap.values());
+        int min = nums.length;
+        for (Integer integer : numMap.keySet()) {
+            if (numMap.get(integer) == count) {
+                int left = leftMap.getOrDefault(integer, 0);
+                int right = rightMap.getOrDefault(integer, 0);
+                min = Math.min(min, right - left + 1);
+            }
+        }
+        return min;
     }
 
     private class TreeNode {
