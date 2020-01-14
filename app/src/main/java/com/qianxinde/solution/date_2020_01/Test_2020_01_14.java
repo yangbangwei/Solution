@@ -101,6 +101,22 @@ public class Test_2020_01_14 {
         }
     }
 
+    /**
+     * 908. 最小差值 I
+     *
+     * @param A 数组A
+     * @param K -k~k
+     * @return 最小差值
+     */
+    private int smallestRangeI(int[] A, int K) {
+        int max = A[0], min = A[0];
+        for (int i : A) {
+            max = Math.max(i, max);
+            min = Math.min(i, min);
+        }
+        return Math.max(0, max - min - 2 * K);
+    }
+
     private class TreeNode {
         int val;
         TreeNode left;
