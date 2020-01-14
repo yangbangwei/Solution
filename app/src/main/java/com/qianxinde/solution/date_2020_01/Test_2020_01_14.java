@@ -18,6 +18,8 @@ public class Test_2020_01_14 {
         System.out.println(findShortestSubArray(new int[]{1, 2, 2, 3, 1, 4, 2}));
 
         System.out.println(Arrays.toString(sortArrayByParityII(new int[]{4, 2, 5, 7})));
+
+        System.out.println(Arrays.toString(numMovesStones(1, 2, 5)));
     }
 
     /**
@@ -212,6 +214,38 @@ public class Test_2020_01_14 {
             res[0] = res[1] + cont[i] * res[0];
             res[1] = a;
         }
+        return res;
+    }
+
+    /**
+     * 1033. 移动石子直到连续
+     * 三枚石子放置在数轴上，位置分别为 a，b，c。
+     * 每一回合，我们假设这三枚石子当前分别位于位置 x, y, z 且 x < y < z。
+     * 从位置 x 或者是位置 z 拿起一枚石子，并将该石子移动到某一整数位置 k 处，其中 x < k < z 且 k != y。
+     * 当你无法进行任何移动时，即，这些石子的位置连续时，游戏结束。
+     * 要使游戏结束，你可以执行的最小和最大移动次数分别是多少？
+     * 以长度为 2 的数组形式返回答案：answer = [minimum_moves, maximum_moves]
+     *
+     * @param a 石头A位置
+     * @param b 石头B位置
+     * @param c 石头C位置
+     * @return 最小移动位置，最大移动位置
+     */
+    private static int[] numMovesStones(int a, int b, int c) {
+        int min = Math.min(Math.min(a, b), c);
+        int max = Math.max(Math.max(a, b), c);
+        int y = a + b + c - min - max;
+
+        int[] res = new int[2];
+        if (y != min + 1 || max != y + 1) {
+            if (y == min + 1 || y == min + 2
+                    || max == y + 1 || max == y + 2) {
+                res[0] = 1;
+            } else {
+                res[0] = 2;
+            }
+        }
+        res[1] = max - min - 2;
         return res;
     }
 }
