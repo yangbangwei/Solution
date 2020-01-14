@@ -1,8 +1,7 @@
 package com.qianxinde.solution.date_2020_01;
 
-import android.annotation.SuppressLint;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +14,8 @@ public class Test_2020_01_14 {
 
     public static void main(String[] args) {
         System.out.println(findShortestSubArray(new int[]{1, 2, 2, 3, 1, 4, 2}));
+
+        System.out.println(Arrays.toString(sortArrayByParityII(new int[]{4, 2, 5, 7})));
     }
 
     /**
@@ -132,7 +133,7 @@ public class Test_2020_01_14 {
     private static int findShortestSubArray(int[] nums) {
         HashMap<Integer, Integer> numMap = new HashMap<>();
         HashMap<Integer, Integer> leftMap = new HashMap<>();
-       HashMap<Integer, Integer> rightMap = new HashMap<>();
+        HashMap<Integer, Integer> rightMap = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             int num = nums[i];
             numMap.put(num, numMap.getOrDefault(num, 0) + 1);
@@ -151,6 +152,35 @@ public class Test_2020_01_14 {
             }
         }
         return min;
+    }
+
+    /**
+     * 922. 按奇偶排序数组 II
+     * 给定一个非负整数数组 A， A 中一半整数是奇数，一半整数是偶数。
+     * 对数组进行排序，以便当 A[i] 为奇数时，i 也是奇数；当 A[i] 为偶数时， i 也是偶数。
+     * 你可以返回任何满足上述条件的数组作为答案。
+     *
+     * @param A 数组
+     * @return 调整后的数组
+     */
+    private static int[] sortArrayByParityII(int[] A) {
+        int[] nums1 = new int[A.length];
+        int[] nums2 = new int[A.length];
+        for (int i = 0, j = 0, k = 0; i < A.length; i++) {
+            if (A[i] % 2 == 0) {
+                nums1[j++] = A[i];
+            } else {
+                nums2[k++] = A[i];
+            }
+        }
+        for (int i = 0, j = 0, k = 0; i < A.length; i++) {
+            if (i % 2 == 0) {
+                A[i] = nums1[j++];
+            } else {
+                A[i] = nums2[k++];
+            }
+        }
+        return A;
     }
 
     private class TreeNode {
