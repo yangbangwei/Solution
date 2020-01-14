@@ -1,5 +1,7 @@
 package com.qianxinde.solution.date_2020_01;
 
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -130,6 +132,8 @@ public class Test_2020_01_14 {
      * @param nums 数组
      * @return 最小的度
      */
+    @SuppressWarnings("ConstantConditions")
+    @SuppressLint("UseSparseArrays")
     private static int findShortestSubArray(int[] nums) {
         HashMap<Integer, Integer> numMap = new HashMap<>();
         HashMap<Integer, Integer> leftMap = new HashMap<>();
@@ -191,5 +195,23 @@ public class Test_2020_01_14 {
         TreeNode(int x) {
             val = x;
         }
+    }
+
+    /**
+     * LCP 2. 分式化简
+     * 输入的cont代表连分数的系数（cont[0]代表上图的a0，以此类推）。返回一个长度为2的数组[n, m]，
+     * 使得连分数的值等于n / m，且n, m最大公约数为1。
+     *
+     * @param cont 分数
+     * @return 分式化简的结果
+     */
+    private int[] fraction(int[] cont) {
+        int[] res = {1, 0};
+        for (int i = cont.length - 1; i >= 0; i--) {
+            int a = res[0];
+            res[0] = res[1] + cont[i] * res[0];
+            res[1] = a;
+        }
+        return res;
     }
 }
