@@ -235,6 +235,29 @@ public class Test_2020_01_15 {
         return "";
     }
 
+    /**
+     * 696. 计数二进制子串
+     * 给定一个字符串 s，计算具有相同数量0和1的非空(连续)子字符串的数量，并且这些子字符串中的所有0和所有1都是组合在一起的。
+     * 重复出现的子串要计算它们出现的次数。
+     *
+     * @param s 字符串
+     * @return 出现的次数
+     */
+    private int countBinarySubstrings(String s) {
+        int ans = 0, pre = 0, cur = 1;
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length - 1; i++) {
+            if (chars[i] != chars[i + 1]) {
+                ans += Math.min(pre, cur);
+                pre = cur;
+                cur = 1;
+            } else {
+                cur++;
+            }
+        }
+        return ans + Math.min(pre, cur);
+    }
+
     private static class TreeNode {
         int val;
         TreeNode left;
