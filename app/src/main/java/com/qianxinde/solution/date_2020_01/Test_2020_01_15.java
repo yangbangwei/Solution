@@ -19,6 +19,14 @@ public class Test_2020_01_15 {
         System.out.println(numSpecialEquivGroups(new String[]{"abcd", "cdab", "adcb", "cbad"}));
 
         System.out.println(findJudge(2, new int[][]{{1, 2}}));
+
+        TreeNode treeNode1 = new TreeNode(1);
+        treeNode1.left = new TreeNode(2);
+        treeNode1.right = new TreeNode(3);
+        TreeNode treeNode2 = new TreeNode(1);
+        treeNode1.right = new TreeNode(2);
+        treeNode1.left = new TreeNode(3);
+        System.out.println(leafSimilar(treeNode1, treeNode2));
     }
 
     /**
@@ -199,7 +207,35 @@ public class Test_2020_01_15 {
         return t.val + "(" + tree2str(t.left) + ")(" + tree2str(t.right) + ")";
     }
 
-    private class TreeNode {
+    /**
+     * 872. 叶子相似的树
+     * 请考虑一颗二叉树上所有的叶子，这些叶子的值按从左到右的顺序排列形成一个 叶值序列 。
+     *
+     * @param root1 二叉树1
+     * @param root2 二叉树2
+     * @return 是否为相同叶值序列
+     */
+    private static boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        return leafSimilarDFS(root1).equals(leafSimilarDFS(root2));
+    }
+
+    /**
+     * 深度优先
+     *
+     * @param treeNode 二叉树
+     * @return 字符串
+     */
+    private static String leafSimilarDFS(TreeNode treeNode) {
+        if (treeNode != null) {
+            if (treeNode.left == null && treeNode.right == null) {
+                return treeNode.val + "";
+            }
+            return leafSimilarDFS(treeNode.left) + leafSimilarDFS(treeNode.right);
+        }
+        return "";
+    }
+
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
