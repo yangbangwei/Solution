@@ -27,6 +27,8 @@ public class Test_2020_01_15 {
         treeNode1.right = new TreeNode(2);
         treeNode1.left = new TreeNode(3);
         System.out.println(leafSimilar(treeNode1, treeNode2));
+
+        System.out.println(letterCasePermutation("C"));
     }
 
     /**
@@ -267,4 +269,41 @@ public class Test_2020_01_15 {
             val = x;
         }
     }
+
+    private static List<String> ans = new ArrayList<>();
+
+    /**
+     * 784. 字母大小写全排列
+     * 给定一个字符串S，通过将字符串S中的每个字母转变大小写，我们可以获得一个新的字符串。返回所有可能得到的字符串集合。
+     *
+     * @param S 字符串
+     * @return 可能得到的字符串集合
+     */
+    private static List<String> letterCasePermutation(String S) {
+        dfs(new StringBuilder(S), 0);
+        return ans;
+    }
+
+    /**
+     * 深度优先遍历
+     *
+     * @param sb 字符串
+     * @param i  变化后的结果
+     */
+    private static void dfs(StringBuilder sb, int i) {
+        if (i == sb.length()) {
+            ans.add(sb.toString());
+            return;
+        }
+        char temp = sb.charAt(i);
+        if (Character.isLetter(temp)) {
+            sb.setCharAt(i, Character.toLowerCase(temp));
+            dfs(sb, i + 1);
+            sb.setCharAt(i, Character.toUpperCase(temp));
+            dfs(sb, i + 1);
+        } else {
+            dfs(sb, i + 1);
+        }
+    }
+
 }
