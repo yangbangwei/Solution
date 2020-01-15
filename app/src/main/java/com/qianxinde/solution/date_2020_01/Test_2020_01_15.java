@@ -17,6 +17,8 @@ public class Test_2020_01_15 {
         System.out.println(readBinaryWatch(1));
 
         System.out.println(numSpecialEquivGroups(new String[]{"abcd", "cdab", "adcb", "cbad"}));
+
+        System.out.println(findJudge(2, new int[][]{{1, 2}}));
     }
 
     /**
@@ -123,5 +125,34 @@ public class Test_2020_01_15 {
             set.add(a + "+" + b);
         }
         return set.size();
+    }
+
+    /**
+     * 997. 找到小镇的法官
+     * 在一个小镇里，按从 1 到 N 标记了 N 个人。传言称，这些人中有一个是小镇上的秘密法官。
+     * 如果小镇的法官真的存在，那么：
+     * 小镇的法官不相信任何人。
+     * 每个人（除了小镇法官外）都信任小镇的法官。
+     * 只有一个人同时满足属性 1 和属性 2 。
+     * 给定数组 trust，该数组由信任对 trust[i] = [a, b] 组成，表示标记为 a 的人信任标记为 b 的人。
+     * 如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的标记。否则，返回 -1。
+     *
+     * @param N     人数
+     * @param trust 相信记录
+     * @return 法官身份
+     */
+    private static int findJudge(int N, int[][] trust) {
+        int[] myself = new int[N + 1];
+        int[] believeName = new int[N + 1];
+        for (int[] ints : trust) {
+            myself[ints[0]]++;
+            believeName[ints[1]]++;
+        }
+        for (int i = 1; i <= N; i++) {
+            if (myself[i] == 0 && believeName[i] == N - 1) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
