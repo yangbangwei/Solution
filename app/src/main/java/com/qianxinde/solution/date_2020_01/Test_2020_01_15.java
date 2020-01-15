@@ -155,4 +155,26 @@ public class Test_2020_01_15 {
         }
         return -1;
     }
+
+    /**
+     * 944. 删列造序
+     * 给定由 N 个小写字母字符串组成的数组 A，其中每个字符串长度相等。
+     * 删除 操作的定义是：选出一组要删掉的列，删去 A 中对应列中的所有字符，
+     * 形式上，第 n 列为 [A[0][n], A[1][n], ..., A[A.length-1][n]]）。
+     *
+     * @param A 字符串数组
+     * @return 删除的列数
+     */
+    private int minDeletionSize(String[] A) {
+        int num = 0;
+        for (int i = 0; i < A[0].length(); i++) {
+            for (int j = 0; j < A.length - 1; j++) {
+                if (A[j].charAt(i) > A[j + 1].charAt(i)) {
+                    num++;
+                    break;
+                }
+            }
+        }
+        return num;
+    }
 }
