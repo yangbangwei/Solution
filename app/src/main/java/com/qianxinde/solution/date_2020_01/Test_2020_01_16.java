@@ -1,5 +1,7 @@
 package com.qianxinde.solution.date_2020_01;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -13,6 +15,9 @@ public class Test_2020_01_16 {
 
         System.out.println(isAlienSorted(new String[]{"hello", "leetcode"},
                 "hlabcdefgijkmnopqrstuvwxyz"));
+
+        System.out.println(Arrays.toString(reorderLogFiles(new String[]{"a1 9 2 3 1", "g1 act car", "zo4 4 7",
+                "ab1 off key dog", "a8 act zoo"})));
     }
 
     /**
@@ -78,5 +83,48 @@ public class Test_2020_01_16 {
 
         }
         return true;
+    }
+
+    /**
+     * 937. 重新排列日志文件
+     * 你有一个日志数组 logs。每条日志都是以空格分隔的字串。
+     * 对于每条日志，其第一个字为字母数字标识符。然后，要么：
+     * 标识符后面的每个字将仅由小写字母组成，或；
+     * 标识符后面的每个字将仅由数字组成。
+     * 我们将这两种日志分别称为字母日志和数字日志。保证每个日志在其标识符后面至少有一个字。
+     * 将日志重新排序，使得所有字母日志都排在数字日志之前。字母日志按内容字母顺序排序，
+     * 忽略标识符；在内容相同时，按标识符排序。数字日志应该按原来的顺序排列。
+     * 返回日志的最终顺序。
+     *
+     * @param logs 日志数组
+     * @return 按照顺序排列
+     */
+    private static String[] reorderLogFiles(String[] logs) {
+        Arrays.sort(logs, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                //以" "为分界切割成功长度为2的字符串数组。
+                String[] s1 = o1.split(" ", 2);
+                String[] s2 = o2.split(" ", 2);
+                //判断第二个字符串第一个字符是否为数字
+                boolean isDigit1 = Character.isDigit(s1[1].charAt(0));
+                boolean isDigit2 = Character.isDigit(s2[1].charAt(0));
+                //两个都不为数字时，需要根据a-z排序
+                if (!isDigit1 && !isDigit2) {
+                    int temp = s1[1].compareTo(s2[1]);
+                    //不为0，直接根据比较返回。
+                    if (temp != 0) {
+                        return temp;
+                    }
+                    //比较第一个字符串的排序。
+                    return s1[0].compareTo(s2[0]);
+                }
+                //如果isDigit1为数字，isDigit2也为数字返回0。默认排序。
+                //如果isDigit1为数字，isDigit2不为数字返回1。s1排后面。
+                //如果isDigit1不为数字，s1排前面。
+                return isDigit1 ? (isDigit2 ? 0 : 1) : -1;
+            }
+        });
+        return logs;
     }
 }
