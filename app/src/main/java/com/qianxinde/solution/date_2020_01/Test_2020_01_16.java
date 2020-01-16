@@ -18,6 +18,8 @@ public class Test_2020_01_16 {
 
         System.out.println(Arrays.toString(reorderLogFiles(new String[]{"a1 9 2 3 1", "g1 act car", "zo4 4 7",
                 "ab1 off key dog", "a8 act zoo"})));
+
+        System.out.println(Arrays.deepToString(transpose(new int[][]{{1, 2, 3}, {4, 5, 6}})));
     }
 
     /**
@@ -56,6 +58,7 @@ public class Test_2020_01_16 {
      * @param order 字典
      * @return 是否按照字典排序
      */
+    @SuppressWarnings({"ConstantConditions", "LoopStatementThatDoesntLoop", "UnusedAssignment"})
     private static boolean isAlienSorted(String[] words, String order) {
         HashMap<Character, Integer> hashMap = new HashMap<>();
         for (int i = 0; i < order.length(); i++) {
@@ -126,5 +129,23 @@ public class Test_2020_01_16 {
             }
         });
         return logs;
+    }
+
+    /**
+     * 867. 转置矩阵
+     * 给定一个矩阵 A， 返回 A 的转置矩阵。
+     * 矩阵的转置是指将矩阵的主对角线翻转，交换矩阵的行索引与列索引。
+     *
+     * @param A 矩阵
+     * @return 转置矩阵
+     */
+    private static int[][] transpose(int[][] A) {
+        int[][] ans = new int[A[0].length][A.length];
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < A[i].length; j++) {
+                ans[j][i] = A[i][j];
+            }
+        }
+        return ans;
     }
 }
