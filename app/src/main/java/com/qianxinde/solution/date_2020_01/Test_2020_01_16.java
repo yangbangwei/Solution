@@ -3,6 +3,7 @@ package com.qianxinde.solution.date_2020_01;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * @author :yangbw
@@ -247,5 +248,53 @@ public class Test_2020_01_16 {
             --sqrt;
         }
         return new int[]{area / sqrt, sqrt};
+    }
+
+    /**
+     * 232. 用栈实现队列
+     * 使用栈实现队列的下列操作：
+     * push(x) -- 将一个元素放入队列的尾部。
+     * pop() -- 从队列首部移除元素。
+     * peek() -- 返回队列首部的元素。
+     * empty() -- 返回队列是否为空。
+     */
+    private class MyQueue {
+
+        private Stack<Integer> mStack;
+
+        /**
+         * Initialize your data structure here.
+         */
+        public MyQueue() {
+            mStack = new Stack<>();
+        }
+
+        /**
+         * Push element x to the back of queue.
+         */
+        public void push(int x) {
+            mStack.push(x);
+        }
+
+        /**
+         * Removes the element from in front of queue and returns that element.
+         */
+        public int pop() {
+            return mStack.remove(0);
+        }
+
+        /**
+         * Get the front element.
+         */
+        public int peek() {
+            return mStack.get(0);
+        }
+
+        /**
+         * Returns whether the queue is empty.
+         */
+        public boolean empty() {
+            return mStack.isEmpty();
+        }
     }
 }
