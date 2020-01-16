@@ -1,5 +1,6 @@
 package com.qianxinde.solution.date_2020_01;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -295,6 +296,56 @@ public class Test_2020_01_16 {
          */
         public boolean empty() {
             return mStack.isEmpty();
+        }
+    }
+
+    /**
+     * 225. 用队列实现栈
+     * 使用队列实现栈的下列操作：
+     * push(x) -- 元素 x 入栈
+     * pop() -- 移除栈顶元素
+     * top() -- 获取栈顶元素
+     * empty() -- 返回栈是否为空
+     */
+    private class MyStack {
+
+        private ArrayDeque<Integer> mQueue;
+
+        /**
+         * Initialize your data structure here.
+         */
+        public MyStack() {
+            mQueue = new ArrayDeque<>();
+        }
+
+        /**
+         * Push element x onto stack.
+         */
+        public void push(int x) {
+            mQueue.addLast(x);
+        }
+
+        /**
+         * Removes the element on top of the stack and returns that element.
+         */
+        @SuppressWarnings("ConstantConditions")
+        public int pop() {
+            return mQueue.pollLast();
+        }
+
+        /**
+         * Get the top element.
+         */
+        @SuppressWarnings("ConstantConditions")
+        public int top() {
+            return mQueue.peekLast();
+        }
+
+        /**
+         * Returns whether the stack is empty.
+         */
+        public boolean empty() {
+            return mQueue.isEmpty();
         }
     }
 }
