@@ -20,6 +20,8 @@ public class Test_2020_01_16 {
                 "ab1 off key dog", "a8 act zoo"})));
 
         System.out.println(Arrays.deepToString(transpose(new int[][]{{1, 2, 3}, {4, 5, 6}})));
+
+        System.out.println(licenseKeyFormatting("2-5G-3J", 2));
     }
 
     /**
@@ -199,5 +201,31 @@ public class Test_2020_01_16 {
      */
     private int findLUSlength(String a, String b) {
         return a.equals(b) ? a.length() : Math.max(a.length(), b.length());
+    }
+
+    /**
+     * 482. 密钥格式化
+     * 给定一个密钥字符串S，只包含字母，数字以及 '-'（破折号）。
+     * N 个 '-' 将字符串分成了 N+1 组。给定一个数字 K，重新格式化字符串，除了第一个分组以外，
+     * 每个分组要包含 K 个字符，第一个分组至少要包含 1 个字符。两个分组之间用 '-'（破折号）隔开，
+     * 并且将所有的小写字母转换为大写字母。
+     * 给定非空字符串 S 和数字 K，按照上面描述的规则进行格式化。
+     *
+     * @param S 字符串s
+     * @param K 拆成K个
+     * @return 格式化的字符串
+     */
+    private static String licenseKeyFormatting(String S, int K) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = S.length() - 1, j = 0; i >= 0; i--) {
+            if (S.charAt(i) != '-') {
+                if (j % K == 0 && j != 0) {
+                    sb.insert(0, "-");
+                }
+                sb.insert(0, S.charAt(i));
+                j++;
+            }
+        }
+        return sb.reverse().toString().toUpperCase();
     }
 }
