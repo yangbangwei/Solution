@@ -1,6 +1,7 @@
 package com.qianxinde.solution.date_2020_01;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,6 +69,39 @@ public class Test_2020_01_17 {
         }
         pre = root;
         inorder(root.right);
+    }
+
+    /**
+     * 530. 二叉搜索树的最小绝对差
+     * 给定一个所有节点为非负值的二叉搜索树，求树中任意两节点的差的绝对值的最小值。
+     *
+     * @param root 二叉树
+     * @return 最小值
+     */
+    private int getMinimumDifference(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        getMinimumDifferenceDFS(root, list);
+        Collections.sort(list);
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i < list.size(); i++) {
+            min = Math.min(Math.abs(list.get(i) - list.get(i - 1)), min);
+        }
+        return min;
+    }
+
+    /**
+     * 遍历所有二叉树
+     *
+     * @param root 二叉树
+     * @param list list
+     */
+    private void getMinimumDifferenceDFS(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        list.add(root.val);
+        getMinimumDifferenceDFS(root.left, list);
+        getMinimumDifferenceDFS(root.right, list);
     }
 
     private class TreeNode {
