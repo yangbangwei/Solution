@@ -1,6 +1,7 @@
 package com.qianxinde.solution.date_2020_01;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +14,8 @@ public class Test_2020_01_17 {
 
     public static void main(String[] args) {
         System.out.println(findPairs(new int[]{3, 1, 4, 1, 5}, 2));
+
+        System.out.println(findUnsortedSubarray(new int[]{2, 1}));
     }
 
     private List<Integer> list = new ArrayList<>();
@@ -183,4 +186,34 @@ public class Test_2020_01_17 {
         convertBST(root.left);
         return root;
     }
+
+    /**
+     * 581. 最短无序连续子数组
+     * 给定一个整数数组，你需要寻找一个连续的子数组，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
+     * 你找到的子数组应是最短的，请输出它的长度
+     *
+     * @param nums 数组
+     * @return 需要修改的数列
+     */
+    private static int findUnsortedSubarray(int[] nums) {
+        int[] old = new int[nums.length];
+        System.arraycopy(nums, 0, old, 0, old.length);
+        Arrays.sort(nums);
+        int left = 0;
+        int right = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (old[i] != nums[i]) {
+                left = i;
+                break;
+            }
+        }
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (old[i] != nums[i]) {
+                right = i;
+                break;
+            }
+        }
+        return right - left > 0 ? right - left + 1 : 0;
+    }
+
 }
