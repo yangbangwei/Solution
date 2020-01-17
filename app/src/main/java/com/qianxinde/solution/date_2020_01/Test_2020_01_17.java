@@ -216,4 +216,36 @@ public class Test_2020_01_17 {
         return right - left > 0 ? right - left + 1 : 0;
     }
 
+    private int tilt;
+
+    /**
+     * 563. 二叉树的坡度
+     * 给定一个二叉树，计算整个树的坡度。
+     * 一个树的节点的坡度定义即为，该节点左子树的结点之和和右子树结点之和的差的绝对值。空结点的的坡度是0。
+     * 整个树的坡度就是其所有节点的坡度之和。
+     *
+     * @param root 二叉树
+     * @return 坡度之和
+     */
+    private int findTilt(TreeNode root) {
+        findTiltDFS(root);
+        return tilt;
+    }
+
+    /**
+     * 计算每层坡度
+     *
+     * @param root 二叉树
+     * @return 返回每层坡度
+     */
+    private int findTiltDFS(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = findTiltDFS(root.left);
+        int right = findTiltDFS(root.right);
+        tilt += Math.abs(right - left);
+        return left + right + root.val;
+    }
+
 }
