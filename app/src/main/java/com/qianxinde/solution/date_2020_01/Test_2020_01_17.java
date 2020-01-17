@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @author :yangbw
@@ -16,6 +17,13 @@ public class Test_2020_01_17 {
         System.out.println(findPairs(new int[]{3, 1, 4, 1, 5}, 2));
 
         System.out.println(findUnsortedSubarray(new int[]{2, 1}));
+
+        TreeNode treeNode = new TreeNode(2);
+        treeNode.left = new TreeNode(2);
+        treeNode.right = new TreeNode(5);
+        treeNode.right.left = new TreeNode(5);
+        treeNode.right.right = new TreeNode(7);
+        System.out.println(findSecondMinimumValue(treeNode));
     }
 
     private List<Integer> list = new ArrayList<>();
@@ -108,7 +116,7 @@ public class Test_2020_01_17 {
         getMinimumDifferenceDFS(root.right, list);
     }
 
-    private class TreeNode {
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -247,5 +255,39 @@ public class Test_2020_01_17 {
         tilt += Math.abs(right - left);
         return left + right + root.val;
     }
+
+    /**
+     * 671. 二叉树中第二小的节点
+     * 给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。
+     * 如果一个节点有两个子节点的话，那么这个节点的值不大于它的子节点的值。 
+     * 给出这样的一个二叉树，你需要输出所有节点中的第二小的值。如果第二小的值不存在的话，输出 -1 。
+     *
+     * @param root 二叉树
+     * @return 第二小的值
+     */
+    private static int findSecondMinimumValue(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        int first = Integer.MAX_VALUE, second = Integer.MAX_VALUE;
+        boolean isHad = false;
+        while (!stack.isEmpty()) {
+            TreeNode treeNode = stack.pop();
+            if (first > treeNode.val) {
+                second = first;
+                first = treeNode.val;
+            } else if (first < treeNode.val && second >= treeNode.val) {
+                second = treeNode.val;
+                isHad = true;
+            }
+            if (treeNode.left != null) {
+                stack.push(treeNode.left);
+            }
+            if (treeNode.right != null) {
+                stack.push(treeNode.right);
+            }
+        }
+        return isHad ? -1 : second;
+    }
+
 
 }
